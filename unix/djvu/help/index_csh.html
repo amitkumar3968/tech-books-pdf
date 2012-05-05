@@ -1,0 +1,225 @@
+<HTML>
+<HEAD>
+<META NAME="generator" CONTENT="RoboHELP by eHelp Corporation www.ehelp.com">
+<title>DjVu Solo Help</title>
+<!-- version 4.00.00 -->
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+<SCRIPT language="JavaScript">
+<!--
+
+var gArrayCsh = new Array();
+
+var gbstrWindowOption = "";
+var gbstrURL = "";
+
+function CshEntityItem(strAliasId, nTopicNum, strUrl) 
+{
+    this.strAliasId = strAliasId;
+    this.nTopicNum = nTopicNum;
+    this.strUrl = strUrl;
+}
+
+
+//Try to get to topic number from hash string
+function GetTopicNumberAuto(strMayBeNumber)
+{
+   var nNum = -1;
+   if (strMayBeNumber.length >= 1)
+   {
+		var strTmp = strMayBeNumber;
+		var iEnd = strTmp.length;
+		for (var i=0; i<iEnd; i++)
+		{
+			  var ch = strTmp.charAt(i);
+			  if (!((ch == "0") || (ch == "1") ||
+			        (ch == "2") || (ch == "3") ||
+			        (ch == "4") || (ch == "5") ||
+			        (ch == "6") || (ch == "7") ||
+			        (ch == "8") || (ch == "9")))
+			      return GetTopicNumberById(strTmp);
+		}
+		nNum = parseInt(strTmp);
+   }
+   return nNum;
+}
+
+function GetTopicNumber(strHashString)
+{
+	var nTopicEndPos = strHashString.indexOf(',')
+	if (nTopicEndPos == -1) { // no window option.
+		return GetTopicNumberOnly(strHashString);
+	}
+	else {
+		gbstrWindowOption = strHashString.substring(nTopicEndPos + 1, strHashString.length);
+		return GetTopicNumberOnly(strHashString.substring(0, nTopicEndPos));		
+	}
+}
+
+function GetTopicNumberOnly(strTopicString)
+{
+	var nEqualPos = strTopicString.indexOf('=');
+	if (nEqualPos == -1) {
+		return GetTopicNumberAuto(strTopicString);
+	}
+	else {
+		var strValue=strTopicString.substring(nEqualPos + 1, strTopicString.length);
+		if (strTopicString.toLowerCase().indexOf("topicnumber") == 0) {
+			return parseInt(strValue);
+		} else if (strTopicString.toLowerCase().indexOf("topicid") == 0) {
+			return GetTopicNumberById(strValue);
+		} else if (strTopicString.toLowerCase().indexOf("remoteurl") == 0) {
+			gbstrURL = strValue;
+			return -1;
+		}
+
+	}
+}
+
+//Find HomePage of the WebHelp system
+function FindHomePage()
+{
+   //Home page for "XXX_csh.html" or "XXX_csh.htm"
+   //should be "XXX.html" or "XXX.htm"
+
+   var strTmp = location.toString();
+   var nPos = strTmp.indexOf("#");
+   if (nPos != -1)
+   {
+      strHomePage = strTmp.substring(0, nPos);
+   }
+   else
+   {
+      strHomePage = strTmp;
+   }
+   var nPos1 = strHomePage.indexOf("_csh.html");
+   var nPos = strHomePage.indexOf("_csh.htm");
+   if (nPos != -1)
+   {
+      strHomePage = strHomePage.substring(0,nPos);
+      if (nPos1 != -1)
+        strHomePage += ".html";
+      else
+        strHomePage += ".htm";
+   }
+   RedirectTo(strHomePage);
+}
+
+//Redirect page to...
+function RedirectTo(strUrl)
+{
+   //alert(strUrl);
+   //alert(gbstrWindowOption);
+   if (gbstrWindowOption.length != 0) {
+		var wnd = window.open(strUrl, "HelpStub", gbstrWindowOption);
+		// close current window and rename the stub window to current window.
+		close();
+		wnd.name = "HelpSecondary";
+
+   }
+   else {
+	if (document.location.href != strUrl)
+	{
+		document.location.href = strUrl;
+	}
+  }
+}
+
+//Prompt the user that we can not find...
+function FailToFind(strMsg)
+{
+    //alert(strMsg);
+    FindHomePage();
+}
+
+//Find topic by topic number (defined in h file)
+function FindTopicByTopicNum(nTopicNum)
+{
+   var i = 0;
+   var iEnd = gArrayCsh.length;
+   for (i=0; i<iEnd; i++)
+   {
+      if (gArrayCsh[i].nTopicNum == nTopicNum)
+      {
+	     RedirectTo(gArrayCsh[i].strUrl);
+	     return true;
+	  }
+   }
+   FailToFind("Fail to find topic assocaite with topic number: " + nTopicNum);
+   return false;
+}
+
+//Find topic by topic id (alias id defined in ali file)
+function GetTopicNumberById(strTopicId)
+{
+   var i = 0;
+   var iEnd = gArrayCsh.length;
+   for (i=0; i<iEnd; i++)
+   {
+	if (gArrayCsh[i].strAliasId == strTopicId)
+	{
+	    return gArrayCsh[i].nTopicNum;
+	 }
+   }
+   gbstrURL = strTopicId;
+   return -1;
+}
+
+//Set Context-sensitive help entity...
+function SetCsh(n, strAliasId, nTopicNum, strUrl)
+{
+   gArrayCsh[n] = new CshEntityItem(strAliasId,nTopicNum,strUrl);
+}
+
+
+//Assign the gArrayCsh array
+//SetCsh(i,TopicId,nTopic,strUrl);
+
+
+
+//Find CSH according to hash string after this page
+if (location.hash.length > 0)
+{
+   // VH 05/16/00 now support 
+   // id/number. this is autodetected. 
+   // that is to say if the input is digital, it is supposed as topicnumber. if not supposed as topicid. if not a topicid it will be treated as remoteurl.
+   // TopicID=
+   // TopicNumber=
+   // RemoteURL=   
+   // and WindowsOptions
+   // with the format #a=xxx,b=xxx,c=xxx...
+   var strHashString = location.hash.toString();
+   // change ? to : for remote URL. because java applet have some problem to pass a URL with two : inside the URL so we changed it. 
+   // so here need to change it back.
+   strHashString = strHashString.substring(1,strHashString.length);
+   strHashString = strHashString.replace("%072%057%057", "://");
+   var nTopicNum = GetTopicNumber(strHashString);
+
+   if (nTopicNum != -1)
+   {
+      FindTopicByTopicNum(nTopicNum);
+   }
+   else
+   {
+      if (gbstrURL.length > 0) 
+	RedirectTo(gbstrURL);
+      else
+      	FindHomePage();
+   }
+}
+else
+{
+   FindHomePage();
+}
+//-->
+</SCRIPT>
+<NOSCRIPT>
+ <p> Your browser does not support JavaScript. WebHelp Context-Sensitive Help requires JavaScript support to run.</p>
+</NOSCRIPT>
+</HTML>
+
+
+
+
+
+

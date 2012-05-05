@@ -1,0 +1,131 @@
+// ******************************************************************* //
+// ** Chapter 14 Code Listings                                      ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// *******************************************************************
+// ** Listing 14-1: Sensor Event Listener skeleton code
+
+final SensorEventListener mySensorEventListener = new SensorEventListener() {
+  public void onSensorChanged(SensorEvent sensorEvent) {
+    // TODO Monitor Sensor changes.
+  }
+
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    // TODO React to a change in Sensor accuracy.
+  }
+};
+
+// *******************************************************************
+// ** Listing 14-2: Listening to changes to the default accelerometer
+
+public void setupSensorListener() {
+  SensorManager sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+  int sensorType = Sensor.TYPE_ACCELEROMETER;
+  sm.registerListener(mySensorEventListener, 
+                      sm.getDefaultSensor(sensorType),
+                      SensorManager.SENSOR_DELAY_NORMAL);
+}
+
+final SensorEventListener mySensorEventListener = new SensorEventListener() {
+  public void onSensorChanged(SensorEvent sensorEvent) {
+    if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+      float xAxis_lateralA = sensorEvent.values[0];
+      float yAxis_longitudinalA = sensorEvent.values[1];
+      float zAxis_verticalA = sensorEvent.values[2];
+      // TODO apply the acceleration changes to your application.
+    }
+  }
+};
+
+
+// *******************************************************************
+// ** Listing 14-3: Determining orientation using the orientation sensor
+public void connectOrientationListener() {
+  SensorManager sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+  int sensorType = Sensor.TYPE_ORIENTATION;
+  sm.registerListener(myOrientationListener,
+                      sm.getDefaultSensor(sensorType),
+                      SensorManager.SENSOR_DELAY_NORMAL);
+}
+
+final SensorEventListener myOrientationListener = new SensorEventListener() {
+  public void onSensorChanged(SensorEvent sensorEvent) {
+    if (sensorEvent.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+      float headingAngle = sensorEvent.values[0];
+      float pitchAngle =  sensorEvent.values[1];
+      float rollAngle = sensorEvent.values[2];
+
+      // TODO Apply the orientation changes to your application.
+    }
+  }
+
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+};
+
+
+// *******************************************************************
+// ** Listing 14-4: Finding orientation using the accelerometer and magnetic field sensors
+float[] accelerometerValues;
+float[] magneticFieldValues;
+
+final SensorEventListener myAccelerometerListener = new SensorEventListener() {
+  public void onSensorChanged(SensorEvent sensorEvent) {
+    if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+      accelerometerValues = sensorEvent.values;
+  }
+
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+};
+
+final SensorEventListener myMagneticFieldListener = new SensorEventListener() {
+  public void onSensorChanged(SensorEvent sensorEvent) {
+    if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+      magneticFieldValues = sensorEvent.values;
+  }
+
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+};
+
+public void connectListeners() {
+  SensorManager sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+  Sensor aSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+  Sensor mfSensor = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+  sm.registerListener(myAccelerometerListener, 
+                      aSensor,  
+                      SensorManager.SENSOR_DELAY_UI);
+
+  sm.registerListener(myMagneticFieldListener, 
+                      mfSensor,
+                      SensorManager.SENSOR_DELAY_UI);
+}
+
+// *******************************************************************
+// ** Listing 14-5: Remapping the orientation reference frame
+SensorManager.getRotationMatrix(R, null, aValues, mValues);
+
+float[] outR = new float[9];
+SensorManager.remapCoordinateSystem(R,
+                                    SensorManager.AXIS_X,
+                                    SensorManager.AXIS_Z,
+                                    outR);
+SensorManager.getOrientation(outR, values);
+
+// Convert from radians to degrees.
+values[0] = (float) Math.toDegrees(values[0]);
+values[1] = (float) Math.toDegrees(values[1]);
+values[2] = (float) Math.toDegrees(values[2]);
+
+// *******************************************************************
+// ** Listing 14-6: Controlling device vibration
+String vibratorService = Context.VIBRATOR_SERVICE;
+Vibrator vibrator = (Vibrator)getSystemService(vibratorService);
+
+long[] pattern = {1000,  2000, 4000, 8000, 16000 };
+vibrator.vibrate(pattern, 0); // Execute vibration pattern.
+vibrator.vibrate(1000); // Vibrate for 1 second.
+
+// ******************************************************************* //

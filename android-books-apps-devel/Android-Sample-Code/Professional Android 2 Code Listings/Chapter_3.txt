@@ -1,0 +1,284 @@
+// ******************************************************************* //
+// ** Chapter 3 Code Listings                                       ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Resources *************************************************** //
+
+// *******************************************************************
+// ** Listing 3-1: Simple values XML
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">To Do List</string>
+  <color name="app_background">#FF0000FF</color>
+  <dimen name="default_border">5px</dimen>
+  <array name="string_array">
+    <item>Item 1</item>
+    <item>Item 2</item>
+    <item>Item 3</item>
+  </array>
+  <array name="integer_array">
+    <item>3</item>
+    <item>2</item>
+    <item>1</item>
+  </array>
+</resources>
+
+// *******************************************************************
+// ** Listing 3-2: Hello World layout
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Hello World!"
+  />
+</LinearLayout>
+
+// *******************************************************************
+// ** Listing 3-3: Simple menu layout resource
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/menu_refresh"
+        android:title="Refresh" />
+  <item android:id="@+id/menu_settings"
+        android:title="Settings" />
+</menu>
+
+// *******************************************************************
+// ** Listing 3-4: Using resources in a layout
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:padding="@dimen/standard_border">
+  <EditText
+    android:id="@+id/myEditText"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/stop_message"
+    android:textColor="@color/opaque_blue"
+  />
+</LinearLayout>
+
+// *******************************************************************
+// ** Listing 3-5: Activity definition for handling dynamic resource changes
+<activity android:name=".TodoList" 
+          android:label="@string/app_name" 
+          android:theme="@style/TodoTheme"
+          android:configChanges="orientation|keyboardHidden"/>
+
+// *******************************************************************
+// ** Listing 3-6: Handling configuration changes in code
+@Override 
+public void onConfigurationChanged(Configuration _newConfig) {
+  super.onConfigurationChanged(_newConfig);  
+
+  [ ... Update any UI based on resource values ... ]
+
+  if (_newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+    [ ... React to different orientation ... ]
+  }
+
+  if (_newConfig.keyboardHidden == Configuration.KEYBOARDHIDDEN_NO) {
+    [ ... React to changed keyboard visibility ... ]
+  }
+}
+
+// ** The Application Class *************************************** //
+
+// *******************************************************************
+// ** Listing 3-7: Skeleton application class
+
+// Appliction Class Extenstion
+
+import android.app.Application;
+import android.content.res.Configuration;
+
+public class MyApplication extends Application {
+  
+  private static MyApplication singleton;        
+   
+  // Returns the application instance 
+  public static MyApplication getInstance() {
+    return singleton;
+  }
+    
+  @Override
+  public final void onCreate() {
+    super.onCreate();    
+    singleton = this;    
+  }
+}
+
+// Manifest entry
+<application android:icon="@drawable/icon" 
+             android:name="MyApplication">
+  [... Manifest nodes ...]
+</application>
+
+// Use in code
+MyObject value = MyApplication.getInstance().getGlobalStateValue();
+MyApplication.getInstance().setGlobalStateValue(myObjectValue);
+
+// *******************************************************************
+// ** Listing 3-8: Overriding the application life cycle handlers
+public class MyApplication extends Application {
+  
+  private static MyApplication singleton;        
+   
+  // Returns the application instance 
+  public static MyApplication getInstance() {
+    return singleton;
+  }
+    
+  @Override
+  public final void onCreate() {
+    super.onCreate();    
+    singleton = this;    
+  }
+
+  @Override
+  public final void onTerminate() {
+    super.onTerminate();       
+  }
+  
+  @Override
+  public final void onLowMemory() {
+    super.onLowMemory();    
+  }
+  
+  @Override
+  public final void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+  }
+}
+
+// ** The Activity Class ****************************************** //
+
+// *******************************************************************
+// ** Listing 3-9: Activity skeleton code
+package com.paad.myapplication;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class MyActivity extends Activity {
+
+  /** Called when the activity is first created. */
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+  }
+}
+
+// *******************************************************************
+// ** Listing 3-10: Activity layout in XML
+<activity android:label="@string/app_name" 
+          android:name=".MyActivity">
+</activity>
+
+// *******************************************************************
+// ** Listing 3-11: Main application Activity definition
+<activity android:label="@string/app_name" 
+          android:name=".MyActivity">
+  <intent-filter>
+    <action android:name="android.intent.action.MAIN" />
+    <category android:name="android.intent.category.LAUNCHER" />
+  </intent-filter>
+</activity>
+
+// *******************************************************************
+// ** Listing 3-12: Activity state event handlers
+package com.paad.myapplication;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class MyActivity extends Activity {
+
+  // Called at the start of the full lifetime.
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    // Initialize activity.
+  }
+  
+  // Called after onCreate has finished, use to restore UI state
+  @Override
+  public void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    // Restore UI state from the savedInstanceState. 
+    // This bundle has also been passed to onCreate.
+  }
+
+  // Called before subsequent visible lifetimes 
+  // for an activity process.
+  @Override
+  public void onRestart(){
+    super.onRestart();
+    // Load changes knowing that the activity has already
+    // been visible within this process.
+  }
+
+  // Called at the start of the visible lifetime.
+  @Override
+  public void onStart(){
+    super.onStart();
+    // Apply any required UI change now that the Activity is visible.
+  }
+
+  // Called at the start of the active lifetime.
+  @Override
+  public void onResume(){
+    super.onResume();
+    // Resume any paused UI updates, threads, or processes required
+    // by the activity but suspended when it was inactive.
+  }
+
+  // Called to save UI state changes at the 
+  // end of the active lifecycle.
+  @Override
+  public void onSaveInstanceState(Bundle savedInstanceState) {    
+    // Save UI state changes to the savedInstanceState. 
+    // This bundle will be passed to onCreate if the process is 
+    // killed and restarted.
+    super.onSaveInstanceState(savedInstanceState);
+  }
+
+  // Called at the end of the active lifetime.
+  @Override
+  public void onPause(){
+    // Suspend UI updates, threads, or CPU intensive processes 
+    // that don’t need to be updated when the Activity isn’t 
+    // the active foreground activity.
+    super.onPause();
+  }
+
+  // Called at the end of the visible lifetime.
+  @Override
+  public void onStop(){    
+    // Suspend remaining UI updates, threads, or processing 
+    // that aren’t required when the Activity isn’t visible. 
+    // Persist all edits or state changes 
+    // as after this call the process is likely to be killed.
+    super.onStop();
+  }
+
+  // Called at the end of the full lifetime.
+  @Override
+  public void onDestroy(){
+    // Clean up any resources including ending threads, 
+    // closing database connections etc.
+    super.onDestroy();
+  }
+}
+
+// ******************************************************************* //

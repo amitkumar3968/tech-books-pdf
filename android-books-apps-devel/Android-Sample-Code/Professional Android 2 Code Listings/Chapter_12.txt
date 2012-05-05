@@ -1,0 +1,393 @@
+// ******************************************************************* //
+// ** Chapter 12 Code Listings                                      ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Telephony *************************************************** //
+
+// *******************************************************************
+// ** Listing 12-1: Dialing a number
+Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1234567"));
+startActivity(intent);
+
+// *******************************************************************
+// ** Listing 12-2: Accessing the Telephony Manager
+String srvcName = Context.TELEPHONY_SERVICE;
+TelephonyManager telephonyManager = (TelephonyManager)getSystemService(srvcName);
+
+// *******************************************************************
+// ** Listing 12-3: Reading phone details
+int phoneType = telephonyManager.getPhoneType();
+switch (phoneType) {
+  case (TelephonyManager.PHONE_TYPE_CDMA): break;
+  case (TelephonyManager.PHONE_TYPE_GSM) : break;
+  case (TelephonyManager.PHONE_TYPE_NONE): break;
+  default: break;
+}
+
+// -- These require READ_PHONE_STATE uses-permission --
+// Read the IMEI for GSM or MEID for CDMA
+String deviceId = telephonyManager.getDeviceId();
+// Read the software version on the phone (note -- not the SDK version)
+String softwareVersion = telephonyManager.getDeviceSoftwareVersion();		
+// Get the phone's number
+String phoneNumber = telephonyManager.getLine1Number();
+
+// *******************************************************************
+// ** Listing 12-3 (Manifest): Phone state manifest permissions
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
+
+// *******************************************************************
+// ** Listing 12-4: Reading phone data connection and transfer state
+int dataActivity = telephonyManager.getDataActivity();
+int dataState = telephonyManager.getDataState();
+
+switch (dataActivity) {
+  case TelephonyManager.DATA_ACTIVITY_IN : break;
+  case TelephonyManager.DATA_ACTIVITY_OUT : break;
+  case TelephonyManager.DATA_ACTIVITY_INOUT : break;
+  case TelephonyManager.DATA_ACTIVITY_NONE : break;
+}
+
+switch (dataState) {
+  case TelephonyManager.DATA_CONNECTED : break;
+  case TelephonyManager.DATA_CONNECTING : break;
+  case TelephonyManager.DATA_DISCONNECTED : break;
+  case TelephonyManager.DATA_SUSPENDED : break;
+}
+
+// *******************************************************************
+// ** Listing 12-4: Reading phone data connection and transfer state
+int dataActivity = telephonyManager.getDataActivity();
+int dataState = telephonyManager.getDataState();
+
+switch (dataActivity) {
+  case TelephonyManager.DATA_ACTIVITY_IN : break;
+  case TelephonyManager.DATA_ACTIVITY_OUT : break;
+  case TelephonyManager.DATA_ACTIVITY_INOUT : break;
+  case TelephonyManager.DATA_ACTIVITY_NONE : break;
+}
+
+switch (dataState) {
+  case TelephonyManager.DATA_CONNECTED : break;
+  case TelephonyManager.DATA_CONNECTING : break;
+  case TelephonyManager.DATA_DISCONNECTED : break;
+  case TelephonyManager.DATA_SUSPENDED : break;
+}
+
+// *******************************************************************
+// ** Listing 12-5: Reading network details
+// Get connected network country ISO code
+String networkCountry = telephonyManager.getNetworkCountryIso();
+// Get the connected network operator ID (MCC + MNC)
+String networkOperatorId = telephonyManager.getNetworkOperator();
+// Get the connected network operator name
+String networkName = telephonyManager.getNetworkOperatorName();
+// Get the type of network you are connected to
+int networkType = telephonyManager.getNetworkType();
+switch (networkType) {
+  case (TelephonyManager.NETWORK_TYPE_1xRTT)   : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_CDMA)    : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_EDGE)    : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_EVDO_0)  : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_EVDO_A)  : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_GPRS)    : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_HSDPA)   : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_HSPA)    : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_HSUPA)   : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_UMTS)    : [... do something ...] 
+                                                 break;
+  case (TelephonyManager.NETWORK_TYPE_UNKNOWN) : [... do something ...] 
+                                                 break;
+  default: break;
+}
+
+// *******************************************************************
+// ** Listing 12-6: Reading SIM details
+int simState = telephonyManager.getSimState();
+switch (simState) {
+  case (TelephonyManager.SIM_STATE_ABSENT): break;
+  case (TelephonyManager.SIM_STATE_NETWORK_LOCKED): break;
+  case (TelephonyManager.SIM_STATE_PIN_REQUIRED): break;
+  case (TelephonyManager.SIM_STATE_PUK_REQUIRED): break;
+  case (TelephonyManager.SIM_STATE_UNKNOWN): break;
+  case (TelephonyManager.SIM_STATE_READY): {
+    // Get the SIM country ISO code
+    String simCountry = telephonyManager.getSimCountryIso();
+    // Get the operator code of the active SIM (MCC + MNC)
+    String simOperatorCode = telephonyManager.getSimOperator(); 
+    // Get ther name of the SIM operator
+    String simOperatorName = telephonyManager.getSimOperatorName();
+    // -- Requires READ_PHONE_STATE uses-permission --
+    // Get the SIM's serial number
+    String simSerial = telephonyManager.getSimSerialNumber();
+    break;
+  }
+  default: break;
+}
+
+// *******************************************************************
+// ** Listing 12-7: Phone State Listener skeleton class
+PhoneStateListener phoneStateListener = new PhoneStateListener() {
+  public void onCallForwardingIndicatorChanged(boolean cfi) {}
+  public void onCallStateChanged(int state, String incomingNumber) {}
+  public void onCellLocationChanged(CellLocation location) {}
+  public void onDataActivity(int direction) {}
+  public void onDataConnectionStateChanged(int state) {}
+  public void onMessageWaitingIndicatorChanged(boolean mwi) {}
+  public void onServiceStateChanged(ServiceState serviceState) {}
+  public void onSignalStrengthChanged(int asu) {}
+};
+
+// *******************************************************************
+// ** Listing 12-8: Registering a Phone State Listener
+telephonyManager.listen(phoneStateListener,
+                        PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR |
+                        PhoneStateListener.LISTEN_CALL_STATE |
+                        PhoneStateListener.LISTEN_CELL_LOCATION |
+                        PhoneStateListener.LISTEN_DATA_ACTIVITY |
+                        PhoneStateListener.LISTEN_DATA_CONNECTION_STATE |
+                        PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR |
+                        PhoneStateListener.LISTEN_SERVICE_STATE |
+                        PhoneStateListener.LISTEN_SIGNAL_STRENGTH);
+// Disable listener.
+telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+
+// *******************************************************************
+// ** Listing 12-9: Monitoring phone calls
+PhoneStateListener callStateListener = new PhoneStateListener() {
+  public void onCallStateChanged(int state, String incomingNumber) {
+    // TODO React to incoming call.
+  }
+};
+
+telephonyManager.listen(callStateListener, 
+                        PhoneStateListener.LISTEN_CALL_STATE);
+
+
+// *******************************************************************
+// ** Listing 12-10: Tracking cell changes
+PhoneStateListener cellLocationListener = new PhoneStateListener() {
+  public void onCellLocationChanged(CellLocation location) {
+    GsmCellLocation gsmLocation = (GsmCellLocation)location;
+    Toast.makeText(getApplicationContext(), 
+                    String.valueOf(gsmLocation.getCid()), 
+                    Toast.LENGTH_LONG).show();
+  }
+};
+telephonyManager.listen(cellLocationListener, 
+                        PhoneStateListener.LISTEN_CELL_LOCATION);
+
+// *******************************************************************
+// ** Listing 12-11: Monitoring service state changes
+PhoneStateListener serviceStateListener = new PhoneStateListener() {
+  public void onServiceStateChanged(ServiceState serviceState) {
+    if (serviceState.getState() == ServiceState.STATE_IN_SERVICE) {
+      String toastText = serviceState.getOperatorAlphaLong();
+      Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+    }
+  }
+};
+
+telephonyManager.listen(serviceStateListener, 
+                        PhoneStateListener.LISTEN_SERVICE_STATE);
+
+// *******************************************************************
+// ** Listing 12-12: Monitoring data connections and transfers
+PhoneStateListener dataStateListener = new PhoneStateListener() {
+  public void onDataActivity(int direction) {
+    switch (direction) {
+      case TelephonyManager.DATA_ACTIVITY_IN : break;
+      case TelephonyManager.DATA_ACTIVITY_OUT : break;
+      case TelephonyManager.DATA_ACTIVITY_INOUT : break;
+      case TelephonyManager.DATA_ACTIVITY_NONE : break;
+    }
+  }
+
+  public void onDataConnectionStateChanged(int state) {
+    switch (state) {
+      case TelephonyManager.DATA_CONNECTED : break;
+      case TelephonyManager.DATA_CONNECTING : break;
+      case TelephonyManager.DATA_DISCONNECTED : break;
+      case TelephonyManager.DATA_SUSPENDED : break;
+    }
+  }
+};
+
+telephonyManager.listen(dataStateListener,
+                          PhoneStateListener.LISTEN_DATA_ACTIVITY |
+                          PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
+
+
+// ** SMS and MMS ************************************************* //
+
+// *******************************************************************
+// ** Listing 12-13: Sending an SMS message using Intents
+Intent smsIntent = new Intent(Intent.ACTION_SENDTO, 
+Uri.parse("sms:55512345"));
+smsIntent.putExtra("sms_body", "Press send to send me"); 
+startActivity(smsIntent);
+
+// *******************************************************************
+// ** Listing 12-14: Sending an MMS message with an attached image
+// Get the URI of a piece of media to attach.
+Uri attached_Uri = Uri.parse("content://media/external/images/media/1");
+
+// Create a new MMS intent
+Intent mmsIntent = new Intent(Intent.ACTION_SEND, attached_Uri);
+mmsIntent.putExtra("sms_body", "Please see the attached image");
+mmsIntent.putExtra("address", "07912355432");
+mmsIntent.putExtra(Intent.EXTRA_STREAM, attached_Uri);
+mmsIntent.setType("image/png");
+startActivity(mmsIntent);
+
+// *******************************************************************
+// ** Listing 12-15: Sending an SMS message
+String sendTo = "5551234";
+String myMessage = "Android supports programmatic SMS messaging!";
+
+smsManager.sendTextMessage(sendTo, null, myMessage, null, null);
+
+// *******************************************************************
+// ** Listing 12-15: Sending an SMS message
+String sendTo = "5551234";
+String myMessage = "Android supports programmatic SMS messaging!";
+
+smsManager.sendTextMessage(sendTo, null, myMessage, null, null);
+
+// *******************************************************************
+// ** Listing 12-16: SMS delivery monitoring pattern
+String SENT_SMS_ACTION = "SENT_SMS_ACTION";
+String DELIVERED_SMS_ACTION = "DELIVERED_SMS_ACTION";
+
+// Create the sentIntent parameter
+Intent sentIntent = new Intent(SENT_SMS_ACTION);
+PendingIntent sentPI = PendingIntent.getBroadcast(getApplicationContext(),
+                                                  0,
+                                                  sentIntent,
+                                                  0);
+
+// Create the deliveryIntent parameter
+Intent deliveryIntent = new Intent(DELIVERED_SMS_ACTION);
+PendingIntent deliverPI = 
+PendingIntent.getBroadcast(getApplicationContext(),
+                           0,
+                           deliveryIntent,
+                           0);
+
+// Register the Broadcast Receivers
+registerReceiver(new BroadcastReceiver() {
+                   @Override
+                   public void onReceive(Context _context, Intent _intent) 
+                   {
+                     switch (getResultCode()) {
+                       case Activity.RESULT_OK: 
+                         [… send success actions … ]; break;
+                       case SmsManager.RESULT_ERROR_GENERIC_FAILURE: 
+                         [… generic failure actions … ]; break;
+                       case SmsManager.RESULT_ERROR_RADIO_OFF: 
+                         [… radio off failure actions … ]; break;
+                       case SmsManager.RESULT_ERROR_NULL_PDU: 
+                         [… null PDU failure actions … ]; break;
+                     }
+                   }
+                 }, 
+                 new IntentFilter(SENT_SMS_ACTION));
+
+registerReceiver(new BroadcastReceiver() {
+                   @Override
+                   public void onReceive(Context _context, Intent _intent) 
+                   {
+                     [… SMS delivered actions … ]
+                   }
+                 }, 
+                 new IntentFilter(DELIVERED_SMS_ACTION));
+
+// Send the message
+smsManager.sendTextMessage(sendTo, null, myMessage, sentPI, deliverPI);
+
+// *******************************************************************
+// ** Listing 12-17: Sending long messages in multiple parts
+ArrayList<String> messageArray = smsManager.divideMessage(myMessage);
+ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
+for (int i = 0; i < messageArray.size(); i++)
+  sentIntents.add(sentPI);
+
+smsManager.sendMultipartTextMessage(sendTo, 
+                                    null, 
+                                    messageArray, 
+                                    sentIntents, null);
+
+// *******************************************************************
+// ** Listing 12-18: Sending SMS data messages
+Intent sentIntent = new Intent(SENT_SMS_ACTION);
+PendingIntent sentPI = PendingIntent.getBroadcast(getApplicationContext(),
+                                                  0, sentIntent, 0);
+
+short destinationPort = 80;
+byte[] data = [ … your data … ];
+smsManager.sendDataMessage(sendTo, null, destinationPort, 
+                           data, sentPI, null);
+
+
+// *******************************************************************
+// ** Listing 12-19: Extracting SMS messages from Incoming SMS Intent broadcasts
+Bundle bundle = intent.getExtras();
+if (bundle != null) {
+  Object[] pdus = (Object[]) bundle.get("pdus");
+  SmsMessage[] messages = new SmsMessage[pdus.length];
+  for (int i = 0; i < pdus.length; i++)
+    messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+}
+
+// *******************************************************************
+// ** Listing 12-20: Listening for incoming SMS messages
+public class IncomingSMSReceiver extends BroadcastReceiver {
+  private static final String queryString = "@echo";
+  private static final String SMS_RECEIVED =
+                              "android.provider.Telephony.SMS_RECEIVED";
+
+ public void onReceive(Context _context, Intent _intent) {
+    if (_intent.getAction().equals(SMS_RECEIVED)) {
+      SmsManager sms = SmsManager.getDefault();
+
+      Bundle bundle = _intent.getExtras();
+      if (bundle != null) {
+        Object[] pdus = (Object[]) bundle.get("pdus");
+        SmsMessage[] messages = new SmsMessage[pdus.length];
+        for (int i = 0; i < pdus.length; i++)
+          messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);      
+
+        for (SmsMessage message : messages) {
+          String msg = message.getMessageBody();
+          String to = message.getOriginatingAddress();
+
+          if (msg.toLowerCase().startsWith(queryString)) {
+            String out = msg.substring(queryString.length());
+            sms.sendTextMessage(to, null, out, null, null);
+          }
+        }
+      }
+    }
+  }
+}
+
+// *******************************************************************
+// ** Listing 12-21: Registering an SMS listener receiver
+final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+IntentFilter filter = new IntentFilter(SMS_RECEIVED);
+BroadcastReceiver receiver = new IncomingSMSReceiver();
+registerReceiver(receiver, filter);
+
+// ******************************************************************* //

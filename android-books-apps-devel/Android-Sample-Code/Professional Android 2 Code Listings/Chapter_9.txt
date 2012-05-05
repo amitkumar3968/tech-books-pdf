@@ -1,0 +1,457 @@
+// ******************************************************************* //
+// ** Chapter 9 Code Listings                                      ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Services ********************************************** //
+
+// *******************************************************************
+// ** Listing 9-1: A skeleton Service class
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
+public class MyService extends Service {
+
+  @Override
+  public void onCreate() {
+    // TODO: Actions to perform when service is created.
+  }
+
+  @Override
+  public IBinder onBind(Intent intent) {
+    // TODO: Replace with service binding implementation.
+    return null;
+  }
+
+  @Override
+  public int onStartCommand(Intent intent, int flags, int startId) {
+    // TODO Launch a background thread to do processing.
+    return Service.START_STICKY;
+  }
+}
+
+// *******************************************************************
+// ** Listing 9-2: Determining the cause of a system start
+@Override
+public int onStartCommand(Intent intent, int flags, int startId) {
+  if ((flags & START_FLAG_RETRY) == 0) {
+    // TODO If it’s a restart, do something.
+  }
+  else {
+    // TODO Alternative background process.
+  }
+  return Service.START_STICKY;
+}
+
+// *******************************************************************
+// ** Listing 9-3: Starting a Service
+// Implicitly start a Service 
+Intent myIntent = new Intent(MyService.ORDER_PIZZA);
+myIntent.putExtra("TOPPING", "Margherita");  
+startService(myIntent);
+
+// Explicitly start a Service 
+startService(new Intent(this, MyService.class));
+
+// *******************************************************************
+// ** Listing 9-4: Stopping a Service
+ComponentName service = startService(new Intent(this, BaseballWatch.class));
+// Stop a service using the service name.
+stopService(new Intent(this, service.getClass()));
+// Stop a service explicitly.
+try {
+  Class serviceClass = Class.forName(service.getClassName());
+  stopService(new Intent(this, serviceClass));
+} catch (ClassNotFoundException e) {}
+
+// *******************************************************************
+// ** Listing 9-5: Implementing binding on a Service
+private final IBinder binder = new MyBinder();
+
+@Override
+public IBinder onBind(Intent intent) {
+  return binder;
+}
+
+public class MyBinder extends Binder {
+  MyService getService() {
+    return MyService.this;
+  }
+}
+
+
+// *******************************************************************
+// ** Listing 9-6: Binding to a Service
+// Reference to the service
+private MyService serviceBinder;
+
+// Handles the connection between the service and activity
+private ServiceConnection mConnection = new ServiceConnection() {
+  public void onServiceConnected(ComponentName className, IBinder service) {
+    // Called when the connection is made.
+    serviceBinder = ((MyService.MyBinder)service).getService();
+  }
+
+  public void onServiceDisconnected(ComponentName className) {
+    // Received when the service unexpectedly disconnects.
+    serviceBinder = null;
+  }
+}; 
+
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+
+  // Bind to the service
+  Intent bindIntent = new Intent(MyActivity.this, MyService.class);
+  bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);  
+}
+
+// *******************************************************************
+// ** Listing 9-7: Moving a Service to the foreground
+int NOTIFICATION_ID = 1;
+
+Intent intent = new Intent(this, MyActivity.class);
+PendingIntent pi = PendingIntent.getActivity(this, 1, intent, 0));
+
+Notification notification = new Notification(R.drawable.icon,
+  "Running in the Foreground", System.currentTimeMillis());
+notification.setLatestEventInfo(this, "Title", "Text", pi);
+
+notification.flags = notification.flags |
+                     Notification.FLAG_ONGOING_EVENT;
+
+startForeground(NOTIFICATION_ID, notification);
+
+// *******************************************************************
+// ** Listing 9-8: Moving a Service back to the background
+// Move to the background and remove the Notification
+stopForeground(true);
+
+// ** ASyncTasks and Background Threads *************************** //
+
+// *******************************************************************
+// ** Listing 9-9: Skeleton AsyncTask implementation using a string parameter and integer progress and result values
+private class MyAsyncTask extends AsyncTask<String, Integer, Integer> {
+  @Override
+  protected void onProgressUpdate(Integer... progress) {
+    // [... Update progress bar, Notification, or other UI element ...]
+  }
+
+  @Override
+  protected void onPostExecute(Integer... result) {
+    // [... Report results via UI update, Dialog, or notification ...]
+  }
+
+  @Override
+  protected Integer doInBackground(String... parameter) {
+    int myProgress = 0;
+    // [... Perform background processing task, update myProgress ...]
+    PublishProgress(myProgress)
+    // [... Continue performing background processing task ...]
+
+    // Return the value to be passed to onPostExecute
+    return result;
+  }
+}
+
+// *******************************************************************
+// ** Listing 9-10: Executing an asynchronous task
+new MyAsyncTask().execute("inputString1", "inputString2");
+
+// *******************************************************************
+// ** Listing 9-11: Moving processing to a background Thread
+// This method is called on the main GUI thread.
+private void mainProcessing() {
+  // This moves the time consuming operation to a child thread.
+  Thread thread = new Thread(null, doBackgroundThreadProcessing, "Background");
+  thread.start();
+}
+
+// Runnable that executes the background processing method.
+private Runnable doBackgroundThreadProcessing = new Runnable() {
+  public void run() {
+    backgroundThreadProcessing();
+  }
+};
+
+// Method which does some processing in the background.
+private void backgroundThreadProcessing() {
+  [ ... Time consuming operations ... ]
+}
+
+// *******************************************************************
+// ** Listing 9-12: Synchronizing with the Activity’s GUI thread
+runOnUiThread(new Runnable() {
+  public void run() {
+    // TODO Update a View.        
+  }	    
+});
+
+// *******************************************************************
+// ** Listing 9-13: Using a Handler to synchronize with the GUI thread
+// Initialize a handler on the main thread.
+private Handler handler = new Handler();
+
+private void mainProcessing() {
+  Thread thread = new Thread(null, doBackgroundThreadProcessing, "Background"); 
+  thread.start();
+}
+
+private Runnable doBackgroundThreadProcessing = new Runnable() {
+  public void run() {
+    backgroundThreadProcessing();
+  }
+};
+
+// Method which does some processing in the background.
+private void backgroundThreadProcessing() {
+  [ ... Time consuming operations ... ]
+  handler.post(doUpdateGUI); 
+}
+
+// Runnable that executes the update GUI method.
+private Runnable doUpdateGUI = new Runnable() {
+  public void run() {
+    updateGUI();
+  }
+};
+
+private void updateGUI() {
+  [ ... Open a dialog or modify a GUI element ... ]
+}
+
+// ** Toasts ****************************************************** //
+
+// *******************************************************************
+// ** Listing 9-14: Displaying a Toast
+Context context = getApplicationContext();
+String msg = "To health and happiness!";
+int duration = Toast.LENGTH_SHORT;
+
+Toast toast = Toast.makeText(context, msg, duration);
+toast.show();
+
+// *******************************************************************
+// ** Listing 9-15: Customizing a Toast
+Context context = getApplicationContext();
+String msg = "To the bride an groom!";
+int duration = Toast.LENGTH_SHORT;
+Toast toast = Toast.makeText(context, msg, duration);
+int offsetX = 0;
+int offsetY = 0;
+
+toast.setGravity(Gravity.BOTTOM, offsetX, offsetY);
+toast.show();
+
+// *******************************************************************
+// ** Listing 9-16: Using Views to customize Toasts
+Context context = getApplicationContext();
+String msg = "Cheers!";
+int duration = Toast.LENGTH_LONG;
+Toast toast = Toast.makeText(context, msg, duration);
+toast.setGravity(Gravity.TOP, 0, 0);
+
+LinearLayout ll = new LinearLayout(context);
+ll.setOrientation(LinearLayout.VERTICAL);
+
+TextView myTextView = new TextView(context);
+CompassView cv = new CompassView(context);
+
+myTextView.setText(msg);
+
+int lHeight = LinearLayout.LayoutParams.FILL_PARENT;
+int lWidth = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+ll.addView(cv, new LinearLayout.LayoutParams(lHeight, lWidth));
+ll.addView(myTextView, new LinearLayout.LayoutParams(lHeight, lWidth));
+
+ll.setPadding(40, 50, 0, 50);
+
+toast.setView(ll);
+toast.show();
+
+// *******************************************************************
+// ** Listing 9-17: Opening a Toast on the GUI thread
+private void mainProcessing() {
+  Thread thread = new Thread(null, doBackgroundThreadProcessing, "Background"); 
+  thread.start();
+}
+
+private Runnable doBackgroundThreadProcessing = new Runnable() {
+  public void run() {
+    backgroundThreadProcessing();
+  }
+};
+
+private void backgroundThreadProcessing() {
+  handler.post(doUpdateGUI); 
+}
+
+// Runnable that executes the update GUI method.
+private Runnable doUpdateGUI = new Runnable() {
+  public void run() {
+    Context context = getApplicationContext();
+    String msg = "To open mobile development!";
+    int duration = Toast.LENGTH_SHORT;
+    Toast.makeText(context, msg, duration).show();
+  }
+};
+
+// ** Notifications *********************************************** //
+
+
+// *******************************************************************
+// ** Listing 9-18: Using the Notification Manager
+String svcName = Context.NOTIFICATION_SERVICE;
+
+NotificationManager notificationManager;
+notificationManager = (NotificationManager)getSystemService(svcName);
+
+// *******************************************************************
+// ** Listing 9-19: Creating a Notification
+// Choose a drawable to display as the status bar icon
+int icon = R.drawable.icon;
+// Text to display in the status bar when the notification is launched
+String tickerText = "Notification";
+// The extended status bar orders notification in time order
+long when = System.currentTimeMillis();
+
+Notification notification = new Notification(icon, tickerText, when);
+
+// *******************************************************************
+// ** Listing 9-20: Setting Notification values
+Context context = getApplicationContext();
+// Text to display in the extended status window
+String expandedText = "Extended status text";
+// Title for the expanded status
+String expandedTitle = "Notification Title"; 
+// Intent to launch an activity when the extended text is clicked
+Intent intent = new Intent(this, MyActivity.class);
+PendingIntent launchIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+notification.setLatestEventInfo(context, 
+                                expandedTitle, 
+                                expandedText,
+                                launchIntent);
+
+// *******************************************************************
+// ** Listing 9-21: Creating a custom layout for the Notification status window
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:padding="5dp"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <ImageView
+    android:id="@+id/status_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"   
+    android:layout_alignParentLeft="true"
+  />
+  <RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="10px"
+    android:layout_toRightOf="@id/status_icon">	  
+    <TextView
+      android:id="@+id/status_text"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:textColor="#000"
+      android:textSize="14sp"
+      android:textStyle="bold"
+    />
+    <ProgressBar
+      android:id="@+id/status_progress"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/status_text"
+      android:progressDrawable="@android:drawable/progress_horizontal"
+      android:indeterminate="false"
+      android:indeterminateOnly="false"
+    />
+  </RelativeLayout>
+</RelativeLayout>
+
+// *******************************************************************
+// ** Listing 9-22: Applying a custom layout to the Notification status window
+Notification notification = new Notification(R.drawable.icon, 
+                                             "Custom Content",
+                                             System.currentTimeMillis());
+notification.flags = notification.flags | Notification.FLAG_ONGOING_EVENT;
+
+notification.contentView = new RemoteViews(this.getPackageName(), 
+                                           R.layout.my_status_window_layout);
+
+Intent intent = new Intent(this, MyActivity.class);
+PendingIntent.getActivity(this, 0, intent, 0));
+notification.contentIntent = pendingIntent;
+
+// *******************************************************************
+// ** Listing 9-23: Customizing your extended notification window layout
+notification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
+notification.contentView.setTextViewText(R.id.status_text, "Current Progress:");
+notification.contentView.setProgressBar(R.id.status_progress, 100, 50, false);
+
+// *******************************************************************
+// ** Listing 9-24: Triggering a Notification
+int notificationRef = 1;
+notificationManager.notify(notificationRef, notification);
+
+// ** Alarms ****************************************************** //
+
+// *******************************************************************
+// ** Listing 9-25: Creating an Alarm
+int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+long timeOrLengthofWait = 10000;
+String ALARM_ACTION = "ALARM_ACTION"; 
+Intent intentToFire = new Intent(ALARM_ACTION);
+PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intentToFire, 0);
+
+// Set
+alarms.set(alarmType, timeOrLengthofWait, pendingIntent);
+
+// Cancel
+alarms.cancel(pendingIntent);
+
+// *******************************************************************
+// ** AlarmManager alarms = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+String MY_RTC_ALARM = "MY_RTC_ALARM";
+String ALARM_ACTION = "MY_ELAPSED_ALARM";
+
+PendingIntent rtcIntent = PendingIntent.getBroadcast(this, 0, 
+                                                     new Intent(MY_RTC_ALARM),
+                                                     1);
+PendingIntent elapsedIntent = PendingIntent.getBroadcast(this, 0, 
+                                                         new Intent(ALARM_ACTION),
+                                                         1);
+
+// Wakeup and fire intent in 5 hours.
+Date t = new Date();
+t.setTime(java.lang.System.currentTimeMillis() + 60*1000*5);
+alarms.set(AlarmManager.RTC_WAKEUP, t.getTime(), rtcIntent);
+
+// Fire intent in 30 mins if already awake.
+alarms.set(AlarmManager.ELAPSED_REALTIME, 30*60*1000, elapsedIntent);
+
+// Cancel the first alarm.
+alarms.cancel(rtcIntent);
+
+// *******************************************************************
+// ** Listing 9-27: Setting repeating alarms
+// Fire an intent exactly every hour if already awake.
+alarms.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    60*60*1000, 60*60*1000, elapsedIntent);
+
+// Wakeup and fire an alarm about every hour  
+alarms.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 
+                           60*60*1000, AlarmManager.INTERVAL_DAY, 
+                           elapsedIntent);
+
+// ******************************************************************* //

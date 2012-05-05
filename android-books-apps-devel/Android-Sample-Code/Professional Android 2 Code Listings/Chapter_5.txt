@@ -1,0 +1,467 @@
+// ******************************************************************* //
+// ** Chapter 5 Code Listings                                       ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Intents ***************************************************** //
+
+// *******************************************************************
+// ** Listing 5-1: Explicitly Starting an Activity
+Intent intent = new Intent(MyActivity.this, MyOtherActivity.class);
+startActivity(intent);
+
+// *******************************************************************
+// ** Listing 5-2: Implicitly Starting an Activity
+if (somethingWeird && itDontLookGood) {
+  Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:555-2368"));
+  startActivity(intent);
+}
+
+// *******************************************************************
+// ** Listing 5-3: Starting an Activity for a Result
+private static final int SHOW_SUBACTIVITY = 1;
+
+Intent intent = new Intent(this, MyOtherActivity.class);
+startActivityForResult(intent, SHOW_SUBACTIVITY);
+
+// *******************************************************************
+// ** Listing 5-4: Implicitly Starting an Activity for a Result
+private static final int PICK_CONTACT_SUBACTIVITY = 2;
+
+Uri uri = Uri.parse("content://contacts/people");
+Intent intent = new Intent(Intent.ACTION_PICK, uri);
+startActivityForResult(intent, PICK_CONTACT_SUBACTIVITY);
+
+// *******************************************************************
+// ** Listing 5-5: Returning results
+Button okButton = (Button) findViewById(R.id.ok_button);
+  okButton.setOnClickListener(new View.OnClickListener() {
+  public void onClick(View view) {
+    Uri data = Uri.parse("content://horses/" + selected_horse_id);
+
+    Intent result = new Intent(null, data);
+    result.putExtra(IS_INPUT_CORRECT, inputCorrect);
+    result.putExtra(SELECTED_PISTOL, selectedPistol);
+
+    setResult(RESULT_OK, result);
+    finish();
+  }
+});
+
+Button cancelButton = (Button) findViewById(R.id.cancel_button);
+cancelButton.setOnClickListener(new View.OnClickListener() {
+  public void onClick(View view) {
+    setResult(RESULT_CANCELED, null);
+    finish();
+  }
+});
+
+
+// *******************************************************************
+// ** Listing 5-6: Implementing an On Activity Result Handler
+private static final int SHOW_SUB_ACTIVITY_ONE = 1;
+private static final int SHOW_SUB_ACTIVITY_TWO = 2;
+
+@Override 
+public void onActivityResult(int requestCode, 
+                             int resultCode, 
+                             Intent data) {
+
+  super.onActivityResult(requestCode, resultCode, data);
+
+  switch(requestCode) {
+    case (SHOW_SUB_ACTIVITY_ONE) : {
+      if (resultCode == Activity.RESULT_OK) {
+        Uri horse = data.getData();
+        boolean inputCorrect = data.getBooleanExtra(IS_INPUT_CORRECT, false);
+        String selectedPistol = data.getStringExtra(SELECTED_PISTOL);
+      }
+      break;
+    }
+    case (SHOW_SUB_ACTIVITY_TWO) : {
+      if (resultCode == Activity.RESULT_OK) {
+        // TODO: Handle OK click.
+      }
+      break;
+    }
+  }
+}
+
+// *******************************************************************
+// ** Listing 5-7: Registering an Activity as an Intent Receiver
+<activity android:name=".EarthquakeDamageViewer" android:label="View Damage">
+  <intent-filter>
+    <action android:name="com.paad.earthquake.intent.action.SHOW_DAMAGE"></action>
+    <category android:name="android.intent.category.DEFAULT"/>
+    <category android:name="android.intent.category.ALTERNATIVE_SELECTED"/>
+    <data android:mimeType="vnd.earthquake.cursor.item/*"/>
+  </intent-filter>
+</activity>
+
+// *******************************************************************
+// ** Listing 5-8: Finding the Launch Intent in a Sub-Activity
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+  setContentView(R.layout.main);
+        
+  Intent intent = getIntent();
+}
+
+// *******************************************************************
+// ** Listing 5-9: Passing on Intent Receiver Handling
+Intent intent = getIntent();
+if (isDuringBreak)
+  startNextMatchingActivity(intent);
+
+// *******************************************************************
+// ** Listing 5-10: Advertising Supported Activity Actions
+<activity android:name=".NostromoController"> 
+  <intent-filter 
+    android:label="Nuke From Orbit"> 
+    <action android:name="com.pad.nostromo.NUKE_FROM_ORBIT" />
+    <data android:mimeType="vnd.moonbase.cursor.item/*"/>
+    <category android:name="android.intent.category.ALTERNATIVE" />
+    <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+  </intent-filter>
+</activity>
+
+
+// *******************************************************************
+// ** Listing 5-11: Dynamic Menu Population from Advertised Actions
+@Override 
+public boolean onCreateOptionsMenu(Menu menu) {
+  super.onCreateOptionsMenu(menu);
+
+  // Create the intent used to resolve which actions 
+  // should appear in the menu.
+  Intent intent = new Intent();
+  intent.setData(MoonBaseProvider.CONTENT_URI);
+  intent.addCategory(Intent.CATEGORY_SELECTED_ALTERNATIVE);
+
+  // Normal menu options to let you set a group and ID
+  // values for the menu items you're adding.
+  int menuGroup = 0;
+  int menuItemId = 0;
+  int menuItemOrder = Menu.NONE;
+
+  // Provide the name of the component that's calling
+  // the action -- generally the current Activity.
+  ComponentName caller = getComponentName();
+
+  // Define intents that should be added first.
+  Intent[] specificIntents = null;
+  // The menu items created from the previous Intents
+  // will populate this array.
+  MenuItem[] outSpecificItems = null;
+
+  // Set any optional flags.
+  int flags = Menu.FLAG_APPEND_TO_GROUP;
+
+  // Populate the menu
+  menu.addIntentOptions(menuGroup, 
+                        menuItemId,
+                        menuItemOrder,
+                        caller, 
+                        specificIntents, 
+                        intent, 
+                        flags, 
+                        outSpecificItems);
+     
+  return true;
+}
+
+// ** Linkify ***************************************************** //
+
+
+// *******************************************************************
+// ** Listing 5-12: Using Linkify in Code
+TextView textView = (TextView)findViewById(R.id.myTextView);
+Linkify.addLinks(textView, Linkify.WEB_URLS|Linkify.EMAIL_ADDRESSES);
+
+// *******************************************************************
+// ** Listing 5-13: Using Linkify in XML
+<TextView
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:text="@string/linkify_me"
+  android:autoLink="phone|email"
+/>
+
+// *******************************************************************
+// ** Listing 5-14: Creating Custom Link Strings in Linkify
+int flags = Pattern.CASE_INSENSITIVE;
+Pattern p = Pattern.compile("\\bquake[0-9]*\\b", flags);
+Linkify.addLinks(myTextView, p, 
+                 "content://com.paad.earthquake/earthquakes/");
+
+// *******************************************************************
+// ** Listing 5-15: Using a Linkify Match Filter
+class MyMatchFilter implements MatchFilter {
+  public boolean acceptMatch(CharSequence s, int start, int end) {
+    return (start == 0 || s.charAt(start-1) != '!');
+  }
+}
+
+// *******************************************************************
+// ** Listing 5-16: Using a Linkify Transform Filter
+class MyTransformFilter implements TransformFilter {
+  public String transformUrl(Matcher match, String url) {
+    return url.toLowerCase();
+  }
+}
+
+// ** Broadcast Intents ******************************************* //
+
+// *******************************************************************
+// ** Listing 5-17: Broadcasting an Intent
+Intent intent = new Intent(NEW_LIFEFORM_DETECTED);
+intent.putExtra("lifeformName", lifeformType);
+intent.putExtra("longitude", currentLongitude);
+intent.putExtra("latitude", currentLatitude);
+sendBroadcast(intent);
+
+// *******************************************************************
+// ** Listing 5-18: Broadcast Receiver Skeleton Implementation
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
+public class MyBroadcastReceiver extends BroadcastReceiver {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    //TODO: React to the Intent received.
+  }
+}
+
+// *******************************************************************
+// ** Listing 5-19: Implementing a Broadcast Receiver
+public class LifeformDetectedBroadcastReceiver extends BroadcastReceiver {
+
+  public static final String BURN = "com.paad.alien.action.BURN_IT_WITH_FIRE";
+
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    // Get the lifeform details from the intent.
+    Uri data = intent.getData();
+    String type = intent.getStringExtra("type");
+    double lat = intent.getDoubleExtra("latitude", 0);
+    double lng = intent.getDoubleExtra("longitude", 0);
+    Location loc = new Location("gps");
+    loc.setLatitude(lat);
+    loc.setLongitude(lng);
+
+    if (type.equals("alien")) {
+      Intent startIntent = new Intent(BURN, data);
+      startIntent.putExtra("latitude", lat);
+      startIntent.putExtra("longitude", lng);
+      
+      context.startActivity(startIntent);
+    }
+  }
+}
+
+// *******************************************************************
+// ** Listing 5-20: Registering a Broadcast Reveiver in XML
+<receiver android:name=".LifeformDetectedBroadcastReceiver">
+  <intent-filter>
+    <action android:name="com.paad.action.NEW_LIFEFORM"/>
+  </intent-filter>
+</receiver>
+
+// *******************************************************************
+// ** Listing 5-21: Registering a Broadcast Receiver in Code
+// Create and register the broadcast receiver.
+IntentFilter filter = new IntentFilter(NEW_LIFEFORM_DETECTED);
+LifeformDetectedBroadcastReceiver r = new LifeformDetectedBroadcastReceiver();
+registerReceiver(r, filter);
+
+// *******************************************************************
+// ** Listing 5-22: Creating New Pending Intents
+// Start an Activity
+Intent startActivityIntent = new Intent(this, MyOtherActivity.class);
+PendingIntent.getActivity(this, 0, startActivityIntent, 0);
+          
+// Broadcast an Intent 
+Intent broadcastIntent = new Intent(NEW_LIFEFORM_DETECTED);
+PendingIntent.getBroadcast(this, 0, broadcastIntent, 0);
+
+// ** Array Adapters*********************************************** //
+
+// *******************************************************************
+// ** Listing 5-23: Customizing the Array Adapter
+public class MyArrayAdapter extends ArrayAdapter<MyClass> {
+
+  int resource;
+
+  public ToDoItemAdapter(Context context, 
+                         int resource, 
+                         List<MyClass> items) {
+    super(context, resource, items);
+    resource = _resource;
+  }
+
+  @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+    LinearLayout newView;
+
+    MyClass classInstance = getItem(position);
+
+    // TODO Retrieve values to display from the 
+    // classInstance variable.
+
+    // Inflate a new view if this is not an update.
+    if (convertView == null) {
+      newView = new LinearLayout(getContext());
+      String inflater = Context.LAYOUT_INFLATER_SERVICE;
+      LayoutInflater vi = (LayoutInflater)getContext().getSystemService(inflater);
+      vi.inflate(resource, newView, true);
+    } else {
+      newView = (LinearLayout)convertView;
+    }
+
+    // TODO Retrieve the Views to populate
+    // TODO Populate the Views with object property values. 
+
+    return todoView;
+  }
+}
+
+// *******************************************************************
+// ** Listing 5-24: Creating and applying an Adapter
+ArrayList<String> myStringArray = new ArrayList<String>();
+ArrayAdapter<String> myAdapterInstance;
+
+int layoutID = android.R.layout.simple_list_item_1;
+myAdapterInstance = new ArrayAdapter<String>(this, layoutID , myStringArray);
+
+myListView.setAdapter(myAdapterInstance);
+
+// *******************************************************************
+// ** Listing 5-25: Creating a Simple Cursor Adapter
+String uriString = "content://contacts/people/";
+Cursor myCursor = managedQuery(Uri.parse(uriString), null, null, null);
+
+String[] fromColumns = new String[] {People.NUMBER, People.NAME};
+
+int[] toLayoutIDs = new int[] { R.id.nameTextView, R.id.numberTextView};
+
+SimpleCursorAdapter myAdapter;
+myAdapter = new SimpleCursorAdapter(this,
+                                    R.layout.simplecursorlayout,
+                                    myCursor,
+                                    fromColumns,
+                                    toLayoutIDs);
+
+myListView.setAdapter(myAdapter);
+
+// ** Internet ***************************************************** //
+
+// *******************************************************************
+// ** Listing 5-26: Opening a data stream
+String myFeed = getString(R.string.my_feed);
+try {
+  URL url = new URL(myFeed);
+
+  URLConnection connection = url.openConnection();
+  HttpURLConnection httpConnection = (HttpURLConnection)connection; 
+
+  int responseCode = httpConnection.getResponseCode(); 
+  if (responseCode == HttpURLConnection.HTTP_OK) { 
+    InputStream in = httpConnection.getInputStream();
+    [ ... Process the input stream as required ... ]
+  }
+} 
+catch (MalformedURLException e) { }
+catch (IOException e) { } 
+
+// ** Dialog Boxes************************************************* //
+
+// *******************************************************************
+// ** Listing 5-27: Creating a new dialog using the Dialog class
+Dialog d = new Dialog(MyActivity.this);
+
+// Have the new window tint and blur the window it
+// obscures.
+Window window = d.getWindow();
+window.setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
+                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+
+// Set the title
+d.setTitle("Dialog Title");
+// Inflate the layout
+d.setContentView(R.layout.dialog_view);
+
+// Find the TextView used in the layout 
+// and set its text value
+TextView text = (TextView)d.findViewById(R.id.dialogTextView);
+text.setText("This is the text in my dialog");
+
+// *******************************************************************
+// ** Listing 5-28: Configuring an Alert Dialog
+Context context = MyActivity.this;
+String title = "It is Pitch Black";
+String message = "You are likely to be eaten by a grue.";
+String button1String = "Go Back";
+String button2String = "Move Forward";
+
+AlertDialog.Builder ad = new AlertDialog.Builder(context);
+ad.setTitle(title);
+ad.setMessage(message);
+ad.setPositiveButton(button1String, 
+                     new OnClickListener() {
+                       public void onClick(DialogInterface dialog, int arg1) {
+                         eatenByGrue();
+                       }
+                     });
+ad.setNegativeButton(button2String, 
+                     new OnClickListener(){
+                       public void onClick(DialogInterface dialog, int arg1) {
+                         // do nothing
+                       }
+                     });
+ad.setCancelable(true);
+ad.setOnCancelListener(new OnCancelListener() {
+                             public void onCancel(DialogInterface dialog) {
+                               eatenByGrue();
+                             }
+                       }); 
+
+// To display an Alert Dialog that you’ve created call show.
+ad.show();
+
+// *******************************************************************
+// ** Listing 5-29: Using the On Create Dialog Event Handler
+static final private int TIME_DIALOG = 1;
+
+@Override
+public Dialog onCreateDialog(int id) {
+  switch(id) {
+    case (TIME_DIALOG) :
+      AlertDialog.Builder timeDialog = new AlertDialog.Builder(this);
+      timeDialog.setTitle("The Current Time Is...");
+      timeDialog.setMessage("Now");
+      return timeDialog.create();
+  }
+  return null;
+}
+
+// *******************************************************************
+// ** Listing 5-30: Using the On Prepare Dialog Event Handler
+@Override
+public void onPrepareDialog(int id, Dialog dialog) {
+  switch(id) {
+    case (TIME_DIALOG) :
+      SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+      Date currentTime = new Date(java.lang.System.currentTimeMillis());
+      String dateString = sdf.format(currentTime);
+      AlertDialog timeDialog = (AlertDialog)dialog;
+      timeDialog.setMessage(dateString);
+
+      break;
+  }
+}
+
+// ******************************************************************* //

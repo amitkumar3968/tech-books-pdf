@@ -1,0 +1,102 @@
+This directory is intended to contain the default profiles for 
+the 3.0 utilities.  You can use these profiles either by copying
+them to ~/.DjVu/., or by specifying the --config option at runtime.
+
+TEST HISTORY:
+
+02/29/00, Patrick Haffner
+--------------------------------
+Profiles tested for visual aspect:
+clean100
+clean300
+scan100
+scan200
+scan300
+scan600
+draw300
+invert300
+fine-invert300
+fine-text300
+manuscript200
+manuscript300
+
+Profiles just tested for compression rate (just look at the file size, not the output):
+aggressive300: always smaller than other profiles
+
+
+Comparative table for scan200 profiles
+Directory         Size in kilobytes
+          djvu2.0 scan300 aggres  fast300
+book300     240     272     248     272
+catalog    2104    1864    1656    1848  
+cover300    576     552     488     560
+forbes     1288    1240    1120    1232
+global     5792    5832    5192    5696
+historical  792     704     608     680
+magazines  1384    1320    1024    1288 
+newspaper   632     608     560     608 
+real_estat 1456    1400    1256    1440
+scan300     456     432     384     416
+
+Comparative table for draw300 profiles
+Directory         Size in kilobytes
+          djvu2.0 draw300 aggres  fast300
+draw300     296     392     272     448  
+comic300   1096    1032    968     1088    
+  
+Comparative table for manuscript300 profiles
+Directory           Size in kilobytes
+              djvu2.0 manusc aggres  fast300
+manuscript300 4192    6064    3536    4032  
+ 
+Comparative table for manuscript200 profiles
+Directory           Size in kilobytes
+              djvu2.0 manusc aggres  fast300
+manuscript200   184     360     168     184     
+
+
+Comparative table for map300 profiles
+Directory         Size in kilobytes
+          djvu2.0 draw300 aggres  fast300
+maps       2160    2088    1864    2432  
+
+Comparative table for scan* profiles
+Directory           Size in kilobytes
+             djvu2.0 manusc aggres  fast300
+scan300        456     432     384     416
+scan400        680     496     544     600    
+scan500        928     664     704     784    
+scan600       1352    704     1064    1160   
+
+ 
+Comparative table for profiles where the selected profile upsamples the image
+Directory           Size in kilobytes
+              djvu2.0   select aggres  fast300
+fine-invert300  424     496     312     344
+fine-text300    808     1008    704     880   
+scan200         352     728     344     384     
+
+
+03/02/00, Patrick Haffner
+--------------------------------
+Profiles just tested for compression rate and speed (just look at the file size and execution time, not the output):
+fast300: consistently faster than other profiles (30% faster when resolution is the same).
+
+Modified draw and manuscript profiles.
+
+Comparative table for draw300 profiles
+Directory         Size in kilobytes
+          djvu2.0 draw300 aggres  fast300
+draw300     296     288     272     448  
+comic300   1096    1024     968     1088    
+  
+Comparative table for manuscript300 profiles
+Directory           Size in kilobytes
+              djvu2.0 manusc aggres  fast300
+manuscript300 4192    4024    3536    4032   
+
+Comparative table for manuscript200 profiles
+Directory           Size in kilobytes
+              djvu2.0 manusc aggres  fast300
+manuscript200   184     352     168     184     
+

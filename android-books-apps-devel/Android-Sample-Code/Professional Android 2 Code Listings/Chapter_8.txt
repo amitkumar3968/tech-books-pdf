@@ -1,0 +1,328 @@
+// ******************************************************************* //
+// ** Chapter 8 Code Listings                                       ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Location Based Services ************************************* //
+
+// *******************************************************************
+// ** Listing 8-1: Specifying Location Provider Criteria
+Criteria criteria = new Criteria();
+criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+criteria.setPowerRequirement(Criteria.POWER_LOW);
+criteria.setAltitudeRequired(false);
+criteria.setBearingRequired(false);
+criteria.setSpeedRequired(false);
+criteria.setCostAllowed(true);
+
+// *******************************************************************
+// ** Listing 8-2: Requesting location updates
+String provider = LocationManager.GPS_PROVIDER; 
+
+int t = 5000; // milliseconds
+int distance = 5; // meters
+
+LocationListener myLocationListener = new LocationListener() {
+
+  public void onLocationChanged(Location location) {
+    // Update application based on new location.
+  }
+ 
+  public void onProviderDisabled(String provider){
+    // Update application if provider disabled.
+  }
+
+  public void onProviderEnabled(String provider){
+    // Update application if provider enabled.
+  }
+
+  public void onStatusChanged(String provider, int status, 
+                              Bundle extras){
+    // Update application if provider hardware status changed.
+  }
+};
+
+locationManager.requestLocationUpdates(provider, t, distance,
+                                       myLocationListener);
+
+
+// *******************************************************************
+// ** Listing 8-3: Creating a proximity alert Broadcast Receiver
+public class ProximityIntentReceiver extends BroadcastReceiver {
+
+  @Override
+  public void onReceive (Context context, Intent intent) {
+    String key = LocationManager.KEY_PROXIMITY_ENTERING;
+
+    Boolean entering = intent.getBooleanExtra(key, false);
+    [ ... perform proximity alert actions ... ]
+  }
+
+}
+
+privte void register() {
+  IntentFilter filter = new IntentFilter(TREASURE_PROXIMITY_ALERT);
+  registerReceiver(new ProximityIntentReceiver(), filter);
+}
+
+// ** Geocoding *************************************************** //
+
+// *******************************************************************
+// ** Listing 8-4: Reverse-geocoding your last known location
+location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+double latitude = location.getLatitude();
+double longitude = location.getLongitude();
+List<Address> addresses = null;
+
+Geocoder gc = new Geocoder(this, Locale.getDefault());
+try {
+  addresses = gc.getFromLocation(latitude, longitude, 10);
+} catch (IOException e) {}
+
+
+// *******************************************************************
+// ** Listing 8-5: Geocoding an address
+Geocoder fwdGeocoder = new Geocoder(this, Locale.US);
+String streetAddress = "160 Riverside Drive, New York, New York";
+
+List<Address> locations = null;
+try {
+  locations = fwdGeocoder.getFromLocationName(streetAddress, 10);
+} catch (IOException e) {}
+
+// ** Maps ******************************************************** //
+
+// *******************************************************************
+// ** Listing 8-6: A skeleton Map Activity
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import android.os.Bundle;
+
+public class MyMapActivity extends MapActivity {
+  private MapView mapView;
+  private MapController mapController;
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.map_layout);
+    mapView = (MapView)findViewById(R.id.map_view);
+  }
+
+  @Override
+  protected boolean isRouteDisplayed() {
+    // IMPORTANT: This method must return true if your Activity
+    // is displaying driving directions. Otherwise return false.
+    return false;
+  }
+}
+
+// *******************************************************************
+// ** Listing 8-7: A Map Activity layout resource
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <com.google.android.maps.MapView
+    android:id="@+id/map_view"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:enabled="true"
+    android:clickable="true"
+    android:apiKey="mymapapikey"
+  />
+</LinearLayout>
+
+// *******************************************************************
+// ** Listing 8-8: Creating a new Overlay
+import android.graphics.Canvas;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+
+public class MyOverlay extends Overlay {
+  @Override
+  public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+    if (shadow == false) {
+      [ ... Draw annotations on main map layer ... ]
+    }
+    else {
+      [ ... Draw annotations on the shadow layer ... ]
+    }
+  }
+
+  @Override
+  public boolean onTap(GeoPoint point, MapView mapView) {
+   // Return true if screen tap is handled by this overlay
+   return false;
+  }
+}
+
+// *******************************************************************
+// ** Listing 8-9: Using map projections
+Point myPoint = new Point();
+// To screen coordinates
+projection.toPixels(geoPoint, myPoint);
+// To GeoPoint location coordinates
+projection.fromPixels(myPoint.x, myPoint.y);
+
+// *******************************************************************
+// ** Listing 8-10: A simple Map Overlay
+@Override
+public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+  Projection projection = mapView.getProjection();
+
+  Double lat = -31.960906*1E6;
+  Double lng = 115.844822*1E6;
+  GeoPoint geoPoint = new GeoPoint(lat.intValue(), lng.intValue());
+
+  if (shadow == false) {
+    Point myPoint = new Point();
+    projection.toPixels(geoPoint, myPoint);
+
+    // Create and setup your paint brush
+    Paint paint = new Paint();
+    paint.setARGB(250, 255, 0, 0);
+    paint.setAntiAlias(true);
+    paint.setFakeBoldText(true);
+
+    // Create the circle
+    int rad = 5;
+    RectF oval = new RectF(myPoint.x-rad, myPoint.y-rad, 
+                           myPoint.x+rad, myPoint.y+rad);
+
+    // Draw on the canvas
+    canvas.drawOval(oval, paint);
+    canvas.drawText("Red Circle", myPoint.x+rad, myPoint.y, paint);
+  }
+}
+
+// *******************************************************************
+// ** Listing 8-11: Handling map-tap events
+@Override
+public boolean onTap(GeoPoint point, MapView mapView) {
+  // Perform hit test to see if this overlay is handling the click
+  if ([... perform hit test ... ]) {
+    [ ... execute on tap functionality ... ]
+    return true;
+  }
+
+  // If not handled return false
+  return false;
+}
+
+// *******************************************************************
+// ** Listing 8-12: Creating a new Itemized Overlay
+import android.graphics.drawable.Drawable;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.OverlayItem;
+
+public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+
+  public MyItemizedOverlay(Drawable defaultMarker) {
+    super(boundCenterBottom(defaultMarker));
+    populate();
+  }
+
+  @Override
+  protected OverlayItem createItem(int index) {
+    switch (index) {
+      case 1:
+        Double lat = 37.422006*1E6;
+        Double lng = -122.084095*1E6;
+        GeoPoint point = new GeoPoint(lat.intValue(), lng.intValue());
+
+        OverlayItem oi;
+        oi = new OverlayItem(point, "Marker", "Marker Text");
+        return oi;
+    }
+    return null;
+  }
+
+  @Override
+  public int size() {
+    // Return the number of markers in the collection
+    return 1;
+  }
+}
+
+// To add an ItemizedOverlay implementation to your map, create a new instance 
+// (passing in the Drawable marker image to use for each marker) and add it to the 
+// map’s Overlay list.
+List<Overlay> overlays = mapView.getOverlays();
+MyItemizedOverlay markers = new MyItemizedOverlay(r.getDrawable(R.drawable.marker));    
+overlays.add(markers);
+
+// *******************************************************************
+// ** Listing 8-13: Skeleton code for a dynamic Itemized Overlay
+public class MyDynamicItemizedOverlay extends ItemizedOverlay<OverlayItem> 
+{
+  private ArrayList<OverlayItem> items;
+  
+  public MyDynamicItemizedOverlay(Drawable defaultMarker) {
+    super(boundCenterBottom(defaultMarker));
+    items = new ArrayList<OverlayItem>();
+    populate();
+  }
+
+  public void addNewItem(GeoPoint location, String markerText, 
+                         String snippet) {
+    items.add(new OverlayItem(location, markerText, snippet));
+    populate();
+  }
+  
+  public void removeItem(int index) {
+    items.remove(index);
+    populate();
+  }
+  
+  @Override
+  protected OverlayItem createItem(int index) {    
+    return items.get(index);
+  }
+
+  @Override
+  public int size() {
+    return items.size();
+  }
+}
+
+// *******************************************************************
+// ** Listing 8-14: Pinning a View to a map
+int y = 10;
+int x = 10;
+
+EditText editText1 = new EditText(getApplicationContext());
+editText1.setText("Screen Pinned");
+
+MapView.LayoutParams screenLP;
+screenLP = new MapView.LayoutParams(MapView.LayoutParams.WRAP_CONTENT,
+                                    MapView.LayoutParams.WRAP_CONTENT,
+                                    x, y,
+                                    MapView.LayoutParams.TOP_LEFT);
+mapView.addView(editText1, screenLP);
+
+// *******************************************************************
+// ** Listing 8-15: Pinning a View to a geographical location
+Double lat = 37.422134*1E6;
+Double lng = -122.084069*1E6;
+GeoPoint geoPoint = new GeoPoint(lat.intValue(), lng.intValue());
+
+MapView.LayoutParams geoLP;
+geoLP = new MapView.LayoutParams(MapView.LayoutParams.WRAP_CONTENT,
+                                 MapView.LayoutParams.WRAP_CONTENT,
+                                 geoPoint,
+                                 MapView.LayoutParams.TOP_LEFT);
+
+EditText editText2 = new EditText(getApplicationContext());
+editText2.setText("Location Pinned");
+
+mapView.addView(editText2, geoLP);
+
+// ******************************************************************* //

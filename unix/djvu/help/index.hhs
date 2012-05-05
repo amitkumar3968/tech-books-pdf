@@ -1,0 +1,903 @@
+[TOPICS=39]
+"About DjVu technology","about_DjVu_technology.html"
+"Highlighting areas of an image","adding_hilite.html"
+"Adding hyperlinks to images","adding_hlink.html"
+"Changing the background color","change_bg_color.html"
+"Changing display settings while viewing the document","change_display_settings.html"
+"Copyrights & trademarks","copyright.html"
+"Creating multiple-page documents","create_multipage_file.html"
+"Displaying page information","display_page_info.html"
+"Setting display and printer preferences","display_print_prefs.html"
+"Displaying a DjVu document in a frame","displaying_a_DjVu_document_in_a_frame.html"
+"Displaying toolbars and the status bar","displaying_toolbars_and_the_status_bar.html"
+"Components for distributing DjVu files electronically","distribute_files.html"
+"Using the EMBED and OBJECT HTML tags","djvu2web.html"
+"Downloading the DjVu Web Browser Plug-in","downloading_the_DjVu_Web_Browser_Plug-in.html"
+"Dragging image files into DjVu Solo","drag_files.html"
+"Editing and previewing documents","edit-preview.html"
+"Encoding settings","encoding_settings.html"
+"Defining properties of hyperlinks and highlights","hlink_properties.html"
+"Introduction","intro.html"
+"Keyboard shortcuts","keyboard_shortcuts.html"
+"Minimum system requirements","minimum_system_requirements.html"
+"Multiple-page formats","multiple-page_formats.html"
+"Navigating a document","navigate_document.html"
+"Opening and encoding an image file","opening_and_encoding_an_image_file.html"
+"Printing DjVu documents","print.html"
+"Rearranging and removing pages","rearranging_and_removing_pages.html"
+"Resizing and removing hyperlinks and highlight areas","resize_remove_hlink_hilite.html"
+"Saving documents as BMP files","save_as_bmp.html"
+"Saving a page into a new file","saving_a_page_into_a_new_file.html"
+"Scanning images into DjVu Solo","scan_images.html"
+"Setting page or document alignment","set_alignment.html"
+"Setting startup display","set_startup_display.html"
+"Setting zoom levels","set_zoom.html"
+"Running a slide show","slide_show.html"
+"Supported file formats","supported_file_formats.html"
+"Using thumbnails","thumbnails.html"
+"Contacting LizardTech Technical Support","ts_contact.html"
+"Technical support options","ts_options.html"
+"Using MIME types","using_MIME_types.html"
+
+
+[KEYWORDS=747]
+"000", 0
+"0880", 5
+"10", 22
+"100", 12, 24, 20, 32
+"128", 35
+"128mb", 20
+"150", 32
+"18th", 5
+"1992", 18
+"200", 12
+"2000", 5, 20
+"206", 5, 36
+"25", 32
+"250", 12
+"2500", 36
+"256", 35
+"266", 20
+"30", 37
+"300", 29, 32
+"32", 35
+"32mb", 20
+"50", 32
+"5211", 5
+"652", 5
+"75", 32
+"821", 5
+"902", 36
+"95", 20
+"98", 20
+"98104", 5
+"about", 12, 11, 7, 4, 2, 1, 0, 23, 18, 16, 37, 34
+"abov", 0, 29, 17
+"acces", 10, 27, 18, 37
+"accord", 8, 0, 30
+"achiev", 38
+"acquir", 29, 18
+"activ", 10
+"activat", 10, 17
+"ad", 6, 2, 18, 17
+"add", 15, 9, 6, 17, 38
+"addition", 14, 29, 37, 35
+"additional", 6, 2, 31, 37
+"addres", 17
+"adjust", 8, 30, 32
+"administrator", 38
+"advanc", 0
+"affect", 4
+"again", 8, 3, 2
+"ahead", 22
+"alamo", 18
+"align", 30
+"alignment", 30
+"allocat", 7
+"allow", 0
+"alongsid", 10
+"alternativ", 19
+"alway", 15, 17, 32
+"amount", 7, 35
+"anchor", 10
+"answer", 36
+"anywher", 10, 33
+"apach", 38
+"appear", 15, 14, 10, 6, 4, 2, 1, 26, 25, 24, 22, 21, 17, 35, 33, 32
+"appearanc", 2, 1
+"append", 6
+"applicabl", 30, 36
+"application", 14, 10, 3, 29, 18, 16, 37, 33
+"appropriat", 17, 33
+"approximate", 8
+"archiv", 21
+"area", 15, 10, 3, 2, 1, 26, 19, 18, 17
+"around", 26
+"arrow", 26, 35
+"articl", 16, 37
+"as", 14, 10, 6, 2, 29, 28, 27, 23, 21, 19, 18, 35, 32
+"ask", 21
+"assign", 3
+"assist", 36
+"associat", 11, 18, 38
+"association", 38
+"assum", 29
+"attribut", 17
+"audienc", 15
+"availabl", 17, 37, 36
+"avenu", 5
+"away", 10
+"back", 10, 22
+"background", 3, 31, 16
+"backward", 22
+"bandwidth", 18
+"bar", 10, 35, 33
+"bas", 8, 5, 0, 29, 37, 36
+"basic", 23
+"becom", 10, 35
+"bed", 29
+"befor", 6, 26, 21, 36, 35
+"begin", 19, 33
+"behavior", 8, 2, 1
+"below", 22, 17
+"best", 0, 23, 16
+"bet", 12
+"bitmap", 27
+"bitonal", 16
+"black", 31, 16
+"bmp", 27, 34
+"body", 12, 9
+"bord", 17
+"both", 14, 10, 30, 18, 17
+"bottom", 10
+"box", 8, 7, 6, 3, 2, 1, 31, 30, 28, 27, 24, 23, 22, 17, 16, 35, 32
+"breakthrough", 0
+"brief", 10
+"brochur", 16
+"brows", 15, 13, 12, 4, 31, 30, 20, 17, 37, 35, 32
+"bundl", 6, 21, 18
+"button", 15, 10, 3, 2, 1, 26, 17, 32
+"bypas", 29
+"call", 36
+"cannot", 17
+"catalog", 16
+"cd", 20
+"cent", 30
+"center", 30
+"certain", 7, 17
+"cgi", 12
+"chang", 15, 10, 8, 6, 4, 3, 2, 31, 30, 26, 25, 23, 17, 35, 32
+"characteristic", 16
+"check", 8, 29, 17, 36
+"choos", 10, 8, 7, 6, 4, 3, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 17, 16, 35, 33, 32
+"clarity", 0, 29, 35
+"clean", 16
+"clear", 8, 0, 17
+"click", 15, 8, 7, 6, 4, 3, 2, 1, 31, 30, 29, 28, 27, 26, 25, 24, 23, 19, 17, 35, 33, 32
+"cod", 12
+"collection", 18
+"color", 8, 3, 2, 0, 31, 17, 16
+"column", 35
+"com", 13, 12, 5, 0, 18, 37, 36
+"combin", 6, 21
+"command", 14, 10, 29, 22, 19, 35, 33
+"commercial", 18, 37
+"commercialization", 18
+"communication", 5
+"compact", 18
+"company", 18
+"complet", 2, 17
+"complete", 26, 35
+"complimentary", 18, 37
+"component", 11
+"compression", 6, 23, 16
+"comput", 29, 36
+"concentration", 16
+"concern", 35
+"conduct", 20
+"conf", 38
+"configur", 29
+"confirm", 25
+"connect", 29
+"consist", 21
+"consistent", 16
+"consum", 22
+"contact", 38, 37, 36
+"contain", 14, 11, 10, 6, 0, 21, 16, 37, 35
+"content", 18
+"continu", 2
+"convert", 0, 23, 18, 16
+"copi", 24
+"copy", 21
+"copyright", 5
+"corn", 2, 1, 26
+"corporation", 5
+"correct", 24, 17
+"correction", 8
+"correspond", 29, 32
+"cost", 18
+"could", 12
+"countri", 5
+"creat", 11, 10, 6, 2, 29, 26, 25, 23, 21, 20, 18, 17, 16
+"crystal", 0
+"ctrl", 6, 25, 19
+"current", 13, 7, 24, 22, 33
+"cursor", 26, 35
+"custom", 3, 32
+"customiz", 8, 17
+"cut", 25
+"dark", 16
+"dat", 37
+"data", 12
+"day", 37
+"decid", 25
+"decod", 35
+"default", 15, 12, 10, 8, 6, 3, 2, 31, 30, 29, 24, 23, 35, 32
+"defin", 3, 2, 1, 22, 17
+"definition", 17
+"delet", 26, 25, 21
+"deletion", 25
+"deliver", 18
+"demo", 12
+"depend", 21, 17
+"describ", 23, 17, 16, 32
+"description", 10, 17
+"designat", 2
+"destination", 17
+"determin", 8, 31, 17, 16, 35
+"develop", 18
+"devic", 20
+"dialog", 8, 7, 6, 3, 2, 1, 31, 30, 28, 27, 24, 23, 22, 17, 16, 35, 32
+"dictionari", 18
+"dictionary", 11
+"different", 16
+"digital", 0, 18
+"dimension", 12
+"direct", 6, 2, 21
+"direction", 30
+"directory", 21
+"disk", 20
+"display", 14, 12, 10, 9, 8, 7, 6, 4, 3, 31, 30, 29, 25, 24, 23, 22, 21, 17, 38, 35, 33, 32
+"distribut", 11, 6, 27, 21, 18
+"djbz", 11
+"djv", 11, 38, 34
+"djvu", 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 2, 0, 31, 30, 29, 27, 26, 25, 24, 23, 21, 20, 18, 16, 38, 37, 35, 34, 33, 32
+"document", 15, 13, 12, 11, 10, 9, 7, 6, 4, 3, 1, 0, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 38, 35, 33, 32
+"documentation", 36
+"don", 17
+"doubl", 2, 26, 17, 35
+"down", 2, 1, 25
+"download", 13, 21, 20, 37
+"dpi", 29, 23
+"drag", 14, 10, 8, 2, 1, 26, 25, 23, 35
+"draw", 1, 17
+"driv", 20, 36
+"duplicat", 6
+"dur", 20, 16
+"e", 21, 36
+"easi", 15, 2, 25, 18, 35
+"easiest", 12, 26
+"easy", 1
+"edg", 10, 0
+"edit", 15, 8, 6, 3, 31, 30, 27, 26, 32
+"electronic", 18
+"electronical", 11, 16
+"element", 33
+"emb", 12, 38
+"embed", 18
+"enabl", 15, 3, 17
+"encod", 14, 7, 6, 0, 29, 23, 21, 20, 18, 16, 34
+"end", 6, 26, 35, 33
+"entir", 3, 31, 30, 24, 35, 33, 32
+"error", 36
+"esc", 33
+"etch", 17
+"even", 0, 35
+"every", 35
+"exact", 36
+"exampl", 15, 12, 6, 17, 16, 38
+"excellent", 0
+"exist", 6, 29, 17
+"explain", 22
+"explor", 14, 12, 23
+"export", 27
+"extension", 11, 23, 38
+"f", 19
+"f2", 19, 33
+"fast", 29
+"fastest", 18, 17
+"fax", 5
+"featur", 18, 33
+"feed", 29
+"feel", 36
+"few", 17
+"field", 23
+"fil", 14, 12, 11, 10, 9, 6, 2, 0, 29, 28, 27, 25, 24, 23, 21, 20, 19, 18, 16, 38, 36, 35, 34
+"fill", 17
+"fin", 27
+"find", 10, 2, 22
+"first", 8, 6, 2, 24, 22, 21, 19
+"fit", 24, 32
+"float", 10
+"floor", 5
+"focal", 1
+"focus", 18
+"fold", 14, 12, 11, 6, 23
+"follow", 12, 11, 9, 7, 6, 31, 29, 23, 22, 20, 19, 18, 17, 16, 38, 37, 36, 35, 34, 33, 32
+"foreground", 31
+"format", 6, 29, 27, 23, 21, 18, 34
+"former", 18
+"forward", 22
+"found", 18
+"fram", 9, 17, 35
+"fre", 36
+"frequent", 37
+"friday", 36
+"full", 12
+"function", 10, 22, 17
+"futur", 17
+"gather", 36
+"generat", 16, 35
+"generation", 18
+"get", 23
+"gif", 34
+"giv", 7, 2, 31
+"glanc", 1
+"go", 33
+"goto", 22
+"graphic", 29
+"gray", 16
+"grayscal", 16
+"grid", 8
+"group", 5
+"hand", 35
+"handl", 15, 26
+"hard", 0, 20, 36
+"hav", 17, 35
+"height", 12
+"held", 18
+"help", 12
+"helpful", 17
+"hid", 10, 17
+"high", 12, 23, 18
+"highlight", 10, 2, 1, 26, 18, 17
+"hold", 11, 2, 1, 25
+"horizontal", 30
+"hov", 10
+"howev", 15, 10, 3, 22, 21
+"html", 12, 9, 38
+"http", 17
+"hyperlink", 15, 10, 6, 2, 1, 26, 25, 18, 17
+"ideal", 18
+"imag", 14, 12, 7, 6, 3, 2, 1, 0, 31, 30, 29, 24, 23, 21, 20, 19, 18, 16, 38, 35, 34, 32
+"imagefilenam", 9
+"in", 12
+"inc", 5
+"includ", 12, 11, 10, 2, 25, 20, 18, 17, 16, 37
+"incorrect", 6, 25
+"increas", 2, 35
+"independent", 5, 21
+"indirect", 11, 6, 21, 18
+"individual", 6, 21, 18, 32
+"info", 5
+"information", 12, 11, 7, 4, 2, 1, 0, 31, 23, 21, 18, 17, 16, 38, 37, 36, 34
+"innovativ", 18
+"insert", 12, 6, 25, 17
+"insid", 26
+"instal", 12, 36
+"instant", 18
+"instead", 12, 11, 6, 2, 25
+"integrat", 11, 18, 35
+"integration", 35
+"intens", 16
+"internet", 12, 18
+"invert", 16
+"issu", 37, 36
+"it", 14, 12, 10, 18, 37
+"itself", 35
+"iw4", 34
+"iw44", 34
+"job", 16
+"jpeg", 5, 23, 34
+"jpg", 34
+"keep", 21, 35
+"key", 25
+"keyboard", 22, 19, 33
+"know", 22
+"knowledg", 37, 36
+"known", 37
+"l", 19
+"lab", 0, 18
+"laboratory", 18
+"larg", 29, 24, 22, 16, 35
+"largest", 35
+"las", 16
+"last", 24, 22, 19
+"lay", 0, 31
+"layer", 10, 31
+"left", 10, 2, 1, 35, 33
+"length", 26
+"level", 10, 24, 18, 32
+"licens", 18, 37
+"light", 16
+"lin", 2, 18, 17, 38
+"link", 15, 21, 17
+"list", 12, 6, 4, 22, 19, 17, 33, 32
+"lizardtech", 13, 5, 0, 23, 20, 18, 37, 36
+"lo", 18
+"load", 9, 29
+"location", 6, 29, 28, 27, 25
+"logo", 5
+"long", 17
+"look", 8, 17
+"los", 35
+"lost", 21
+"m", 36
+"mad", 0
+"magnification", 24, 32
+"mail", 21, 36
+"main", 10, 7, 1, 27, 35, 33
+"maintain", 23
+"majority", 15
+"mak", 6, 1, 26, 25, 17, 35
+"many", 36
+"match", 8
+"maximiz", 10
+"mean", 35
+"menu", 10, 8, 7, 6, 4, 29, 27, 25, 23, 22, 19, 33, 32
+"messag", 25, 21, 36
+"method", 0
+"mhz", 20
+"microsoft", 12, 5, 20
+"mim", 38
+"minimum", 20
+"minu", 19, 32
+"mod", 15, 31, 26, 17
+"modify", 17
+"monday", 36
+"most", 37
+"mous", 10, 2, 1, 20, 17
+"mov", 10, 2, 25, 17
+"mrsid", 5, 18
+"much", 23, 36, 35
+"multimedia", 18
+"multipl", 11, 6, 28, 25, 21, 18, 35
+"multipurpos", 18
+"n", 5, 19
+"nam", 12, 6, 29, 28, 27, 25, 23, 21, 17
+"national", 18
+"navigat", 14, 13, 6, 23, 22, 35, 33
+"navigation", 22, 33
+"navigator", 5
+"necessary", 23
+"need", 11, 18
+"netscap", 5
+"new", 6, 3, 28, 25, 21, 18, 17
+"newspap", 16
+"next", 2, 22, 19, 18, 33
+"no", 11, 9, 17
+"noresiz", 9
+"not", 15, 6, 29, 25, 21, 17, 16
+"now", 18
+"nt", 5, 20
+"numb", 12, 10, 6, 29, 24, 22, 17, 33
+"number", 6, 25, 24, 17
+"o", 19
+"object", 12, 38
+"occur", 36
+"off", 28, 35
+"ojbect", 12
+"old_bundl", 18
+"old_index", 18
+"on", 11, 10, 6, 3, 31, 26, 25, 21, 17, 16, 35, 33, 32
+"onc", 35
+"open", 15, 14, 10, 8, 6, 4, 3, 31, 30, 29, 27, 23, 22, 21, 19, 17, 16, 35, 34, 32
+"operat", 36
+"optimization", 18
+"option", 31, 17, 37, 36
+"ord", 25
+"original", 6, 0, 29, 23, 21, 20, 16, 32
+"otherwis", 30
+"out", 10, 1, 19, 17, 32
+"outlin", 2, 17
+"output", 20
+"outsid", 5
+"ov", 10, 1, 26, 17, 35
+"oval", 2, 17
+"overrid", 4
+"own", 14
+"owner", 5
+"p", 19, 36
+"pacific", 36
+"pack", 20
+"pag", 12, 11, 10, 8, 7, 6, 3, 1, 31, 30, 28, 27, 25, 24, 22, 21, 19, 18, 17, 35, 33, 32
+"palet", 3, 17
+"pap", 24, 18
+"paramet", 12
+"parameter", 12
+"part", 5, 35
+"particular", 1, 22
+"past", 25
+"pbm", 34
+"pct", 34
+"percentag", 32
+"perfect", 18
+"perform", 29
+"pgm", 34
+"phon", 36
+"photo", 16
+"photograph", 0, 18, 16
+"pick", 1, 17
+"pict", 34
+"pixel", 12, 7, 17, 35, 32
+"plac", 10, 2, 29, 26, 17
+"plain", 17
+"platform", 18
+"pleas", 36
+"plu", 19, 32
+"plug", 13, 12, 4, 31, 20, 37
+"pnm", 34
+"point", 10, 6, 2, 1, 26, 25, 20, 17
+"polygon", 2
+"polygonal", 2, 17
+"portion", 7
+"position", 14, 10, 30, 35
+"power", 0
+"powerful", 18
+"ppm", 34
+"preced", 22
+"prefer", 12
+"preferenc", 8, 16
+"prefix", 17
+"pres", 6, 25, 19, 33, 32
+"present", 11, 31
+"presentation", 1, 33
+"preserv", 0
+"prevent", 6, 25
+"preview", 15, 26, 17
+"previou", 22, 19
+"print", 10, 8, 24, 19, 16
+"private", 18
+"problem", 36
+"procedur", 29
+"proces", 29, 20, 16, 34
+"processor", 20
+"produc", 29, 16
+"product", 13, 12, 18, 37, 36
+"program", 27, 23
+"proper", 29
+"properti", 2, 1, 17
+"property", 5
+"proportionate", 26
+"provid", 12, 2, 1, 18, 37
+"publish", 6, 21
+"purchas", 37
+"purpos", 18
+"quality", 0, 23, 18
+"question", 36
+"quick", 29, 25, 22, 18, 36, 32
+"r", 19
+"rais", 17
+"ram", 20, 36
+"rang", 25, 24
+"ratio", 7, 0
+"read", 23
+"readm", 36
+"ready", 36
+"rearrang", 25
+"reassign", 17
+"recommend", 29, 20
+"rectangl", 2, 1
+"rectangular", 2, 26, 17
+"redirect", 17
+"reduc", 24, 35
+"reduction", 0
+"referenc", 12, 11, 21
+"regardles", 26, 32
+"register", 5
+"releas", 2, 1, 18
+"relevant", 36
+"reliabl", 29
+"remarkab", 18
+"remov", 26, 25, 17, 35
+"renam", 6, 21
+"repeat", 11
+"replac", 12, 18
+"report", 6
+"report_0001", 6
+"reposition", 10
+"represent", 35
+"representation", 35
+"reproduc", 36
+"reproduction", 18
+"request", 6
+"requir", 12
+"requirement", 20
+"reserv", 5
+"resiz", 26, 35, 32
+"resolution", 7, 6, 29, 23, 18
+"resolv", 36
+"resourc", 37, 36
+"respectiv", 5
+"rest", 6
+"result", 12, 0
+"retain", 0
+"return", 15
+"review", 23
+"right", 10, 8, 7, 6, 5, 26, 25, 22, 35, 33
+"robust", 18
+"rom", 20
+"run", 23, 33
+"sav", 10, 6, 29, 28, 27, 23, 21, 19, 18
+"scal", 32
+"scan", 6, 0, 29, 23, 21, 16
+"screen", 10, 8, 35, 33, 32
+"script", 12
+"scrol", 9, 22
+"se", 15
+"search", 20
+"seattl", 5
+"second", 5
+"section", 12, 9, 22, 17
+"select", 8, 7, 6, 3, 1, 31, 30, 29, 28, 25, 24, 23, 21, 17, 16, 32
+"selection", 26
+"separat", 10, 0, 21
+"sequenc", 25
+"serv", 18, 38
+"server", 38
+"serverroot", 38
+"servic", 20
+"set", 15, 12, 8, 6, 4, 31, 30, 24, 23, 17, 16, 35, 32
+"setting", 8, 4, 1, 31, 30, 29, 17, 16, 32
+"several", 6, 21, 16
+"shad", 16
+"shadow", 17
+"shap", 26
+"shar", 11, 18
+"sheet", 29
+"shift", 6, 25
+"ship", 5
+"shop", 18
+"shortcut", 25, 22, 19, 33
+"should", 17
+"show", 10, 6, 28, 25, 22, 19, 17, 35, 33
+"shown", 17
+"sid", 26, 22, 35
+"sign", 19
+"similar", 16, 33
+"singl", 6, 3, 31, 30, 24, 21
+"sit", 13, 0, 20, 37
+"siz", 15, 12, 7, 3, 2, 0, 30, 26, 24, 23, 18, 16, 35, 32
+"skip", 22
+"slid", 8, 19, 33
+"slideshow", 33
+"smal", 3, 30, 25, 23
+"small", 0, 18, 16, 35
+"soft", 0
+"softwar", 5, 29, 18
+"solid", 2
+"solo", 15, 14, 10, 8, 7, 6, 2, 31, 30, 29, 27, 26, 23, 21, 20, 18, 16, 37, 35, 34, 33, 32
+"solution", 18
+"someon", 17
+"sourc", 29
+"spac", 10, 7, 20, 18, 36, 35
+"specifi", 17
+"specific", 10, 22, 32
+"specify", 10, 6, 28, 24, 22, 17
+"spent", 15
+"squar", 8
+"src", 12, 9
+"staff", 36
+"standard", 10
+"start", 15, 29, 23, 35
+"startup", 4, 31, 32
+"statistic", 7
+"statu", 10, 33
+"step", 29, 23
+"still", 10, 21, 17, 35
+"stor", 11, 18
+"storag", 18
+"stretch", 32
+"structur", 17
+"styl", 2, 17
+"sufficient", 20
+"suggest", 36
+"sunken", 17
+"supplemental", 2
+"support", 6, 23, 18, 37, 36, 34
+"sur", 26, 38
+"surround", 3, 2
+"system", 20, 38, 36
+"tabl", 22, 19
+"tag", 12, 9, 38
+"tak", 35
+"target", 17
+"task", 10, 36
+"technical", 37, 36
+"technologi", 0
+"technology", 0, 18
+"temporary", 20
+"ten", 22
+"test", 29, 16
+"text", 0, 18, 17, 16
+"therefor", 35
+"thin", 2
+"think", 17
+"thre", 2
+"through", 22, 21, 36
+"throughout", 11
+"thumb", 11
+"thumbnail", 11, 7, 6, 28, 27, 25, 22, 18, 35, 33
+"tif", 34
+"tiff", 23, 34
+"tim", 15, 11, 25, 22, 18, 17, 36, 35
+"tip", 6, 25, 23, 22, 32
+"togeth", 0
+"tool", 10, 18
+"toolbar", 15, 10, 2, 1, 26, 32
+"top", 10, 30
+"topic", 23
+"trademark", 5
+"try", 16
+"tun", 27
+"turn", 28, 35
+"two", 10, 18
+"typ", 12, 2, 27, 23, 21, 17, 16, 38, 35, 32
+"typewritten", 16
+"u", 5
+"uncheck", 35
+"und", 10, 8, 24
+"uniqu", 12
+"until", 8
+"up", 2, 1, 37
+"updat", 37
+"url", 12, 17
+"us", 15, 21, 18, 16, 36, 32
+"useful", 1
+"user", 2, 1, 27, 21, 18, 17, 32
+"valu", 23, 35
+"variety", 18
+"variou", 29, 37, 36
+"version", 13, 18, 37
+"vertex", 2
+"vertic", 2
+"vertical", 30
+"very", 0, 16
+"view", 13, 10, 7, 4, 31, 22, 21, 19, 17, 35, 32
+"visibl", 17
+"visit", 13, 0, 18, 37
+"voic", 5
+"washington", 5
+"way", 38, 33
+"we", 29, 36
+"web", 13, 12, 6, 4, 1, 0, 31, 27, 21, 20, 37
+"wheel", 5
+"whil", 4, 31, 25, 23, 32
+"whit", 3, 31, 16
+"who", 27, 18
+"whos", 17
+"wid", 12, 18
+"width", 12, 26, 17, 32
+"window", 14, 10, 7, 5, 3, 31, 30, 29, 27, 23, 20, 17, 35, 33, 32
+"word", 20
+"work", 15, 5, 4, 0, 29, 26, 16, 36, 35, 32
+"workload", 2
+"www", 13, 5, 0, 18, 37, 36
+"x", 12, 38
+"xor", 17
+"yes", 25
+"yield", 0
+"zoom", 10, 24, 19, 32
+
+
+[STOPWORDS=110]
+"a"
+"after"
+"all"
+"along"
+"already"
+"also"
+"am"
+"among"
+"an"
+"and"
+"another"
+"any"
+"are"
+"at"
+"be"
+"because"
+"been"
+"between"
+"but"
+"by"
+"can"
+"do"
+"does"
+"doesn"
+"done"
+"each"
+"either"
+"for"
+"from"
+"get"
+"has"
+"have"
+"here"
+"how"
+"i"
+"if"
+"in"
+"into"
+"is"
+"isn"
+"it"
+"like"
+"may"
+"maybe"
+"more"
+"must"
+"need"
+"non"
+"not"
+"of"
+"ok"
+"okay"
+"on"
+"or"
+"other"
+"rather"
+"re"
+"s"
+"same"
+"see"
+"so"
+"some"
+"such"
+"t"
+"than"
+"that"
+"the"
+"their"
+"them"
+"then"
+"there"
+"these"
+"they"
+"this"
+"those"
+"to"
+"too"
+"unless"
+"use"
+"used"
+"using"
+"was"
+"were"
+"ve"
+"want"
+"way"
+"what"
+"when"
+"whenever"
+"where"
+"when"
+"whether"
+"which"
+"will"
+"with"
+"within"
+"without"
+"yet"
+"you"
+"your"
+"1"
+"2"
+"3"
+"4"
+"5"
+"6"
+"7"
+"8"
+"9"
+"0"

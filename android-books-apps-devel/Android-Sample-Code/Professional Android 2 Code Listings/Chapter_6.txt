@@ -1,0 +1,137 @@
+// ******************************************************************* //
+// ** Chapter 6 Code Listings                                       ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Shared Preferences ****************************************** //
+
+// *******************************************************************
+// ** Listing 6-1: Creating new Shared Preferences
+  // Retrieve an editor to modify the shared preferences.
+  SharedPreferences.Editor editor = mySharedPreferences.edit();
+
+  // Store new primitive types in the shared preferences object.
+  editor.putBoolean("isTrue", true);
+  editor.putFloat("lastFloat", 1f);
+  editor.putInt("wholeNumber", 2);
+  editor.putLong("aNumber", 3l);
+  editor.putString("textEntryValue", "Not Empty");
+
+  // Commit the changes.
+  editor.commit();
+}
+
+// *******************************************************************
+// ** Listing 6-2: Retreiving saved Shared Preferences
+public void loadPreferences() {
+  // Get the stored preferences
+  int mode = Activity.MODE_PRIVATE;
+  SharedPreferences mySharedPreferences = getSharedPreferences(MY_PREFS, mode); 
+
+  // Retrieve the saved values.
+  boolean isTrue = mySharedPreferences.getBoolean("isTrue", false);
+  float lastFloat = mySharedPreferences.getFloat("lastFloat", 0f);
+  int wholeNumber = mySharedPreferences.getInt("wholeNumber", 1);
+  long aNumber = mySharedPreferences.getLong("aNumber", 0);
+  String stringPreference = mySharedPreferences.getString("textEntryValue", "");
+}
+
+// *******************************************************************
+// ** Listing 6-3: A simple Shared Preferences screen
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory
+    android:title="My Preference Category"/>
+    <CheckBoxPreference
+      android:key="PREF_CHECK_BOX"
+      android:title="Check Box Preference"
+      android:summary="Check Box Preference Description" 
+      android:defaultValue="true"
+    />               
+  </PreferenceCategory>         
+</PreferenceScreen>
+
+// *******************************************************************
+// ** Listing 6-4: On Shared Preference Change Listener skeleton implementation
+public class MyActivity extends Activity implements 
+OnSharedPreferenceChangeListener {
+  @Override
+  public void onCreate(Bundle SavedInstanceState) {
+    // Register this OnSharedPreferenceChangeListener
+    Context context = getApplicationContext();
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    prefs.registerOnSharedPreferenceChangeListener(this);
+  }
+
+  public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+    // TODO Check the shared preference and key parameters and change UI or 
+    // behavior as appropriate.
+  }
+}
+
+// ** Persisting Activity State *********************************** //
+
+// *******************************************************************
+// ** Listing 6-5: Saving Activity state
+protected void saveActivityPreferences(){
+  // Create or retrieve the activity preference object.
+  SharedPreferences activityPreferences = getPreferences(Activity.MODE_PRIVATE);
+
+  // Retrieve an editor to modify the shared preferences.
+  SharedPreferences.Editor editor = activityPreferences.edit();
+
+  // Retrieve the View
+  TextView myTextView = (TextView)findViewById(R.id.myTextView);
+
+  // Store new primitive types in the shared preferences object.
+  editor.putString("currentTextValue", myTextView.getText().toString());
+
+  // Commit changes.
+  editor.commit();
+}
+
+// *******************************************************************
+// ** Listing 6-6: Saving Activity instance state
+private static final String TEXTVIEW_STATE_KEY = "TEXTVIEW_STATE_KEY";
+
+@Override
+public void onSaveInstanceState(Bundle outState) {
+  // Retrieve the View
+  TextView myTextView = (TextView)findViewById(R.id.myTextView);
+
+  // Save its state
+  outState.putString(TEXTVIEW_STATE_KEY, myTextView.getText().toString());
+  super.onSaveInstanceState(outState);
+}
+
+// *******************************************************************
+// ** Listing 6-7: Restoring Activity instance state
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+  setContentView(R.layout.main);
+
+  TextView myTextView = (TextView)findViewById(R.id.myTextView);
+
+  String text = "";
+  if (icicle != null && icicle.containsKey(TEXTVIEW_STATE_KEY))
+    text = icicle.getString(TEXTVIEW_STATE_KEY);
+
+  myTextView.setText(text);
+}
+
+// ** Files ******************************************************* //
+
+// *******************************************************************
+// ** Listing 6-8: Saving and loading files
+String FILE_NAME = "tempfile.tmp";
+
+// Create a new output file stream that’s private to this application.
+FileOutputStream fos = openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+// Create a new file input stream.
+FileInputStream fis = openFileInput(FILE_NAME);
+
+// ******************************************************************* //

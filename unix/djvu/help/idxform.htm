@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>WebHelp Index input frame</TITLE>
+<META NAME="generator" CONTENT="RoboHELP by eHelp Corporation www.ehelp.com">
+<!-- version 4.00.00 -->
+<SCRIPT LANGUAGE="JavaScript" src="webhelp4.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+IndexWriteClassStyle();
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#c0c0c0">
+<DIV ID="IndexInputFormDiv" style="position:absolute; left:0; top:0; height:30 z-index:1; visibility:visible">
+<FORM NAME="IndexInputForm" onSubmit="IndexInputSubmit(); return false;">
+   <TABLE width="120%" BGCOLOR="#c0c0c0" CELLSPACING="0" CELLPADDING="5" BORDER="2">
+   <TR>
+    <TD>
+	<P><FONT COLOR="black">Type in the keyword to find:</FONT><BR><INPUT TYPE="text"  SIZE ="27" NAME="keywordField" onFocus="IndexInputEnable(1);" onBlur="IndexInputEnable(0);"></P>
+    </TD>
+   </TR>
+   </TABLE>
+</FORM>
+</DIV>
+</BODY>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (!gbIE55) {
+	document.IndexInputForm.keywordField.focus();
+}
+else {
+	document.IndexInputForm.keywordField.onblur = resetHighLight;
+}
+IndexSiteInit();
+//-->
+</SCRIPT>
+</HTML>

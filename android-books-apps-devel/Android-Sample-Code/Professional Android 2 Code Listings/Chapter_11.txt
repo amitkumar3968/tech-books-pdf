@@ -1,0 +1,510 @@
+// ******************************************************************* //
+// ** Chapter 11 Code Listings                                      ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Media Playback ********************************************** //
+
+// *******************************************************************
+// ** Listing 11-1: Initializing audio content for playback
+Context appContext = getApplicationContext();
+
+MediaPlayer resourcePlayer = MediaPlayer.create(appContext, R.raw.my_audio);
+MediaPlayer filePlayer = MediaPlayer.create(appContext, Uri.parse("file:///sdcard/localfile.mp3"));
+MediaPlayer urlPlayer = MediaPlayer.create(appContext, Uri.parse("http://site.com/audio/audio.mp3"));
+MediaPlayer contentPlayer = MediaPlayer.create(appContext, Settings.System.DEFAULT_RINGTONE_URI);
+
+// *******************************************************************
+// ** Listing 11-2: Using setDataSource and prepare to initialize audio playback
+MediaPlayer mediaPlayer = new MediaPlayer();
+mediaPlayer.setDataSource("/sdcard/test.3gp");
+mediaPlayer.prepare();
+
+// *******************************************************************
+// ** Listing 11-3: Video playback using a Video View
+VideoView videoView = (VideoView)findViewById(R.id.surface);
+videoView.setKeepScreenOn(true);
+videoView.setVideoPath("/sdcard/test2.3gp");
+if (videoView.canSeekForward())
+  videoView.seekTo(videoView.getDuration()/2);
+videoView.start();
+// [ ... do something ... ]
+videoView.stopPlayback();
+
+// *******************************************************************
+// ** Listing 11-4: Sample layout including a Surface View
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <SurfaceView 
+    android:id="@+id/surface"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+  </SurfaceView>
+</LinearLayout>
+
+// *******************************************************************
+// ** Listing 11-5: Initializing and assigning a Surface View to a Media Player
+public class MyActivity extends Activity implements SurfaceHolder.Callback 
+{
+  private MediaPlayer mediaPlayer;
+
+  @Override    
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+    mediaPlayer = new MediaPlayer();
+
+    SurfaceView surface = (SurfaceView)findViewById(R.id.surface);
+    SurfaceHolder holder = surface.getHolder();
+    holder.addCallback(this);
+    holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    holder.setFixedSize(400, 300);
+  }
+ 
+  public void surfaceCreated(SurfaceHolder holder) {  
+    try {
+      mediaPlayer.setDisplay(holder);
+    } catch (IllegalArgumentException e) {
+      Log.d("MEDIA_PLAYER", e.getMessage());
+    } catch (IllegalStateException e) {
+      Log.d("MEDIA_PLAYER", e.getMessage());
+    } catch (IOException e) {
+      Log.d("MEDIA_PLAYER", e.getMessage());
+    }
+  }
+
+  public void surfaceDestroyed(SurfaceHolder holder) {
+    mediaPlayer.release();
+  }   
+
+  public void surfaceChanged(SurfaceHolder holder, 
+                             int format, int width, int height) { }
+}
+
+// *******************************************************************
+// ** Listing 11-6: Initializing video for playback using the Media Player
+public void surfaceCreated(SurfaceHolder holder) {  
+  try {
+    mediaPlayer.setDisplay(holder);
+    mediaPlayer.setDataSource("/sdcard/test2.3gp");
+    mediaPlayer.prepare();
+    mediaPlayer.start();
+  } catch (IllegalArgumentException e) {
+    Log.d("MEDIA_PLAYER", e.getMessage());
+  } catch (IllegalStateException e) {
+    Log.d("MEDIA_PLAYER", e.getMessage());
+  } catch (IOException e) {
+    Log.d("MEDIA_PLAYER", e.getMessage());
+  }
+}
+
+// *******************************************************************
+// ** Listing 11-7: Controlling Playback
+mediaPlayer.start();
+
+int pos = mediaPlayer.getCurrentPosition();
+int duration = mediaPlayer.getDuration();
+    
+mediaPlayer.seekTo(pos + (duration-pos)/10);
+
+[... wait for a duration ... ]
+
+mediaPlayer.stop();
+
+// ** Media Recording ********************************************* //
+
+// *******************************************************************
+// ** Listing 11-8: Listing 11-8: Recording video using an Intent
+private static int RECORD_VIDEO = 1;
+private static int HIGH_VIDEO_QUALITY = 1;
+private static int MMS_VIDEO_QUALITY = 0;
+
+private void recordVideo(Uri outputpath) {
+  Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+  if (outputpath != null)
+    intent.putExtra(MediaStore.EXTRA_OUTPUT, output);
+  intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, HIGH_VIDEO_QUALITY);
+
+  startActivityForResult(intent, RECORD_VIDEO);
+}
+
+@Override
+protected void onActivityResult(int requestCode, 
+                                int resultCode, Intent data) {
+  if (requestCode == RECORD_VIDEO) {
+    Uri recordedVideo = data.getData();
+    // TODO Do something with the recorded video
+  }
+}
+
+// *******************************************************************
+// ** MediaRecorder mediaRecorder = new MediaRecorder();
+
+// Configure the input sources
+mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+        
+// Set the output format
+mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+
+// Specify the audio and video encoding        
+mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
+
+// Specify the output file
+mediaRecorder.setOutputFile("/sdcard/myoutputfile.mp4");
+
+// Prepare to record
+mediaRecorder.prepare();
+
+mediaRecorder.start();
+
+// Time passes.
+mediaRecorder.stop();
+mediaRecorder.release();
+
+// *******************************************************************
+// ** Listing 11-10: Previewing video recording
+public class MyActivity extends Activity implements SurfaceHolder.Callback 
+{
+  private MediaRecorder mediaRecorder;
+
+  @Override    
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+    
+    SurfaceView surface = (SurfaceView)findViewById(R.id.surface);
+    SurfaceHolder holder = surface.getHolder();
+    holder.addCallback(this);
+    holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    holder.setFixedSize(400, 300);
+  }
+ 
+  public void surfaceCreated(SurfaceHolder holder) {  
+    if (mediaRecorder == null) {
+      try {
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+        
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
+        mediaRecorder.setOutputFile("/sdcard/myoutputfile.mp4");
+
+        mediaRecorder.setPreviewDisplay(holder.getSurface());        
+        mediaRecorder.prepare();
+      } catch (IllegalArgumentException e) {
+        Log.d("MEDIA_PLAYER", e.getMessage());
+      } catch (IllegalStateException e) {
+        Log.d("MEDIA_PLAYER", e.getMessage());
+      } catch (IOException e) {
+        Log.d("MEDIA_PLAYER", e.getMessage());
+      }
+    }
+  }
+
+  public void surfaceDestroyed(SurfaceHolder holder) {
+    mediaRecorder.release();
+  } 
+
+  public void surfaceChanged(SurfaceHolder holder, 
+                             int format, int width, int height) { }  
+
+}
+
+// *******************************************************************
+// ** Listing 11-11: Taking a picture using an Intent
+private static int TAKE_PICTURE = 1;
+private Uri outputFileUri;
+
+private void getThumbailPicture() {
+  Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+  startActivityForResult(intent, TAKE_PICTURE);
+}
+
+private void saveFullImage() {
+  Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+  File file = new File(Environment.getExternalStorageDirectory(), 
+                       "test.jpg");
+  outputFileUri = Uri.fromFile(file); 
+  intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+  startActivityForResult(intent, TAKE_PICTURE);
+}
+
+@Override
+protected void onActivityResult(int requestCode, 
+                                int resultCode, Intent data) {
+  if (requestCode == TAKE_PICTURE) {
+    Uri imageUri = null;
+
+    // Check if the result includes a thumbnail Bitmap
+    if (data != null) {     
+      if (data.hasExtra("data")) {
+        Bitmap thumbnail = data.getParcelableExtra("data");
+        // TODO Do something with the thumbnail
+      }
+    }
+    else {
+     // TODO Do something with the full image stored
+     // in outputFileUri
+    }
+  }
+}
+
+// *******************************************************************
+// ** Listing 11-12: Using the Camera
+Camera camera = Camera.open();
+[ ... Do things with the camera ... ]
+camera.release();
+
+// *******************************************************************
+// ** Listing 11-13: Reading and modifying camera settings
+Camera.Parameters parameters = camera.getParameters();
+[ ... make changes ... ]
+camera.setParameters(parameters);
+
+// *******************************************************************
+// ** Listing 11-14: Confirming supported camera settings
+Camera.Parameters parameters = camera.getParameters();
+List<String> colorEffects = parameters.getSupportedColorEffects();
+if (colorEffects.contains(Camera.Parameters.EFFECT_SEPIA))
+  parameters.setColorEffect(Camera.Parameters.EFFECT_SEPIA);
+camera.setParameters(parameters);
+
+// *******************************************************************
+// ** Listing 11-15: Monitoring auto focus
+camera.autoFocus(new AutoFocusCallback() {
+  public void onAutoFocus(boolean success, Camera camera) {
+    // TODO Do something on Auto-Focus success 
+  }
+});
+
+// *******************************************************************
+// ** Listing 11-16: Previewing real-time camera stream
+public class MyActivity extends Activity implements SurfaceHolder.Callback {
+  private Camera camera;
+
+  @Override    
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+    
+    SurfaceView surface = (SurfaceView)findViewById(R.id.surface);
+    SurfaceHolder holder = surface.getHolder();
+    holder.addCallback(this);
+    holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    holder.setFixedSize(400, 300);
+  }
+ 
+  public void surfaceCreated(SurfaceHolder holder) {  
+    if (mediaRecorder == null) {
+      try {
+        camera = camera.open();
+        camera.setPreviewDisplay(holder);
+        camera.startPreview();
+        [ ... Draw on the Surface ...]
+      } catch (IOException e) {
+        Log.d("CAMERA", e.getMessage());
+      }
+    }
+  }
+
+  public void surfaceDestroyed(SurfaceHolder holder) {
+    camera.stopPreview();
+    camera.release();
+  }
+}
+
+// *******************************************************************
+// ** Listing 11-17: Assigning a preview frame callback
+camera.setPreviewCallback(new PreviewCallback() {
+  public void onPreviewFrame(byte[] _data, Camera _camera) {
+   // TODO Do something with the preview image.
+  }
+});
+
+// *******************************************************************
+// ** Listing 11-18: Taking a picture
+private void takePicture() {
+  camera.takePicture(shutterCallback, rawCallback, jpegCallback); 
+}
+
+ShutterCallback shutterCallback = new ShutterCallback() {
+  public void onShutter() {
+    // TODO Do something when the shutter closes.
+  }
+};
+
+PictureCallback rawCallback = new PictureCallback() {
+  public void onPictureTaken(byte[] data, Camera camera) {
+    // TODO Do something with the image RAW data.
+  }
+};
+
+PictureCallback jpegCallback = new PictureCallback() {
+  public void onPictureTaken(byte[] data, Camera camera) {
+    // Save the image JPEG data to the SD card
+    FileOutputStream outStream = null;
+    try {
+      outStream = new FileOutputStream("/sdcard/test.jpg");
+      outStream.write([AU: Shouldn’t this be ‘_data’. Milan. Thanks, fixed. RETO]data);
+      outStream.close();
+    } catch (FileNotFoundException e) {
+      Log.d("CAMERA", e.getMessage());
+    } catch (IOException e) {
+      Log.d("CAMERA", e.getMessage());
+    }
+  }
+};
+
+// *******************************************************************
+// ** Listing 11-19: Reading and modifying EXIF data
+File file = new File(Environment.getExternalStorageDirectory(),
+                     "test.jpg");
+try {
+  ExifInterface exif = new ExifInterface(file.getCanonicalPath());
+  // Read the camera model and location attributes
+  String model = exif.getAttribute(ExifInterface.TAG_MODEL);
+  float[] latLng = new float[2];
+  exif.getLatLong(latLng);
+  // Set the camera make
+  exif.setAttribute(ExifInterface.TAG_MAKE, "My Phone");
+} catch (IOException e) {
+  Log.d("EXIF", e.getMessage());
+}
+
+// *******************************************************************
+// ** Listing 11-20: Adding files to the Media Store using the Media Scanner
+MediaScannerConnectionClient mediaScannerClient = new MediaScannerConnectionClient() {
+  private MediaScannerConnection msc = null;
+
+  {
+    msc = new MediaScannerConnection(getApplicationContext(), this);  
+    msc.connect();
+  }
+      
+  public void onMediaScannerConnected() {
+    msc.scanFile("/sdcard/test1.jpg", null);
+  }
+
+  public void onScanCompleted(String path, Uri uri) {
+    msc.disconnect();         
+  }
+};
+
+// ** Raw Audio Manipulation ************************************** //
+
+// *******************************************************************
+// ** Listing 11-21: Recording raw audio with Audio Record
+int frequency = 11025;
+int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
+File file = new File(Environment.getExternalStorageDirectory(), "raw.pcm");
+   
+// Create the new file.
+try {
+  file.createNewFile();
+} catch (IOException e) {}
+ 
+try {
+  OutputStream os = new FileOutputStream(file);
+  BufferedOutputStream bos = new BufferedOutputStream(os);
+  DataOutputStream dos = new DataOutputStream(bos);
+     
+  int bufferSize = AudioRecord.getMinBufferSize(frequency, 
+                                                channelConfiguration,
+                                                audioEncoding);
+  short[] buffer = new short[bufferSize];
+
+  // Create a new AudioRecord object to record the audio.
+  AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, 
+                                            frequency, 
+                                            channelConfiguration, 
+                                            audioEncoding, bufferSize);  
+  audioRecord.startRecording();
+
+  while (isRecording) {
+    int bufferReadResult = audioRecord.read(buffer, 0, bufferSize);
+    for (int i = 0; i < bufferReadResult; i++)
+      dos.writeShort(buffer[i]);
+  }
+
+  audioRecord.stop();
+  dos.close();
+} catch (Throwable t) {}
+
+
+// *******************************************************************
+// ** Listing 11-22: Playing raw audio with Audio Track
+int frequency = 11025/2;
+int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
+File file = new File(Environment.getExternalStorageDirectory(), "raw.pcm");
+
+// Short array to store audio track (16 bit so 2 bytes per short)
+int audioLength = (int)(file.length()/2);
+short[] audio = new short[audioLength];
+
+try {
+  InputStream is = new FileInputStream(file);
+  BufferedInputStream bis = new BufferedInputStream(is);
+  DataInputStream dis = new DataInputStream(bis);
+      
+  int i = 0;
+  while (dis.available() > 0) {
+    audio[audioLength] = dis.readShort();
+    i++;
+  }
+
+  // Close the input streams.
+  dis.close();     
+
+  // Create and play a new AudioTrack object 
+  AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 
+                                         frequency, 
+                                         channelConfiguration,
+                                         audioEncoding, 
+                                         audioLength, 
+                                         AudioTrack.MODE_STREAM);
+  audioTrack.play();  
+  audioTrack.write(audio, 0, audioLength);
+} catch (Throwable t) {}
+
+// ** Speach Recognition ****************************************** //
+
+// *******************************************************************
+// ** Listing 11-23: Initiating a speech recognition request
+Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+// Specify free form input
+intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+intent.putExtra(RecognizerIntent.EXTRA_PROMPT, 
+                "or forever hold your peace");
+intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
+startActivityForResult(intent, VOICE_RECOGNITION);
+
+// *******************************************************************
+// ** Listing 11-24: Finding the results of a speech recognition request
+@Override
+protected void onActivityResult(int requestCode, 
+                                int resultCode, 
+                                Intent data) {
+  if (requestCode == VOICE VOICE_RECOGNITION && resultCode == RESULT_OK) {
+    ArrayList<String> results;
+    results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+    // TODO Do something with the recognized voice strings
+  }
+  super.onActivityResult(requestCode, resultCode, data);
+}
+
+// ******************************************************************* //

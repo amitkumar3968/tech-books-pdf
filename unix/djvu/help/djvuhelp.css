@@ -1,0 +1,255 @@
+/*=(===============================================================)*/
+
+/*=(===============================================================)*/
+/*=(Created with RoboEditor.)=======================================*/
+/*=(===============================================================)*/
+
+TH {
+	font-style: bold;
+	background-color: #000099;
+	color: #ffffff;
+}
+
+H2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14.0pt;
+	color: #000099;
+	line-height: 20.0pt;
+	font-stretch: condensed;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-H2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14.0pt;
+	color: #000099;
+	line-height: 20.0pt;
+	font-stretch: condensed;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+H3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11.0pt;
+	color: #000099;
+	line-height: 15.0pt;
+	margin-top: 6.0pt;
+	font-stretch: condensed;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-H3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11.0pt;
+	color: #000099;
+	line-height: 15.0pt;
+	font-stretch: condensed;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+.caption {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8.0pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-Ccaption {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8.0pt;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+.row1 {
+	background-color: #E0E0E0;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-Crow1 {
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+.row2 {
+	background-color: #ffffff;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-Crow2 {
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+.top {
+	font-size: 8.0pt;
+	margin-left: 2.0ex;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-Ctop {
+	font-size: 8.0pt;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+P {
+	font-family: Arial;
+	font-size: 10.0pt;
+	color: #000000;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P {
+	font-family: Arial;
+	font-size: 10.0pt;
+	color: #000000;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+P.Bullet {
+	font-family: Arial;
+	font-size: 10.0pt;
+	text-align: left;
+	list-style-type: disc;
+	color: #000000;
+	line-height: 12.0pt;
+	margin-top: 0.0pt;
+	margin-bottom: 6.0pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P-CBullet {
+	font-family: Arial;
+	font-size: 10.0pt;
+	text-align: left;
+	list-style-type: disc;
+	color: #000000;
+	line-height: 12.0pt;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+P.Indented {
+	font-family: Arial;
+	font-size: 10.0pt;
+	color: #000000;
+	margin-left: 30.0pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P-CIndented {
+	font-family: Arial;
+	font-size: 10.0pt;
+	color: #000000;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+P.Note {
+	font-family: Arial;
+	font-size: 10.0pt;
+	text-transform: uppercase;
+	color: #000000;
+	margin-bottom: -6.0pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P-CNote {
+	font-family: Arial;
+	font-size: 10.0pt;
+	text-transform: uppercase;
+	color: #000000;
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+P.indent2 {
+	margin-left: 40.0pt;
+}
+
+/*=(Generated Code)=================================================*/
+/*=(WARNING: DO NOT EDIT OR DELETE THIS SECTION!)===================*/
+/*begin!kadov{{=====================================================*/ 
+LI.kadov-P-Cindent2 {
+}
+/*}}end!kadov=======================================================*/ 
+
+
+
+BODY {
+	background-color: #ffffff;
+}
+
+SPAN.Code {
+	font-family: courier;
+}
+
+A.expandspot {
+	cursor: hand;
+	color: #008000;
+	font-style: normal;
+}
+
+SPAN.expandtext {
+	color: #ff0000;
+	font-weight: normal;
+	font-style: italic;
+}
+
+A.dropspot {
+	font-style: italic;
+	cursor: hand;
+	color: #008000;
+}
+
+A.glossterm {
+	cursor: hand;
+	color: #800000;
+	font-style: normal;
+}
+
+SPAN.glosstext {
+	color: #0000ff;
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+/*=(===============================================================)*/

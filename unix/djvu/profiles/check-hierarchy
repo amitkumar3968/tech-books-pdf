@@ -1,0 +1,12 @@
+egrep ':' documenttodjvu.conf | grep -v \# | sed 's,-,_,g' | awk '{if (NF!=1) printf "class %s {};\n", $0; else {sub(":", " ", $1); printf "class %s {};\n", $1 }}' > list.cpp
+rm tmp
+touch tmp
+rm -r Doc
+mkdir Doc
+doc++ -i -A -d Doc -B tmp list.cpp
+cd Doc
+for i in *.html
+do
+sed 's|\.class|\.foo|g' $i | sed 's|classes|profiles|g' | sed 's|class|profile|g' | sed 's|\.foo|\.class|g' | sed 's|=profil|=class|g' > tmp
+mv tmp $i
+done

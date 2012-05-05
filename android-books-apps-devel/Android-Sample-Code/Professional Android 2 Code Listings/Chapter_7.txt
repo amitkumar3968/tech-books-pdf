@@ -1,0 +1,502 @@
+// ******************************************************************* //
+// ** Chapter 7 Code Listings                                       ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** SQLite Databases ******************************************** //
+
+// *******************************************************************
+// ** Listing 7-1: Skeleton code for a standard database adapter implementation
+import android.content.Context;
+import android.database.*;
+import android.database.sqlite.*;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
+
+public class MyDBAdapter {
+  private static final String DATABASE_NAME = "myDatabase.db";
+  private static final String DATABASE_TABLE = "mainTable";
+  private static final int DATABASE_VERSION = 1;
+ 
+  // The index (key) column name for use in where clauses.
+  public static final String KEY_ID="_id";
+
+  // The name and column index of each column in your database.
+  public static final String KEY_NAME="name"; 
+  public static final int NAME_COLUMN = 1;
+  // TODO: Create public field for each column in your table.
+  
+  // SQL Statement to create a new database.
+  private static final String DATABASE_CREATE = "create table " + 
+    DATABASE_TABLE + " (" + KEY_ID + 
+    " integer primary key autoincrement, " +
+    KEY_NAME + " text not null);";
+
+  // Variable to hold the database instance
+  private SQLiteDatabase db;
+  // Context of the application using the database.
+  private final Context context;
+  // Database open/upgrade helper
+  private myDbHelper dbHelper;
+
+  public MyDBAdapter(Context _context) {
+    context = _context;
+    dbHelper = new myDbHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+  }
+
+  public MyDBAdapter open() throws SQLException {
+    db = dbHelper.getWritableDatabase();
+    return this;
+  }
+
+  public void close() {
+      db.close();
+  }
+
+  public int insertEntry(MyObject _myObject) {
+    // TODO: Create a new ContentValues to represent my row
+    // and insert it into the database.
+    return index;
+  }
+
+  public boolean removeEntry(long _rowIndex) {
+    return db.delete(DATABASE_TABLE, KEY_ID + "=" + _rowIndex, null) > 0;
+  }
+
+  public Cursor getAllEntries () {
+    return db.query(DATABASE_TABLE, new String[] {KEY_ID, KEY_NAME}, 
+                    null, null, null, null, null);
+  }
+
+  public MyObject getEntry(long _rowIndex) {
+    // TODO: Return a cursor to a row from the database and
+    // use the values to populate an instance of MyObject
+    return objectInstance;
+  }
+
+  public boolean updateEntry(long _rowIndex, MyObject _myObject) {
+    // TODO: Create a new ContentValues based on the new object
+    // and use it to update a row in the database.
+    return true;
+  }
+
+  private static class myDbHelper extends SQLiteOpenHelper {
+
+    public myDbHelper(Context context, String name, 
+                      CursorFactory factory, int version) {
+      super(context, name, factory, version);
+    }
+
+    // Called when no database exists in disk and the helper class needs
+    // to create a new one. 
+    @Override
+    public void onCreate(SQLiteDatabase _db) {
+      _db.execSQL(DATABASE_CREATE);
+    }
+
+    // Called when there is a database version mismatch meaning that the version
+    // of the database on disk needs to be upgraded to the current version.
+    @Override
+    public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion) {
+      // Log the version upgrade.
+      Log.w("TaskDBAdapter", "Upgrading from version " + 
+                             _oldVersion + " to " +
+                             _newVersion + ", which will destroy all old data");
+        
+      // Upgrade the existing database to conform to the new version. Multiple 
+      // previous versions can be handled by comparing _oldVersion and _newVersion
+      // values.
+
+      // The simplest case is to drop the old table and create a new one.
+      _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+      // Create a new one.
+      onCreate(_db);
+    }
+  }
+}
+
+// *******************************************************************
+// ** Listing 7-2: Using the SQLiteOpenHelper to access a database
+dbHelper = new myDbHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+SQLiteDatabase db;
+try {
+  db = dbHelper.getWritableDatabase();
+}
+catch (SQLiteException ex){
+  db = dbHelper.getReadableDatabase();
+} 
+
+// *******************************************************************
+// ** Listing 7-3: Creating a new database
+private static final String DATABASE_NAME = "myDatabase.db";
+private static final String DATABASE_TABLE = "mainTable";
+
+private static final String DATABASE_CREATE = 
+  "create table " + DATABASE_TABLE + " ( _id integer primary key autoincrement," +
+  "column_one text not null);";
+
+SQLiteDatabase myDatabase;
+
+private void createDatabase() {
+  myDatabase = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+  myDatabase.execSQL(DATABASE_CREATE);
+}
+
+// *******************************************************************
+// ** Listing 7-4: Querying a database
+// Return all rows for columns one and three, no duplicates
+String[] result_columns = new String[] {KEY_ID, KEY_COL1, KEY_COL3};
+
+Cursor allRows = myDatabase.query(true, DATABASE_TABLE, result_columns, 
+                                  null, null, null, null, null, null);
+
+// Return all columns for rows where column 3 equals a set value
+// and the rows are ordered by column 5.
+String where = KEY_COL3 + "=" + requiredValue;
+String order = KEY_COL5;
+Cursor myResult = myDatabase.query(DATABASE_TABLE, null, where, 
+                                   null, null, null, order);
+
+// *******************************************************************
+// ** Listing 7-5: Extracting values from a Cursor
+int GOLD_HOARDED_COLUMN = 2;
+
+Cursor myGold = myDatabase.query("GoldHoards", null, null, null, null, null, null);
+
+float totalHoard = 0f;
+
+// Make sure there is at least one row.
+if (myGold.moveToFirst()) {
+  // Iterate over each cursor.
+  do { 
+    float hoard = myGold.getFloat(GOLD_HOARDED_COLUMN);
+    totalHoard += hoard;
+  } while(myGold.moveToNext());
+}
+
+Float averageHoard = totalHoard / myGold.getCount();
+
+// *******************************************************************
+// ** Listing 7-6: Inserting new rows into a database 
+// Create a new row of values to insert.
+ContentValues newValues = new ContentValues();
+
+// Assign values for each row.
+newValues.put(COLUMN_NAME, newValue);
+[ ... Repeat for each column ... ]
+
+// Insert the row into your table
+myDatabase.insert(DATABASE_TABLE, null, newValues);
+
+// *******************************************************************
+// ** Listing 7-7: Updating a database row
+// Define the updated row content.
+ContentValues updatedValues = new ContentValues();
+
+// Assign values for each row.
+newValues.put(COLUMN_NAME, newValue);
+[ ... Repeat for each column ... ]
+
+String where = KEY_ID + "=" + rowId;
+		
+// Update the row with the specified index with the new values.
+myDatabase.update(DATABASE_TABLE, newValues, where, null);
+
+// *******************************************************************
+// ** Listing 7-8: Deleting a database row
+myDatabase.delete(DATABASE_TABLE, KEY_ID + "=" + rowId, null);
+
+// ** Content Providers ******************************************* //
+
+// *******************************************************************
+// ** Listing 7-9: Creating a new Content Provider
+import android.content.*;
+import android.database.Cursor;
+import android.net.Uri;
+import android.database.SQLException;
+
+public class MyProvider extends ContentProvider {
+
+  @Override
+  public boolean onCreate() {
+    // TODO Construct the underlying database.
+    return true;
+  }
+}
+
+// *******************************************************************
+// ** Listing 7-10: Using the UriMatcher to handle single or multiple query requests
+public class MyProvider extends ContentProvider {
+
+  private static final String myURI = "content://com.paad.provider.myapp/items";
+  public static final Uri CONTENT_URI = Uri.parse(myURI);
+
+  @Override
+  public boolean onCreate() {
+    // TODO: Construct the underlying database.
+    return true;
+  }
+
+  // Create the constants used to differentiate between the different URI 
+  // requests.
+  private static final int ALLROWS = 1;
+  private static final int SINGLE_ROW = 2;
+  
+  private static final UriMatcher uriMatcher;
+
+  // Populate the UriMatcher object, where a URI ending in 'items' will
+  // correspond to a request for all items, and 'items/[rowID]' 
+  // represents a single row.
+  static {
+    uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    uriMatcher.addURI("com.paad.provider.myApp", "items", ALLROWS);
+    uriMatcher.addURI("com.paad.provider.myApp", "items/#", SINGLE_ROW);
+  }
+}
+
+// *******************************************************************
+// ** Listing 7-11: Implementing queries and transactions within a Content Provider
+@Override
+public Cursor query(Uri uri, 
+                    String[] projection, 
+                    String selection, 
+                    String[] selectionArgs, 
+                    String sort) {
+      
+  // If this is a row query, limit the result set to the passed in row.        
+  switch (uriMatcher.match(uri)) {
+    case SINGLE_ROW : 
+      // TODO: Modify selection based on row id, where:
+      // rowNumber = uri.getPathSegments().get(1));
+  }
+  return null;
+}
+
+@Override
+public Uri insert(Uri _uri, ContentValues _initialValues) {
+  long rowID = [ ... Add a new item ... ]
+        
+  // Return a URI to the newly added item.
+  if (rowID > 0) {
+    return ContentUris.withAppendedId(CONTENT_URI, rowID);
+  }
+  throw new SQLException("Failed to add new item into " + _uri);
+}
+
+@Override
+public int delete(Uri uri, String where, String[] whereArgs) {
+  switch (uriMatcher.match(uri)) {
+    case ALLROWS: 
+    case SINGLE_ROW:
+    default: throw new IllegalArgumentException("Unsupported URI:" + uri);
+  }
+}
+
+@Override
+public int update(Uri uri, ContentValues values, String where, String[] 
+whereArgs) {
+  switch (uriMatcher.match(uri)) {
+    case ALLROWS: 
+    case SINGLE_ROW:
+    default: throw new IllegalArgumentException("Unsupported URI:" + uri);
+  }
+}
+
+// *******************************************************************
+// ** Listing 7-12: Defining a Content Provider MIME type
+@Override
+public String getType(Uri _uri) {
+  switch (uriMatcher.match(_uri)) {
+    case ALLROWS: return "vnd.paad.cursor.dir/myprovidercontent";
+    case SINGLE_ROW: return "vnd.paad.cursor.item/myprovidercontent";
+    default: throw new IllegalArgumentException("Unsupported URI: " + _uri);
+  }
+}
+
+// *******************************************************************
+// ** Listing 7-13: Querying a Content Provider with a Content Resolver 
+ContentResolver cr = getContentResolver();
+
+// Return all rows
+Cursor allRows = cr.query(MyProvider.CONTENT_URI, null, null, null, null);
+
+// Return all columns for rows where column 3 equals a set value
+// and the rows are ordered by column 5.
+String where = KEY_COL3 + "=" + requiredValue;
+String order = KEY_COL5;
+Cursor someRows = cr.query(MyProvider.CONTENT_URI, 
+                           null, where, null, order);
+
+// *******************************************************************
+// ** Listing 7-14: Inserting new rows into a Content Provider
+// Get the Content Resolver
+ContentResolver cr = getContentResolver();
+
+// Create a new row of values to insert.
+ContentValues newValues = new ContentValues();
+
+// Assign values for each row.
+newValues.put(COLUMN_NAME, newValue);
+[ ... Repeat for each column ... ]
+
+Uri myRowUri = cr.insert(MyProvider.CONTENT_URI, newValues);
+
+// Create a new row of values to insert.
+ContentValues[] valueArray = new ContentValues[5];
+
+// TODO: Create an array of new rows
+int count = cr.bulkInsert(MyProvider.CONTENT_URI, valueArray);
+
+// *******************************************************************
+// ** Listing 7-15: Deleting records from a Content Provider
+ContentResolver cr = getContentResolver();
+
+// Remove a specific row.
+cr.delete(myRowUri, null, null);
+// Remove the first five rows.
+String where = "_id < 5";
+cr.delete(MyProvider.CONTENT_URI, where, null);
+
+// *******************************************************************
+// ** Listing 7-16: Updating records in a Content Provider 
+// Create a new row of values to insert.
+ContentValues newValues = new ContentValues();
+
+// Create a replacement map, specifying which columns you want to
+// update, and what values to assign to each of them.
+newValues.put(COLUMN_NAME, newValue);
+
+// Apply to the first 5 rows.
+String where = "_id < 5";
+
+getContentResolver().update(MyProvider.CONTENT_URI, newValues, where, null);
+
+// *******************************************************************
+// ** Listing 7-17: Adding files to Content Providers 
+// Insert a new row into your provider, returning its unique URI.
+Uri uri = getContentResolver().insert(MyProvider.CONTENT_URI, newValues);
+
+try {
+  // Open an output stream using the new row's URI.
+  OutputStream outStream = getContentResolver().openOutputStream(uri);
+  // Compress your bitmap and save it into your provider.
+  sourceBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+}
+catch (FileNotFoundException e) { }
+
+// ** Media Store ************************************************* //
+
+// *******************************************************************
+// ** Listing 7-18: Accessing the Media Store Content Provider
+// Get a cursor over every piece of audio on the external volume.
+Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                                           null, null, null, null); 
+
+// Let the activity manage the cursor lifecycle.
+startManagingCursor(cursor);
+
+// Use the convenience properties to get the index of the columns
+int albumIdx = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM); 
+int titleIdx = cursor. getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
+
+String[] result = new String[cursor.getCount()];
+if (cursor.moveToFirst())
+  do { 
+    // Extract the song title.
+    String title = cursor.getString(titleIdx);
+    // Extract the album name.
+    String album = cursor.getString(albumIdx);
+
+    result[cursor.getPosition()] = title + " (" + album + ")";
+  } while(cursor.moveToNext());
+
+// ** Contacts Content Provider *********************************** //
+
+// *******************************************************************
+// ** Listing 7-19: Accessing the Contact Content Provider
+// Get a cursor over every aggregated contact.
+Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, 
+                                           null, null, null, null); 
+
+// Let the activity manage the cursor lifecycle.
+startManagingCursor(cursor);
+
+// Use the convenience properties to get the index of the columns
+int nameIdx = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME); 
+int idIdx = cursor. getColumnIndexOrThrow(ContactsContract.Contacts._ID);
+
+String[] result = new String[cursor.getCount()];
+if (cursor.moveToFirst())
+  do { 
+    // Extract the name.
+    String name = cursor.getString(nameIdx);
+    // Extract the phone number.
+    String id = cursor.getString(idIdx);
+
+    result[cursor.getPosition()] = name + " (" + id + ")";
+  } while(cursor.moveToNext());
+
+stopManagingCursor(cursor);
+
+// *******************************************************************
+// ** Listing 7-20: Finding contact details after finding a contact
+// Find a contact using a partial name match
+Uri lookupUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_FILTER_URI,
+                                     "kristy");
+
+Cursor idCursor = getContentResolver().query(lookupUri, null, null, null, null);
+           
+String id = null;
+if (idCursor.moveToFirst()) {
+  int idIdx = idCursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID);
+  id = idCursor.getString(idIdx);
+}
+idCursor.close();
+
+if (id != null) {
+  // Return all the contact details of type PHONE for the contact we found
+  String where = ContactsContract.Data.CONTACT_ID + " = " + id + " AND " +
+                 ContactsContract.Data.MIMETYPE + " = '" + 
+                 ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE + "'";
+      
+  Cursor dataCursor = getContentResolver().query(ContactsContract.Data.CONTENT_URI, 
+                                                     null, where, null, null);
+
+  // Use the convenience properties to get the index of the columns
+  int nameIdx = dataCursor.getColumnIndexOrThrow(ContactsContract.Data.DISPLAY_NAME); 
+  int phoneIdx = 
+    dataCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER);
+      
+  String[] result = new String[dataCursor.getCount()];
+  if (dataCursor.moveToFirst())
+    do { 
+      // Extract the name.
+      String name = dataCursor.getString(nameIdx);
+      // Extract the phone number.
+      String number = dataCursor.getString(phoneIdx);
+
+      result[dataCursor.getPosition()] = name + " (" + number + ")";
+    } while(dataCursor.moveToNext());
+  dataCursor.close();
+}
+
+// *******************************************************************
+// ** Listing 7-21: Performing a caller-ID lookup
+String incomingNumber = "5551234";
+
+Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, 
+                                     incomingNumber);
+
+Cursor idCursor = getContentResolver().query(lookupUri, null, null, null, null);
+
+if (idCursor.moveToFirst()) {
+  int nameIdx = idCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
+  String caller = idCursor.getString(nameIdx);
+  Toast.makeText(getApplicationContext(), caller, Toast.LENGTH_LONG).show();
+}
+idCursor.close();
+
+// ******************************************************************* //

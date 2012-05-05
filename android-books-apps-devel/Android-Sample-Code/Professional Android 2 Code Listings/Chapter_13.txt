@@ -1,0 +1,367 @@
+// ******************************************************************* //
+// ** Chapter 13 Code Listings                                      ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Bluetooth *************************************************** //
+
+// *******************************************************************
+// ** Listing 13-1: Accessing the default Bluetooth Adapter
+
+BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+
+// *******************************************************************
+// ** Listing 13-1 (Manifest): Manifest permission nodes
+<uses-permission android:name="android.permission.BLUETOOTH"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+// *******************************************************************
+// ** Listing 13-2: Reading Bluetooth Adapter properties
+BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+
+String toastText;
+if (bluetooth.isEnabled()) {
+  String address = bluetooth.getAddress();
+  String name = bluetooth.getName();
+  toastText = name + " : " + address;
+}
+else
+  toastText = "Bluetooth is not enabled";
+
+Toast.makeText(this, toastText, Toast.LENGTH_LONG).show();
+
+bluetooth.setName("Blackfang");
+
+// *******************************************************************
+// ** Listing 13-3: Enabling Bluetooth and tracking the adapter state
+BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+
+BroadcastReceiver bluetoothState = new BroadcastReceiver() {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    String prevStateExtra = BluetoothAdapter.EXTRA_PREVIOUS_STATE;
+    String stateExtra = BluetoothAdapter.EXTRA_STATE;
+    int state = intent.getIntExtra(stateExtra, -1);
+    int previousState = intent.getIntExtra(prevStateExtra, -1);
+
+    String tt = "";
+    switch (state) {
+      case (BluetoothAdapter.STATE_TURNING_ON) : {
+        tt = "Bluetooth turning on"; break;
+      }
+      case (BluetoothAdapter.STATE_ON) : {
+        tt = "Bluetooth on";
+        unregisterReceiver(this);  
+        break;
+      }
+      case (BluetoothAdapter.STATE_TURNING_OFF) : {
+        tt = "Bluetooth turning off"; break;
+      }
+      case (BluetoothAdapter.STATE_OFF) : {
+        tt = "Bluetooth off"; break;
+      }
+      default: break;
+    }
+
+    Toast.makeText(this, tt, Toast.LENGTH_LONG).show();
+  }
+};
+
+if (!bluetooth.isEnabled()) {
+  String actionStateChanged = BluetoothAdapter.ACTION_STATE_CHANGED;
+  String actionRequestEnable = BluetoothAdapter.ACTION_REQUEST_ENABLE;
+  registerReceiver(bluetoothState,
+                   new IntentFilter(actionStateChanged));
+  startActivityForResult(new Intent(actionRequestEnable), 0);
+}
+
+// *******************************************************************
+// ** Listing 13-4: Monitoring discoverability modes
+@Override
+protected void onActivityResult(int requestCode, 
+                                int resultCode, Intent data) {
+  if (requestCode == DISCOVERY_REQUEST) {
+    boolean isDiscoverable = resultCode > 0;
+    int discoverableDuration = resultCode; 
+  }
+}
+
+// *******************************************************************
+// ** Listing 13-5: Monitoring discoverability modes
+registerReceiver(new BroadcastReceiver() {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    String prevScanMode = BluetoothAdapter.EXTRA_PREVIOUS_SCAN_MODE;
+    String scanMode = BluetoothAdapter.EXTRA_SCAN_MODE;
+    int scanMode = intent.getIntExtra(scanMode, -1);
+    int prevMode = intent.getIntExtra(prevScanMode, -1);
+  }
+}, new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED));
+
+// *******************************************************************
+// ** Listing 13-6: Monitoring discovery
+BroadcastReceiver discoveryMonitor = new BroadcastReceiver() {
+
+  String dStarted = BluetoothAdapter.ACTION_DISCOVERY_STARTED;
+  String dFinished = BluetoothAdapter.ACTION_DISCOVERY_FINISHED;
+
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    if (dStarted.equals(intent.getAction())) { 
+      // Discovery has started.
+      Toast.makeText(getApplicationContext(),
+                     "Discovery Started...", Toast.LENGTH_SHORT).show();
+    }
+    else if (dFinished.equals(intent.getAction())) {
+      // Discovery has completed.
+      Toast.makeText(getApplicationContext(),
+                     "Discovery Completed...", Toast.LENGTH_SHORT).show();
+    }
+  }      
+};
+registerReceiver(discoveryMonitor, 
+                 new IntentFilter(dStarted));
+registerReceiver(discoveryMonitor, 
+                 new IntentFilter(dFinished));
+
+// *******************************************************************
+// ** Listing 13-7: Discovering remote Bluetooth Devices    
+BroadcastReceiver discoveryResult = new BroadcastReceiver() {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    String remoteDeviceName = 
+      intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+    BluetoothDevice remoteDevice;
+    remoteDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+    Toast.makeText(getApplicationContext(),
+                   "Discovered: " + remoteDeviceName, 
+                   Toast.LENGTH_SHORT).show();
+
+    // TODO Do something with the remote Bluetooth Device.
+  }
+};
+registerReceiver(discoveryResult, 
+                 new IntentFilter(BluetoothDevice.ACTION_FOUND));
+
+if (!bluetooth.isDiscovering())
+  bluetooth.startDiscovery();
+
+// *******************************************************************
+// ** Listing 13-8: Listening for Bluetooth Socket connection requests
+private void requestBluetooth() {
+  startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE),
+                         DISCOVERY_REQUEST);
+}
+
+@Override
+protected void onActivityResult(int requestCode, 
+                                int resultCode, Intent data) {
+  if (requestCode == DISCOVERY_REQUEST) {
+    boolean isDiscoverable = resultCode > 0;
+    int discoverableDuration = resultCode; 
+    if (isDiscoverable) {
+      UUID uuid = UUID.fromString("a60f35f0-b93a-11de-8a39-08002009c666");
+      String name = "bluetoothserver";
+
+      final BluetoothServerSocket btserver = 
+        bluetooth.listenUsingRfcommWithServiceRecord(name, uuid);
+
+      Thread acceptThread = new Thread(new Runnable() {
+        public void run() {
+          try {
+            // Block until client connection established.
+            BluetoothSocket serverSocket = btserver.accept();
+            // TODO Transfer data using the server socket
+          } catch (IOException e) {
+            Log.d("BLUETOOTH", e.getMessage());            
+          }
+        }
+      });
+      acceptThread.start();
+    }
+  }
+}
+
+// *******************************************************************
+// ** Listing 13-9: Checking remote devices for discoverability and pairing
+final BluetoothDevice device = bluetooth.getRemoteDevice("01:23:77:35:2F:AA");
+final Set<BluetoothDevice> bondedDevices = bluetooth.getBondedDevices();
+
+BroadcastReceiver discoveryResult = new BroadcastReceiver() {
+@Override
+public void onReceive(Context context, Intent intent) {
+  BluetoothDevice remoteDevice = 
+    intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+        
+    if ((remoteDevice.equals(device) && 
+        (bondedDevices.contains(remoteDevice)) { 
+      // TODO Target device is paired and discoverable
+    }
+};
+
+registerReceiver(discoveryResult, 
+                 new IntentFilter(BluetoothDevice.ACTION_FOUND));
+
+if (!bluetooth.isDiscovering())
+  bluetooth.startDiscovery();
+
+// *******************************************************************
+// ** Listing 13-10: Connecting to a remote Bluetooth server
+Try{
+  BluetoothDevice device = bluetooth.getRemoteDevice("00:23:76:35:2F:AA");
+  BluetoothSocket clientSocket = 
+    device.createRfcommSocketToServiceRecord(uuid);
+  clientSocket.connect();
+  // TODO Transfer data using the Bluetooth Socket
+} catch (IOException e) {
+  Log.d("BLUETOOTH", e.getMessage());            
+}
+
+// *******************************************************************
+// ** Listing 13-11: Sending and receiving strings using Bluetooth Sockets
+private void sendMessage(String message){ 
+  OutputStream outStream;
+  try {
+    outStream = socket.getOutputStream();
+
+    // Add a stop character.
+    byte[] byteArray = (message + " ").getBytes();
+    byteArray[byteArray.length - 1] = 0;
+
+    outStream.write(byteArray);
+  } catch (IOException e) { }    
+}
+
+private String listenForMessage()
+  String result  = "";
+  int bufferSize = 1024;
+  byte[] buffer = new byte[bufferSize];      
+
+  try {
+    InputStream instream = socket.getInputStream();
+    int bytesRead = -1;
+
+    while (true) {
+      bytesRead = instream.read(buffer);
+      if (bytesRead != -1) {
+        while ((bytesRead == bufferSize) && (buffer[bufferSize-1] != 0)){
+          message = message + new String(buffer, 0, bytesRead);
+          bytesRead = instream.read(buffer);
+        }
+        message = message + new String(buffer, 0, bytesRead - 1); 
+	return result;
+      }
+    }
+
+  } catch (IOException e) {}
+
+  return result;
+}
+
+// ** Connectivity ************************************************ //
+
+// *******************************************************************
+// ** Listing 13-12: Accessing the Connectivity Manager
+String service = Context.CONNECTIVITY_SERVICE;
+ConnectivityManager connectivity = (ConnectivityManager)getSystemService(service);
+
+// *******************************************************************
+// ** Listing 13-13: Accessing the Connectivity Manager
+registerReceiver(
+  new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      // Do something when the background data setting changes.
+    }, 
+  new IntentFilter(ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED));
+
+// *******************************************************************
+// ** Listing 13-14: Accessing network information
+// Get the active network information.
+NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
+int networkType = networkInfo.getType();
+switch (networkType) {
+  case (ConnectivityManager.TYPE_MOBILE) : break;
+  case (ConnectivityManager.TYPE_WIFI) : break;
+  default: break;
+}
+
+// Get the mobile network information.
+int network = ConnectivityManager.TYPE_MOBILE;
+NetworkInfo mobileNetwork = connectivity.getNetworkInfo(network);
+NetworkInfo.State state = mobileNetwork.getState();
+NetworkInfo.DetailedState detailedState = mobileNetwork.getDetailedState();
+
+// ** WiFi ******************************************************** //
+
+// *******************************************************************
+// ** Listing 13-15: Accessing the Wi-Fi Manager
+String service = Context.WIFI_SERVICE;
+WifiManager wifi = (WifiManager)getSystemService(service);
+
+// *******************************************************************
+// ** Listing 13-15 (Manifest): Wi-Fi Manager WiFi Permissions
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+// *******************************************************************
+// ** Listing 13-16: Monitoring and changing Wi-Fi state
+if (!wifi.isWifiEnabled())
+  if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLING)
+    wifi.setWifiEnabled(true);
+
+// *******************************************************************
+// ** Listing 13-17: Querying the active network connection
+WifiInfo info = wifi.getConnectionInfo();
+if (info.getBSSID() != null) {
+  int strength = WifiManager.calculateSignalLevel(info.getRssi(), 5);
+  int speed = info.getLinkSpeed();
+  String units = WifiInfo.LINK_SPEED_UNITS;
+  String ssid = info.getSSID();
+          
+  String cSummary = String.format("Connected to %s at %s%s. Strength %s/5",
+                                   ssid, speed, units, strength);
+} 
+
+// *******************************************************************
+// ** Listing 13-18: Querying the active network connection
+// Register a broadcast receiver that listens for scan results.
+registerReceiver(new BroadcastReceiver() {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    List<ScanResult> results = wifi.getScanResults();
+    ScanResult bestSignal = null;
+    for (ScanResult result : results) {
+      if (bestSignal == null || 
+          WifiManager.compareSignalLevel(bestSignal.level,result.level)<0)
+        bestSignal = result;
+    }
+
+    String toastText = String.format("%s networks found. %s is 
+                                     the strongest.",
+                                     results.size(), bestSignal.SSID);
+
+    Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG);
+  }
+}, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+
+// Initiate a scan.
+wifi.startScan();
+
+
+// *******************************************************************
+// ** Listing 13-19: Activating a network connection
+// Get a list of available configurations
+List<WifiConfiguration> configurations = wifi.getConfiguredNetworks();
+// Get the network ID for the first one.
+if (configurations.size() > 0) {
+  int netID = configurations.get(0).networkId;
+  // Enable that network.
+  boolean disableAllOthers = true;
+  wifi.enableNetwork(netID, disableAllOtherstrue);
+}
+
+// ******************************************************************* //

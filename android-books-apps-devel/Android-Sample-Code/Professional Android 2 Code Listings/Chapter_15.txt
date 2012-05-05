@@ -1,0 +1,659 @@
+Chapter 15 Code Listings
+
+// Listing 15-1: Declaring a new permission
+<permission 
+  android:name="com.paad.DETONATE_DEVICE"
+  android:protectionLevel="dangerous"
+  android:label="Self Destruct"
+  android:description="@string/detonate_description">
+</permission>
+
+//Listing 15-2: Enforcing a permission requirement for an Activity
+<activity 
+  android:name=".MyActivity" 
+  android:label="@string/app_name"
+  android:permission="com.paad.DETONATE_DEVICE">
+</activity>
+
+// Listing 15-3: Using a Wake Lock
+PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+WakeLock wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, 
+                                   "MyWakeLock");
+wakeLock.acquire();
+[ ... Do things requiring the CPU stay active ... ]
+wakeLock.release();
+
+// Listing 15-4: Initializing Text to Speech
+boolean ttsIsInit = false;
+TextToSpeech tts = null;
+
+tts = new TextToSpeech(this, new OnInitListener() {
+       public void onInit(int status) {
+         if (status == TextToSpeech.SUCCESS) {
+           ttsIsInit = true;
+           // TODO Speak!
+         }
+       }
+      }); 
+
+// Listing 15-5: Using Text to Speech
+private static int TTS_DATA_CHECK = 1;
+
+private TextToSpeech tts = null;
+private boolean ttsIsInit = false;
+
+private void initTextToSpeech() {
+  Intent intent = new Intent(Engine.ACTION_CHECK_TTS_DATA);
+  startActivityForResult(intent, TTS_DATA_CHECK);
+}
+  
+protected void onActivityResult(int requestCode, 
+                                int resultCode, Intent data) {
+  if (requestCode == TTS_DATA_CHECK) {
+    if (resultCode == Engine.CHECK_VOICE_DATA_PASS) {
+      tts = new TextToSpeech(this, new OnInitListener() {
+       public void onInit(int status) {
+         if (status == TextToSpeech.SUCCESS) {
+           ttsIsInit = true;
+           if (tts.isLanguageAvailable(Locale.UK) >= 0)
+             tts.setLanguage(Locale.UK);
+           tts.setPitch(0.8f);
+           tts.setSpeechRate(1.1f);
+           speak();  
+         }
+       }
+      }); 
+    } else {
+      Intent installVoice = new Intent(Engine.ACTION_INSTALL_TTS_DATA);
+      startActivity(installIntent);
+    }
+  }
+}
+
+private void speak() {
+  if (tts != null && ttsIsInit) {    
+    tts.speak("Hello, Android", TextToSpeech.QUEUE_ADD, null);
+  }
+}
+  
+@Override
+public void onDestroy() {
+  if (tts != null) {
+    tts.stop();
+    tts.shutdown();
+  }
+  super.onDestroy(); 
+} 
+
+// Listing 15-6: Making the Quake class Parcelable
+package com.paad.earthquake;
+
+import java.util.Date;
+import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Quake implements Parcelable { 
+  private Date date;
+  private String details;
+  private Location location;
+  private double magnitude;
+  private String link;
+
+  public Date getDate() { return date; }
+  public String getDetails() { return details; }
+  public Location getLocation() { return location; }
+  public double getMagnitude() { return magnitude; }
+  public String getLink() { return link; }
+
+  public Quake(Date _d, String _det, Location _loc, 
+               double _mag, String _link) {
+    date = _d;
+    details = _det;
+    location = _loc;
+    magnitude = _mag;
+    link = _link;
+  }
+
+  @Override
+  public String toString(){
+    SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
+    String dateString = sdf.format(date);
+    return dateString + ":" + magnitude + " " + details;
+  }
+
+  private Quake(Parcel in) {
+    date.setTime(in.readLong());
+    details = in.readString();
+    magnitude = in.readDouble();
+    Location location = new Location("generated");
+    location.setLatitude(in.readDouble());
+    location.setLongitude(in.readDouble());
+    link= in.readString();
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeLong(date.getTime());
+    out.writeString(details);
+    out.writeDouble(magnitude);
+    out.writeDouble(location.getLatitude());
+    out.writeDouble(location.getLongitude());
+    out.writeString(link);
+  }
+
+  public static final Parcelable.Creator<Quake> CREATOR = 
+    new Parcelable.Creator<Quake>() {
+      public Quake createFromParcel(Parcel in) {
+        return new Quake(in);
+      }
+
+      public Quake[] newArray(int size) {
+       return new Quake[size];
+      }
+    };
+
+  public int describeContents() {
+    return 0;
+  }
+}
+
+// Listing 15-7: The Quake class AIDL definition
+package com.paad.earthquake;
+
+parcelable Quake;
+
+// Listing 15-8: An Earthquake Service AIDL Interface definition
+package com.paad.earthquake;
+
+import com.paad.earthquake.Quake;
+
+interface IEarthquakeService {
+  List<Quake> getEarthquakes();
+
+  void refreshEarthquakes();
+}
+
+// Listing 15-9: Implementing the AIDL Interface definition within a Service
+IBinder myEarthquakeServiceStub = new IEarthquakeService.Stub() {
+  public void refreshEarthquakes() throws RemoteException {
+    EarthquakeService.this.refreshEarthquakes();
+  }
+
+  public List<Quake> getEarthquakes() throws RemoteException {
+    ArrayList<Quake> result = new ArrayList<Quake>();
+
+    ContentResolver cr = EarthquakeService.this.getContentResolver();
+    Cursor c = cr.query(EarthquakeProvider.CONTENT_URI, 
+                        null, null, null, null);
+    if (c.moveToFirst())
+      do { 
+        Double lat = c.getDouble(EarthquakeProvider.LATITUDE_COLUMN);
+        Double lng = c.getDouble(EarthquakeProvider.LONGITUDE_COLUMN);
+        Location location = new Location("dummy");
+        location.setLatitude(lat);
+        location.setLongitude(lng);
+
+        String details = c.getString(EarthquakeProvider.DETAILS_COLUMN);
+        String link =  c.getString(EarthquakeProvider.LINK_COLUMN);
+
+        double magnitude = 
+          c.getDouble(EarthquakeProvider.MAGNITUDE_COLUMN);
+
+        long datems =  c.getLong(EarthquakeProvider.DATE_COLUMN);
+        Date date = new Date(datems);
+
+        result.add(new Quake(date, details, location, magnitude, link));
+      } while(c.moveToNext());
+    return result;
+  }
+};
+
+// Listing 15-10: Exposing an AIDL Interface implementation to Service clients 
+@Override
+public IBinder onBind(Intent intent) {
+  return myEarthquakeServiceStub;
+}
+
+// Listing 15-11: Using an IPC Service method
+IEarthquakeService earthquakeService = null;
+
+private void bindService() {
+  bindService(new Intent(IEarthquakeService.class.getName()),
+              serviceConnection, Context.BIND_AUTO_CREATE);
+}
+
+private ServiceConnection serviceConnection = new ServiceConnection() {
+  public void onServiceConnected(ComponentName className,
+                                 IBinder service) {
+    earthquakeService = IEarthquakeService.Stub.asInterface(service);
+  }
+
+  public void onServiceDisconnected(ComponentName className) {
+    earthquakeService = null;
+  }
+};
+
+
+// Listing 15-12: Creating a tweened animation in code
+// Create the AnimationSet
+AnimationSet myAnimation = new AnimationSet(true);
+
+// Create a rotate animation.
+RotateAnimation rotate = new RotateAnimation(0, 360, 
+  RotateAnimation.RELATIVE_TO_SELF, 0.5f, 
+  RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+rotate.setFillAfter(true);
+rotate.setDuration(1000);
+
+// Create a scale animation
+ScaleAnimation scale = new ScaleAnimation(1, 0, 
+                                          1, 0, 
+                                          ScaleAnimation.RELATIVE_TO_SELF, 
+                                          0.5f, 
+                                          ScaleAnimation.RELATIVE_TO_SELF, 
+                                          0.5f);
+scale.setFillAfter(true);
+scale.setDuration(500);
+scale.setStartOffset(500);
+
+// Create an alpha animation
+AlphaAnimation alpha = new AlphaAnimation(1, 0);
+scale.setFillAfter(true);
+scale.setDuration(500);
+scale.setStartOffset(500);
+
+// Add each animation to the set
+myAnimation.addAnimation(rotate);
+myAnimation.addAnimation(scale);
+myAnimation.addAnimation(alpha);
+
+// Listing 15-13: Defining a tweened animation in XML
+<?xml version="1.0" encoding="utf-8"?>
+<set 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shareInterpolator="true">
+  <rotate
+    android:fromDegrees="0"
+    android:toDegrees="360"
+    android:pivotX="50%" 
+    android:pivotY="50%"
+    android:startOffset="0"
+    android:duration="1000" />
+  <scale
+    android:fromXScale="1.0" 
+    android:toXScale="0.0"
+    android:fromYScale="1.0"
+    android:toYScale="0.0" 
+    android:pivotX="50%" 
+    android:pivotY="50%" 
+    android:startOffset="500"
+    android:duration="500" />
+  <alpha
+    android:fromAlpha="1.0"
+    android:toAlpha="0.0"
+    android:startOffset="500"
+    android:duration="500" />
+</set>
+
+// Listing 15-14: Applying an Animation that loops continuously
+myAnimation.setRepeatMode(Animation.RESTART);
+myAnimation.setRepeatCount(Animation.INFINITE);
+myView.startAnimation(myAnimation);
+
+// Listing 15-15: Creating an Animation Listener
+myAnimation.setAnimationListener(new AnimationListener() {
+  public void onAnimationEnd(Animation _animation) {
+   // TODO Do something after animation is complete.
+  }
+
+  public void onAnimationRepeat(Animation _animation) {
+    // TODO Do something when the animation repeats.
+  }
+
+  public void onAnimationStart(Animation _animation) {
+    // TODO Do something when the animation starts.
+  }
+});
+
+// Listing 15-16: Creating a Layout Animation 
+//res/anim/popin.xml
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:interpolator="@android:anim/accelerate_interpolator">
+  <scale
+    android:fromXScale="0.0" android:toXScale="1.0"
+    android:fromYScale="0.0" android:toYScale="1.0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:duration="400" 
+  />
+</set>
+
+//res/anim/popinlayout.xml
+<layoutAnimation 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:delay="0.5"
+  android:animationOrder="random"
+  android:animation="@anim/popin" 
+/>
+
+// Listing 15-17: Applying a Layout Animation and Animation Listener
+aViewGroup.setLayoutAnimationListener(new AnimationListener() {
+  public void onAnimationEnd(Animation _animation) {
+    // TODO: Actions on animation complete. 
+  }
+  public void onAnimationRepeat(Animation _animation) {}
+  public void onAnimationStart(Animation _animation) {}
+});
+
+aViewGroup.scheduleLayoutAnimation();
+
+// Listing 15-18: Creating a frame-by-frame animation in XML
+<animation-list 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:oneshot="false">
+  <item android:drawable="@drawable/rocket1" android:duration="500" />
+  <item android:drawable="@drawable/rocket2" android:duration="500" />
+  <item android:drawable="@drawable/rocket3" android:duration="500" />
+</animation-list>
+
+// Applying an animation
+ImageView image = (ImageView)findViewById(R.id.my_animation_frame);
+image.setBackgroundResource(R.drawable.animated_rocket);
+
+AnimationDrawable animation = (AnimationDrawable)image.getBackground();
+animation.start();
+
+// Listing 15-19: Creating a Linear Gradient Shader
+int colorFrom = Color.BLACK;
+int colorTo = Color.WHITE;
+
+LinearGradient linearGradientShader = new LinearGradient(x1, y1, x2, y2, 
+                                                         colorFrom, 
+                                                         colorTo, 
+                                                         TileMode.CLAMP);
+
+// Listing 15-20: Creating a Radial Gradient Shader
+int[] gradientColors = new int[3];
+gradientColors[0] = Color.GREEN;
+gradientColors[1] = Color.YELLOW;
+gradientColors[2] = Color.RED;
+
+float[] gradientPositions = new float[3];
+gradientPositions[0] = 0.0f;
+gradientPositions[1] = 0.5f;
+gradientPositions[2] = 1.0f;
+
+RadialGradient radialGradientShader = new RadialGradient(centerX, centerY, 
+                                                         radius,
+                                                         gradientColors, 
+                                                         gradientPositions,
+                                                         TileMode.CLAMP);
+
+// Listing 15-21: Applying an Emboss Mask Filter to a Paint
+// Set the direction of the light source
+float[] direction = new float[]{ 1, 1, 1 };
+// Set the ambient light level
+float light = 0.4f;
+// Choose a level of specularity to apply
+float specular = 6;
+// Apply a level of blur to apply to the mask
+float blur = 3.5f;
+EmbossMaskFilter emboss = new EmbossMaskFilter(direction, light, 
+                                               specular, blur);
+
+// Apply the mask
+myPaint.setMaskFilter(emboss);
+
+// Listing 15-22: Handling Map View Overlay touch events
+@Override
+public boolean onTap(GeoPoint point, MapView map) {
+  // Get the projection to convert to and from screen coordinates
+  Projection projection = map.getProjection();
+
+  // Return true if we handled this onTap()
+  return [ ... hit test passed ... ];
+}
+
+// Listing 15-23: Surface View skeleton implementation
+import android.content.Context;
+import android.graphics.Canvas;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
+public class MySurfaceView extends SurfaceView implements 
+  SurfaceHolder.Callback {
+
+  private SurfaceHolder holder;
+  private MySurfaceViewThread mySurfaceViewThread;
+  private boolean hasSurface;
+
+  MySurfaceView(Context context) {
+    super(context);
+    init();
+  }
+ 
+  private void init() {
+    // Create a new SurfaceHolder and assign this class as its callback.
+    holder = getHolder();
+    holder.addCallback(this);
+    hasSurface = false;
+  }
+
+  public void resume() {
+    // Create and start the graphics update thread.
+    if (mySurfaceViewThread == null) {
+      mySurfaceViewThread = new MySurfaceViewThread();
+
+      if (hasSurface == true)
+        mySurfaceViewThread.start();
+    }
+  }
+
+  public void pause() {
+    // Kill the graphics update thread
+    if (mySurfaceViewThread != null) {
+      mySurfaceViewThread.requestExitAndWait();
+      mySurfaceViewThread = null;
+    }
+  }
+
+  public void surfaceCreated(SurfaceHolder holder) {
+    hasSurface = true;
+    if (mySurfaceViewThread != null)
+      mySurfaceViewThread.start();
+  }
+
+  public void surfaceDestroyed(SurfaceHolder holder) {
+    hasSurface = false;
+    pause();
+  }
+
+  public void surfaceChanged(SurfaceHolder holder, int format, 
+                             int w, int h) {
+    if (mySurfaceViewThread != null)
+      mySurfaceViewThread.onWindowResize(w, h);
+  }
+
+  class MySurfaceViewThread extends Thread {
+    private boolean done;
+
+    MySurfaceViewThread() {
+      super();
+      done = false;
+    }
+
+    @Override
+    public void run() {
+      SurfaceHolder surfaceHolder = holder;
+
+      // Repeat the drawing loop until the thread is stopped.
+      while (!done) {
+        // Lock the surface and return the canvas to draw onto.
+        Canvas canvas = surfaceHolder.lockCanvas();
+        // TODO: Draw on the canvas!
+        // Unlock the canvas and render the current image.
+        surfaceHolder.unlockCanvasAndPost(canvas);
+      }
+    }
+
+    public void requestExitAndWait() {
+      // Mark this thread as complete and combine into
+      // the main application thread.
+      done = true;
+      try {
+        join();
+      } catch (InterruptedException ex) { }
+    }
+
+    public void onWindowResize(int w, int h) {
+      // Deal with a change in the available surface size.
+    }
+  }
+}
+
+// Listing 15-24: Handling single (or first) touch events
+@Override 
+public boolean onTouchEvent(MotionEvent event) {
+  int action = event.getAction();
+  switch (action) {
+    case (MotionEvent.ACTION_DOWN)   : // Touch screen pressed
+                                       break;
+    case (MotionEvent.ACTION_UP)     : // Touch screen touch ended
+                                       break;
+    case (MotionEvent.ACTION_MOVE)   : // Contact has moved across screen
+                                       break;
+    case (MotionEvent.ACTION_CANCEL) : // Touch event cancelled
+                                       break;
+    case (MotionEvent.ACTION_OUTSIDE) : // Movement has occurred outside the bounds  
+                                        // of the screen element being 
+                                        // monitored
+                                        break;
+  }
+  return super.onTouchEvent(event);
+}
+
+// Listing 15-25: Handling multi-touch events
+@Override 
+public boolean onTouchEvent(MotionEvent event) {
+  int action = event.getAction();
+
+  if (event.getPointerCount() > 1) {
+    int actionPointerId = action & MotionEvent.ACTION_POINTER_ID_MASK;
+    int actionEvent = action & MotionEvent.ACTION_MASK;
+    // Do something with the pointer ID and event.
+  } 
+  return super.onTouchEvent(event);
+}
+
+// Listing 15-26: Finding screen touch coordinates
+int xPos = -1;
+int yPos = -1;
+
+if (event.getPointerCount() > 1) {
+  int actionPointerId = action & MotionEvent.ACTION_POINTER_ID_MASK;
+  int actionEvent = action & MotionEvent.ACTION_MASK;
+
+  int pointerIndex = findPointerIndex(actionPointerId);
+  xPos = (int)event.getX(pointerIndex);
+  yPos = (int)event.getY(pointerIndex);
+} 
+else {
+  // Single touch event.
+  xPos = (int)event.getX();
+  yPos = (int)event.getY();
+}
+
+// Listing 15-27: Finding historical touch event values
+int historySize = event.getHistorySize();
+long time = event.getHistoricalEventTime(i);
+
+if (event.getPointerCount() > 1) {
+  int actionPointerId = action & MotionEvent.ACTION_POINTER_ID_MASK;
+  int pointerIndex = findPointerIndex(actionPointerId);
+  for (int i = 0; i < historySize; i++) {
+    float pressure = event.getHistoricalPressure(pointerIndex, i);
+    float x = event.getHistoricalX(pointerIndex, i);
+    float y = event.getHistoricalY(pointerIndex, i);
+    float size = event.getHistoricalSize(pointerIndex, i);
+    // TODO: Do something with each point
+  }
+}
+else {
+  for (int i = 0; i < historySize; i++) {
+    float pressure = event.getHistoricalPressure(i);
+    float x = event.getHistoricalX(i);
+    float y = event.getHistoricalY(i);
+    float size = event.getHistoricalSize(i);
+    // TODO: Do something with each point
+  }
+}
+
+// Listing 15-28: Handling touch screen movement events
+@Override 
+public boolean onTouchEvent(MotionEvent event) {
+
+  int action = event.getAction();
+
+  switch (action) {
+    case (MotionEvent.ACTION_MOVE)
+    {
+      int historySize = event.getHistorySize();
+      for (int i = 0; i < historySize; i++) {
+        float x = event.getHistoricalX(i);
+        float y = event.getHistoricalY(i);
+        processMovement(x, y);
+      }
+
+      float x = event.getX();
+      float y = event.getY();
+      processMovement(x, y);
+
+      return true;
+    }
+  }
+
+  return super.onTouchEvent(event);
+}
+
+private void processMovement(float _x, float _y) {
+  // Todo: Do something on movement.
+}
+
+// Listing 15-29: Assigning an On Touch Listener to an existing View
+myView.setOnTouchListener(new OnTouchListener() {
+  public boolean onTouch(View _view, MotionEvent _event) {
+    // TODO Respond to motion events
+    return false;
+  }
+});
+
+// Listing 15-30: Handling key press events
+@Override
+public boolean onKeyDown(int _keyCode, KeyEvent _event) {
+  // Perform on key pressed handling, return true if handled
+  return false;
+}
+
+@Override
+public boolean onKeyUp(int _keyCode, KeyEvent _event) {
+  // Perform on key released handling, return true if handled
+  return false;
+}
+
+// Listing 15-31: Implementing an On Key Listener within an Activity
+myView.setOnKeyListener(new OnKeyListener() {
+  public boolean onKey(View v, int keyCode, KeyEvent event)
+  {
+    // TODO Process key press event, return true if handled
+    return false;
+  }
+});
+
+// Listing 15-32: Using the On Trackball Event Listener
+@Override
+public boolean onTrackballEvent(MotionEvent _event) {
+  float vertical = _event.getY();
+  float horizontal = _event.getX();
+  // TODO Process trackball movement.
+  return false;
+}

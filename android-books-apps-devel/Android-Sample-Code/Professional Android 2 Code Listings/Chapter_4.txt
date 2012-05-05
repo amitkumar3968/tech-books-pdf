@@ -1,0 +1,682 @@
+// ******************************************************************* //
+// ** Chapter 4 Code Listings                                       ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** Creating Layouts ******************************************** //
+
+// *******************************************************************
+// ** Listing 4-1: Inflating an Activity layout
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+
+  setContentView(R.layout.main);
+  TextView myTextView = (TextView)findViewById(R.id.myTextView);
+}
+
+// *******************************************************************
+// ** Listing 4-2: Creating a UI layout in code
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+
+  TextView myTextView = new TextView(this);
+  setContentView(myTextView);
+
+  myTextView.setText("Hello, Android");
+}
+
+// *******************************************************************
+// ** Listing 4-3: Simple Linear Layout in XML
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Enter Text Below"
+  />
+  <EditText  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Text Goes Here!"
+  />
+</LinearLayout>
+
+// *******************************************************************
+// ** Listing 4-4: Simple LinearLayout in code
+LinearLayout ll = new LinearLayout(this);
+ll.setOrientation(LinearLayout.VERTICAL);
+
+TextView myTextView = new TextView(this);
+EditText myEditText = new EditText(this);
+
+myTextView.setText("Enter Text Below");
+myEditText.setText("Text Goes Here!");
+
+int lHeight = LinearLayout.LayoutParams.FILL_PARENT;
+int lWidth = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+ll.addView(myTextView, new LinearLayout.LayoutParams(lHeight, lWidth));
+ll.addView(myEditText, new LinearLayout.LayoutParams(lHeight, lWidth));
+setContentView(ll);
+
+// ** Extending Views ********************************************* //
+
+// *******************************************************************
+// ** Listing 4-5: Extending TextView (Extended)
+public class MyTextView extends TextView {
+
+  public MyTextView (Context context, AttributeSet ats, int defStyle) {
+    super(context, ats, defStyle);
+  }
+ 
+  public MyTextView (Context context) {
+    super(context);
+  }
+
+  public MyTextView (Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
+
+  @Override
+  public void onDraw(Canvas canvas) {
+    [ ... Draw things on the canvas under the text ... ]
+
+    // Render the text as usual using the TextView base class. 
+    super.onDraw(canvas);
+
+    [ ... Draw things on the canvas over the text ... ]
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+    [ ... Perform some special processing ... ]
+    [ ... based on a particular key press ... ]
+
+    // Use the existing functionality implemented by 
+    // the base class to respond to a key press event.
+    return super.onKeyDown(keyCode, keyEvent);
+  }
+}
+
+// *******************************************************************
+// ** Listing 4-6: Creating a compound control
+public class MyCompoundView extends LinearLayout {
+  public MyCompoundView(Context context) {
+    super(context);
+  }
+
+  public MyCompoundView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
+}
+
+// *******************************************************************
+// ** Listing 4-7: A compound View layout resource
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  <EditText
+    android:id="@+id/editText"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+  />
+  <Button
+    android:id="@+id/clearButton"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:text="Clear"
+  />
+</LinearLayout>
+
+// *******************************************************************
+// ** Listing 4-8: Constructing a compound View
+public class ClearableEditText extends LinearLayout {
+
+  EditText editText;
+  Button clearButton; 
+
+  public ClearableEditText(Context context) {
+    super(context);
+
+    // Inflate the view from the layout resource.
+    String infService = Context.LAYOUT_INFLATER_SERVICE;
+    LayoutInflater li;
+    li = (LayoutInflater)getContext().getSystemService(infService);
+    li.inflate(R.layout.clearable_edit_text, this, true);
+
+    // Get references to the child controls.
+    editText = (EditText)findViewById(R.id.editText);
+    clearButton = (Button)findViewById(R.id.clearButton);
+
+    // Hook up the functionality
+    hookupButton();
+  }
+}
+
+// *******************************************************************
+// ** Listing 4-9: Creating a compound View layout in code
+public ClearableEditText(Context context) {
+  super(context);
+
+  // Set orientation of layout to vertical
+  setOrientation(LinearLayout.VERTICAL);
+
+  // Create the child controls.
+  editText = new EditText(getContext());
+  clearButton = new Button(getContext());
+  clearButton.setText("Clear");
+
+  // Lay them out in the compound control.
+  int lHeight = LayoutParams.WRAP_CONTENT;
+  int lWidth = LayoutParams.FILL_PARENT; 
+
+  addView(editText, new LinearLayout.LayoutParams(lWidth, lHeight));
+  addView(clearButton, new LinearLayout.LayoutParams(lWidth, lHeight));
+
+  // Hook up the functionality
+  hookupButton();
+}
+
+private void hookupButton() {
+  clearButton.setOnClickListener(new Button.OnClickListener() {
+    public void onClick(View v) {
+      editText.setText("");
+    }
+  });
+}
+
+// ** Creating New Views ****************************************** //
+
+// *******************************************************************
+// ** Listing 4-10: Creating a new View class
+public class MyView extends View {
+
+  // Constructor required for in-code creation
+  public MyView(Context context) {
+    super(context);
+  }
+ 
+  // Constructor required for inflation from resource file
+  public MyView (Context context, AttributeSet ats, int defaultStyle) {
+    super(context, ats, defaultStyle );
+  }
+
+  //Constructor required for inflation from resource file
+  public MyView (Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
+
+  @Override
+  protected void onMeasure(int wMeasureSpec, int hMeasureSpec) {
+    int measuredHeight = measureHeight(hMeasureSpec);
+    int measuredWidth = measureWidth(wMeasureSpec);
+
+    // MUST make this call to setMeasuredDimension 
+    // or you will cause a runtime exception when 
+    // the control is laid out.
+    setMeasuredDimension(measuredHeight, measuredWidth);
+  }
+
+  private int measureHeight(int measureSpec) {
+    int specMode = MeasureSpec.getMode(measureSpec);
+    int specSize = MeasureSpec.getSize(measureSpec);
+
+     [ ... Calculate the view height ... ]
+
+     return specSize;
+  }
+
+  private int measureWidth(int measureSpec) {
+    int specMode = MeasureSpec.getMode(measureSpec);
+    int specSize = MeasureSpec.getSize(measureSpec);
+
+     [ ... Calculate the view width ... ]
+
+     return specSize;
+  }
+
+  @Override 
+  protected void onDraw(Canvas canvas) {
+    [ ... Draw your visual interface ... ]
+  }
+}
+
+// *******************************************************************
+// ** Listing 4-11: Drawing a custom View
+@Override 
+protected void onDraw(Canvas canvas) {
+  // Get the size of the control based on the last call to onMeasure.
+  int height = getMeasuredHeight();
+  int width = getMeasuredWidth();
+
+  // Find the center
+  int px = width/2;
+  int py = height/2;
+
+  // Create the new paint brushes.
+  // NOTE: For efficiency this should be done in 
+  // the views’s constructor
+  Paint mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+  mTextPaint.setColor(Color.WHITE);
+
+  // Define the string.
+  String displayText = "Hello World!";
+
+  // Measure the width of the text string.
+  float textWidth = mTextPaint.measureText(displayText);
+
+  // Draw the text string in the center of the control.
+  canvas.drawText(displayText, px-textWidth/2, py, mTextPaint);
+}
+
+// *******************************************************************
+// ** Listing 4-12: Determining View dimensions
+@Override 
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+  int measuredHeight = measureHeight(heightMeasureSpec);
+  int measuredWidth = measureWidth(widthMeasureSpec);
+
+  setMeasuredDimension(measuredHeight, measuredWidth);
+}
+
+private int measureHeight(int measureSpec) {
+  // Return measured widget height.
+}
+
+private int measureWidth(int measureSpec) {
+  // Return measured widget width.
+}
+
+// *******************************************************************
+// ** Listing 4-13: A typical View measurement implementation
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  int measuredHeight = measureHeight(heightMeasureSpec);
+  int measuredWidth = measureWidth(widthMeasureSpec);
+
+  setMeasuredDimension(measuredHeight, measuredWidth);
+}
+
+private int measureHeight(int measureSpec) {
+  int specMode = MeasureSpec.getMode(measureSpec);
+  int specSize = MeasureSpec.getSize(measureSpec);
+
+  //  Default size if no limits are specified.
+  int result = 500;
+
+  if (specMode == MeasureSpec.AT_MOST) {
+    // Calculate the ideal size of your 
+    // control within this maximum size.
+    // If your control fills the available 
+    // space return the outer bound.
+    result = specSize;
+  } else if (specMode == MeasureSpec.EXACTLY) {
+    // If your control can fit within these bounds return that value.
+    result = specSize;
+  }
+  return result;
+}
+
+private int measureWidth(int measureSpec) {
+  int specMode = MeasureSpec.getMode(measureSpec);
+  int specSize = MeasureSpec.getSize(measureSpec);
+
+  //  Default size if no limits are specified.
+  int result = 500;
+
+  if (specMode == MeasureSpec.AT_MOST) {
+    // Calculate the ideal size of your control 
+    // within this maximum size.
+    // If your control fills the available space 
+    // return the outer bound.
+    result = specSize;
+  } else if (specMode == MeasureSpec.EXACTLY) {
+    // If your control can fit within these bounds return that value.
+    result = specSize;
+  }
+  return result;
+}
+
+// *******************************************************************
+// ** Listing 4-14: Input event handling for Views
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+  // Return true if the event was handled.
+  return true;
+}
+
+@Override
+public boolean onKeyUp(int keyCode, KeyEvent keyEvent) {
+  // Return true if the event was handled.
+  return true;
+}
+
+@Override
+public boolean onTrackballEvent(MotionEvent event ) {
+  // Get the type of action this event represents
+  int actionPerformed = event.getAction();
+  // Return true if the event was handled.
+  return true;
+}
+
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+  // Get the type of action this event represents
+  int actionPerformed = event.getAction();
+  // Return true if the event was handled.
+  return true;
+}
+
+// *******************************************************************
+// ** Listing 4-15: Using a custom View
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+  CompassView cv = new CompassView(this);
+  setContentView(cv);
+  cv.setBearing(45); 
+}
+
+// ** Drawable Resources ****************************************** //
+
+// *******************************************************************
+// ** Listing 4-16: A solid red Drawable resource
+<color xmlns:android="http://schemas.android.com/apk/res/android"
+   android:color="#FF0000"
+/>
+
+// *******************************************************************
+// ** Listing 4-17: A red Drawable rectangle with green border and rounded edges
+<?xml version="1.0" encoding="utf-8"?> 
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+    <solid 
+      android:color="#f0600000"/>
+    <stroke
+      android:width="10dp" 
+      android:color="#00FF00"/>
+    <corners 
+      android:radius="15dp" />
+    <padding 
+      android:left="10dp"
+      android:top="10dp"
+      android:right="10dp"
+      android:bottom="10dp"
+    />
+</shape>
+
+// *******************************************************************
+// ** Listing 4-18: Linear, Radial, and Sweep Gradient definitions
+<!-- Rectangle with Linear Gradient -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle"
+  android:useLevel="false"> 
+  <gradient
+    android:startColor="#ffffff"
+    android:endColor="#ffffff"
+    android:centerColor="#000000"
+    android:useLevel="false"
+    android:type="linear"
+    android:angle="45"
+  />
+</shape>
+
+<!-- Oval with Radial Gradient -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="oval"
+  android:useLevel="false">
+  <gradient
+    android:type="radial"
+    android:startColor="#ffffff"
+    android:endColor="#ffffff"
+    android:centerColor="#000000"
+    android:useLevel="false" 
+    android:gradientRadius="300"
+  />
+</shape>
+
+<!-- Ring with Sweep Gradient -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="ring"
+  android:useLevel="false"
+  android:innerRadiusRatio="3"
+  android:thicknessRatio="8"> 
+  <gradient
+    android:startColor="#ffffff"
+    android:endColor="#ffffff"
+    android:centerColor="#000000"
+    android:useLevel="false"
+    android:type="sweep"
+  />
+</shape>
+
+// *******************************************************************
+// ** Listing 4-19: Resource files for a Rotate Drawable and Scale Drawable
+<!-- Rotation Drawable Resource -->
+<?xml version="1.0" encoding="utf-8"?> 
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+  android:drawable="@drawable/icon"
+  android:fromDegrees="0"
+  android:toDegrees="90"
+  android:pivotX="50%"
+  android:pivotY="50%"
+/>
+
+<!-- Scale Drawable Resource -->
+<?xml version="1.0" encoding="utf-8"?> 
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+  android:drawable="@drawable/icon"
+  android:scaleHeight="100%"
+  android:scaleWidth="100%"
+/>
+
+// *******************************************************************
+// ** Listing 4-20: Applying rotation and scale Drawable transformations in code
+ImageView rotatingImage = (ImageView)findViewById(R.id.RotatingImageView);
+ImageView scalingImage = (ImageView)findViewById(R.id.ScalingImageView);
+
+// Rotate the image 50% of the way to it's final orientation.
+rotatingImage.setImageLevel(5000);
+
+// Scale the image to 50% of it’s final size.
+scalingImage.setImageLevel(5000);
+
+// *******************************************************************
+// ** Listing 4-21: A Layer Drawable resource XML definition
+<?xml version="1.0" encoding="utf-8"?> 
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/bottomimage"/>
+  <item android:drawable="@drawable/image2"/>
+  <item android:drawable="@drawable/image3"/>
+  <item android:drawable="@drawable/topimage"/>
+</layer-list>
+
+// *******************************************************************
+// ** Listing 4-22: State List Drawable
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_window_focused="false" 
+        android:drawable="@drawable/widget_bg_normal"/>
+  <item android:state_pressed="true" 
+        android:drawable="@drawable/widget_bg_pressed"/>
+  <item android:state_focused="true" 
+        android:drawable="@drawable/widget_bg_selected"/>
+  <item android:drawable="@drawable/widget_bg_normal"/>
+</selector>
+
+// *******************************************************************
+// ** Listing 4-23: Level List Drawable resource
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:maxLevel="0"  android:drawable="@drawable/earthquake_0"/>
+  <item android:maxLevel="1"  android:drawable="@drawable/earthquake_1"/>
+  <item android:maxLevel="2"  android:drawable="@drawable/earthquake_2"/>
+  <item android:maxLevel="4"  android:drawable="@drawable/earthquake_4"/>
+  <item android:maxLevel="6"  android:drawable="@drawable/earthquake_6"/>
+  <item android:maxLevel="8"  android:drawable="@drawable/earthquake_8"/>
+  <item android:maxLevel="10" android:drawable="@drawable/earthquake_10"/>
+</level-list>
+
+// *******************************************************************
+// ** Listing 4-24: Sample screen-based resource directory qualifiers
+res/layout-small-long/ // Layouts for small, long screens.
+res/layout-large/      // Layouts for large screens.
+res/drawable-hdpi/     // Drawabless for high density screens.
+
+
+// *******************************************************************
+// ** Listing 4-25: Manifest element supporting normal and large screen sizes
+<supports-screens 
+  android:smallScreens="false"
+  android:normalScreens="true"
+  android:largeScreens="true"
+  android:anyDensity="true"
+/>
+
+// ** Menus ******************************************************* //
+
+// *******************************************************************
+// ** Listing 4-26: Adding a Menu Item
+static final private int MENU_ITEM = Menu.FIRST;
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+  super.onCreateOptionsMenu(menu);
+
+  // Group ID
+  int groupId = 0;
+  // Unique menu item identifier. Used for event handling.
+  int menuItemId = MENU_ITEM;
+  // The order position of the item
+  int menuItemOrder = Menu.NONE;
+  // Text to be displayed for this menu item.
+  int menuItemText = R.string.menu_item;
+
+  // Create the menu item and keep a reference to it.
+  MenuItem menuItem = menu.add(groupId, menuItemId, 
+                               menuItemOrder, menuItemText);
+
+  return true;
+}
+
+// *******************************************************************
+// ** Listing 4-27: Dynamic menu modification
+@Override
+public boolean onPrepareOptionsMenu(Menu menu) {
+  super.onPrepareOptionsMenu(menu);
+
+  MenuItem menuItem = menu.findItem(MENU_ITEM);
+
+  [ ... modify menu items ... ]
+
+  return true;
+}
+
+// *******************************************************************
+// ** Listing 4-28: Handling Menu Item selections
+public boolean onOptionsItemSelected(MenuItem item) {
+  super.onOptionsItemSelected(item);
+
+  // Find which menu item has been selected
+  switch (item.getItemId()) {
+
+    // Check for each known menu item
+    case (MENU_ITEM): 
+      [ ... Perform menu handler actions ... ]
+      return true;
+  }
+
+  // Return false if you have not handled the menu item.
+  return false;
+}
+
+// *******************************************************************
+// ** Listing 4-29: Assigning a Context Menu to a View
+@Override
+public void onCreate(Bundle icicle) {
+  super.onCreate(icicle);
+
+  EditText view = new EditText(this);
+  setContentView(view);
+
+  registerForContextMenu(view);
+}
+
+@Override
+public void onCreateContextMenu(ContextMenu menu, View v,  
+                                ContextMenu.ContextMenuInfo menuInfo) {
+  super.onCreateContextMenu(menu, v, menuInfo);
+
+  menu.setHeaderTitle("Context Menu");
+  menu.add(0, menu.FIRST, Menu.NONE, 
+           "Item 1").setIcon(R.drawable.menu_item);
+  menu.add(0, menu.FIRST+1, Menu.NONE, "Item 2").setCheckable(true);
+  menu.add(0, menu.FIRST+2, Menu.NONE, "Item 3").setShortcut('3', '3');
+  SubMenu sub = menu.addSubMenu("Submenu");
+  sub.add("Submenu Item");
+}
+
+@Override
+public boolean onContextItemSelected(MenuItem item) { 
+  super.onContextItemSelected(item);
+
+  [ ... Handle menu item selection ... ]
+
+  return false;
+}
+
+
+// *******************************************************************
+// ** Listing 4-30: Defining a menu in XML
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  android:name="Context Menu">
+  <item 
+    android:id="@+id/item01" 
+    android:icon="@drawable/menu_item" 
+    android:title="Item 1">
+  </item>
+  <item
+    android:id="@+id/item02"
+    android:checkable="true"  
+    android:title="Item 2">
+  </item>
+  <item 
+    android:id="@+id/item03" 
+    android:numericShortcut="3"
+    android:alphabeticShortcut="3" 
+    android:title="Item 3">
+  </item>
+  <item 
+    android:id="@+id/item04" 
+    android:title="Submenu">
+    <menu>
+      <item 
+        android:id="@+id/item05" 
+        android:title="Submenu Item">
+      </item>
+    </menu>
+  </item>
+</menu>
+
+// *******************************************************************
+// ** Listing 4-31: Inflating an XML menu resource
+public void onCreateContextMenu(ContextMenu menu, View v,
+                                ContextMenu.ContextMenuInfo menuInfo) {
+  super.onCreateContextMenu(menu, v, menuInfo);
+  MenuInflater inflater = getMenuInflater();
+  inflater.inflate(R.menu.my_menu, menu);
+  menu.setHeaderTitle("Context Menu");
+}
+
+// ******************************************************************* //

@@ -1,0 +1,1068 @@
+<html>
+<!-- Sitemap 1.0 -->
+<object type="text/site properties">
+  <param name="FrameName" value="bsscright">
+  <param name="SiteType" value="index">
+  <param name="Font" value="Arial,9,0">
+</object>
+<ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="About DjVu Solo">
+    <param name="Name" value="Introduction">
+    <param name="Local" value="intro.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="About LizardTech">
+    <param name="Name" value="Introduction">
+    <param name="Local" value="intro.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Accessing the LizardTech Knowledge Base">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Acquire command">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Adding DjVu files to a Web page">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+    <param name="Name" value="Including DjVu documents in Web pages">
+    <param name="Local" value="djvu2web.html">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Adding files of other formats in a DjVu document">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Dragging image files into DjVu Solo">
+    <param name="Local" value="drag_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Adding highlighted areas">
+    <param name="Name" value="Highlighting areas of an image">
+    <param name="Local" value="adding_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Adding hyperlinks">
+    <param name="Name" value="Adding hyperlinks to images">
+    <param name="Local" value="adding_hlink.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Adding pages in a document">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Dragging image files into DjVu Solo">
+    <param name="Local" value="drag_files.html">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Alignment settings: page or document">
+    <param name="Name" value="Setting page or document alignment">
+    <param name="Local" value="set_alignment.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Appending pages to a document">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Dragging image files into DjVu Solo">
+    <param name="Local" value="drag_files.html">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Background color: changing">
+    <param name="Name" value="Changing the background color">
+    <param name="Local" value="change_bg_color.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Background display setting">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Black &amp; white display setting">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="BMP files: saving from DjVu Solo">
+    <param name="Name" value="Saving documents as BMP files">
+    <param name="Local" value="save_as_bmp.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Bundled documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Changing display settings">
+    <param name="Name" value="Changing display settings while viewing the document">
+    <param name="Local" value="change_display_settings.html">
+    <param name="Name" value="Setting display and printer preferences">
+    <param name="Local" value="display_print_prefs.html">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Changing page or document alignment settings">
+    <param name="Name" value="Setting page or document alignment">
+    <param name="Local" value="set_alignment.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Changing startup display">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Changing the background color">
+    <param name="Name" value="Changing the background color">
+    <param name="Local" value="change_bg_color.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Changing zoom level">
+    <param name="Name" value="Setting zoom levels">
+    <param name="Local" value="set_zoom.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Characteristics of hyperlinks and highlighted areas">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Color display setting">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Compression dialog box">
+    <param name="Name" value="Encoding settings">
+    <param name="Local" value="encoding_settings.html">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Contacting LizardTech">
+    <param name="Name" value="Copyrights &amp; trademarks">
+    <param name="Local" value="copyright.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Contacting LizardTech technical support">
+    <param name="Name" value="Contacting LizardTech Technical Support">
+    <param name="Local" value="ts_contact.html">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Converting images to DjVu documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Dragging image files into DjVu Solo">
+    <param name="Local" value="drag_files.html">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Copyrights and trademarks">
+    <param name="Name" value="Copyrights &amp; trademarks">
+    <param name="Local" value="copyright.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Creating a DjVu file">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Creating highlighted areas">
+    <param name="Name" value="Highlighting areas of an image">
+    <param name="Local" value="adding_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Customizing hyperlinks and highlighted areas">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Defining properties for hyperlinks and highlights">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Display preferences: setting">
+    <param name="Name" value="Setting display and printer preferences">
+    <param name="Local" value="display_print_prefs.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Display settings: changing">
+    <param name="Name" value="Changing display settings while viewing the document">
+    <param name="Local" value="change_display_settings.html">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Displaying DjVu documents in a browser">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+    <param name="Name" value="Including DjVu documents in Web pages">
+    <param name="Local" value="djvu2web.html">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Displaying DjVu documents in frames">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Displaying page information">
+    <param name="Name" value="Displaying page information">
+    <param name="Local" value="display_page_info.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Displaying the status bar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Displaying toolbars">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Distributing DjVu files electronically">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DJBZ files">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DjVu documents: bundled">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DjVu documents: indirect">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DjVu documents: multiple-page">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DjVu Solo: about">
+    <param name="Name" value="Introduction">
+    <param name="Local" value="intro.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DjVu technology: about">
+    <param name="Name" value="About DjVu technology">
+    <param name="Local" value="about_DjVu_technology.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="DjVu Web Browser Plug-in">
+    <param name="Name" value="Downloading the DjVu Web Browser Plug-in">
+    <param name="Local" value="downloading_the_DjVu_Web_Browser_Plug-in.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Document or page alignment settings">
+    <param name="Name" value="Setting page or document alignment">
+    <param name="Local" value="set_alignment.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Downloading DjVu Web Browser Plug-in">
+    <param name="Name" value="Downloading the DjVu Web Browser Plug-in">
+    <param name="Local" value="downloading_the_DjVu_Web_Browser_Plug-in.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Downloading products from the LizardTech Web site">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Dragging files from Explorer to DjVu Solo">
+    <param name="Name" value="Dragging image files into DjVu Solo">
+    <param name="Local" value="drag_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Edit mode">
+    <param name="Name" value="Editing and previewing documents">
+    <param name="Local" value="edit-preview.html">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Editing and previewing documents">
+    <param name="Name" value="Editing and previewing documents">
+    <param name="Local" value="edit-preview.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="EMBED HTML tag">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Encoding an image file">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Encoding settings: bitonal">
+    <param name="Name" value="Encoding settings">
+    <param name="Local" value="encoding_settings.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Encoding settings: clean">
+    <param name="Name" value="Encoding settings">
+    <param name="Local" value="encoding_settings.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Encoding settings: photo">
+    <param name="Name" value="Encoding settings">
+    <param name="Local" value="encoding_settings.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Encoding settings: scanned">
+    <param name="Name" value="Encoding settings">
+    <param name="Local" value="encoding_settings.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="File formats: supported by DjVu Solo">
+    <param name="Name" value="Supported file formats">
+    <param name="Local" value="supported_file_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Finding additional information: LizardTech Knowledge Base">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Foreground display setting">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Formats for multiple-page documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Frames">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Generating thumbnails">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Getting technical support">
+    <param name="Name" value="Contacting LizardTech Technical Support">
+    <param name="Local" value="ts_contact.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hiding or showing the status bar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hiding or showing thumbnails">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hiding or showing toolbars">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Highlighted areas: adding">
+    <param name="Name" value="Highlighting areas of an image">
+    <param name="Local" value="adding_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Highlighted areas: customizing">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Highlighted areas: properties">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Highlighted areas: removing">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Highlighted areas: resizing">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Highlighting areas of an image">
+    <param name="Name" value="Highlighting areas of an image">
+    <param name="Local" value="adding_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hotkeys">
+    <param name="Name" value="Keyboard shortcuts">
+    <param name="Local" value="keyboard_shortcuts.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="HTML pages: displaying DjVu documents in">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+    <param name="Name" value="Including DjVu documents in Web pages">
+    <param name="Local" value="djvu2web.html">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="HTML tags: EMBED">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="HTML tags: frames">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="HTML tags: OBJECT">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hyperlinks: adding">
+    <param name="Name" value="Adding hyperlinks to images">
+    <param name="Local" value="adding_hlink.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hyperlinks: customizing">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hyperlinks: properties">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hyperlinks: removing">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hyperlinks: resizing">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Hyperlinks: types">
+    <param name="Name" value="Adding hyperlinks to images">
+    <param name="Local" value="adding_hlink.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Image files: converting into DjVu">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Image files: dragging into DjVu Solo">
+    <param name="Name" value="Dragging image files into DjVu Solo">
+    <param name="Local" value="drag_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Image files: encoding">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Image files: opening in DjVu Solo">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Image files: scanning into DjVu Solo">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Image files: supported formats">
+    <param name="Name" value="Supported file formats">
+    <param name="Local" value="supported_file_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Indirect documents">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Inserting files of other formats into a DjVu document">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Integrating thumbnails">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Key commands">
+    <param name="Name" value="Keyboard shortcuts">
+    <param name="Local" value="keyboard_shortcuts.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Keyboard shortcuts">
+    <param name="Name" value="Keyboard shortcuts">
+    <param name="Local" value="keyboard_shortcuts.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Keyboard shortcuts for document navigation">
+    <param name="Name" value="Navigating a document">
+    <param name="Local" value="navigate_document.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Keyboard shortcuts: for slide shows">
+    <param name="Name" value="Running a slide show">
+    <param name="Local" value="slide_show.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Knowledge base of technical documents">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="LizardTech: about">
+    <param name="Name" value="Introduction">
+    <param name="Local" value="intro.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="LizardTech: contacting tech support">
+    <param name="Name" value="Contacting LizardTech Technical Support">
+    <param name="Local" value="ts_contact.html">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="LizardTech: copyrights and trademarks">
+    <param name="Name" value="Copyrights &amp; trademarks">
+    <param name="Local" value="copyright.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Magnification: changing zoom levels">
+    <param name="Name" value="Setting zoom levels">
+    <param name="Local" value="set_zoom.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="MIME types">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Multipage documents (See Multiple-page documents)">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Multiple-page documents: creating">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Multiple-page documents: formats for">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Multiple-page documents: inserting pages">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Multiple-page documents: rearranging pages">
+    <param name="Name" value="Rearranging and removing pages">
+    <param name="Local" value="rearranging_and_removing_pages.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Multiple-page documents: removing pages">
+    <param name="Name" value="Rearranging and removing pages">
+    <param name="Local" value="rearranging_and_removing_pages.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Navigating a document">
+    <param name="Name" value="Navigating a document">
+    <param name="Local" value="navigate_document.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Navigating a slide show">
+    <param name="Name" value="Running a slide show">
+    <param name="Local" value="slide_show.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="New features in DjVu Solo 3.1">
+    <param name="Name" value="Introduction">
+    <param name="Local" value="intro.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="OBJECT HTML tag">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Opening an image file">
+    <param name="Name" value="Opening and encoding an image file">
+    <param name="Local" value="opening_and_encoding_an_image_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Oval hyperlinks">
+    <param name="Name" value="Adding hyperlinks to images">
+    <param name="Local" value="adding_hlink.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Page information: displaying">
+    <param name="Name" value="Displaying page information">
+    <param name="Local" value="display_page_info.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Page or document alignment settings">
+    <param name="Name" value="Setting page or document alignment">
+    <param name="Local" value="set_alignment.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Polygonal hyperlinks">
+    <param name="Name" value="Adding hyperlinks to images">
+    <param name="Local" value="adding_hlink.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Posting DjVu files on the Web">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+    <param name="Name" value="Including DjVu documents in Web pages">
+    <param name="Local" value="djvu2web.html">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Preferences: display and printer">
+    <param name="Name" value="Setting display and printer preferences">
+    <param name="Local" value="display_print_prefs.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Previewing documents">
+    <param name="Name" value="Editing and previewing documents">
+    <param name="Local" value="edit-preview.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Printer preferences: setting">
+    <param name="Name" value="Setting display and printer preferences">
+    <param name="Local" value="display_print_prefs.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Printing DjVu documents">
+    <param name="Name" value="Printing DjVu documents">
+    <param name="Local" value="print.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Problem solving using the LizardTech Knowledge Base">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Properties: for hyperlinks and highlighted areas">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Publishing DjVu documents on the Web">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Quick Load command">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Rearranging pages">
+    <param name="Name" value="Rearranging and removing pages">
+    <param name="Local" value="rearranging_and_removing_pages.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Receiving technical support">
+    <param name="Name" value="Contacting LizardTech Technical Support">
+    <param name="Local" value="ts_contact.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Rectangular hyperlinks">
+    <param name="Name" value="Adding hyperlinks to images">
+    <param name="Local" value="adding_hlink.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Registered trademarks">
+    <param name="Name" value="Copyrights &amp; trademarks">
+    <param name="Local" value="copyright.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Removing highlighted areas">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Removing hyperlinks">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Removing pages">
+    <param name="Name" value="Rearranging and removing pages">
+    <param name="Local" value="rearranging_and_removing_pages.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Repositioning the status bar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Repositioning: status bar">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Resizing highlighted areas">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Resizing hyperlinks">
+    <param name="Name" value="Resizing and removing hyperlinks and highlight areas">
+    <param name="Local" value="resize_remove_hlink_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Resizing thumbnails">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Running a slide show">
+    <param name="Name" value="Running a slide show">
+    <param name="Local" value="slide_show.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Saving a page into a new file">
+    <param name="Name" value="Saving a page into a new file">
+    <param name="Local" value="saving_a_page_into_a_new_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Saving files in BMP format">
+    <param name="Name" value="Saving documents as BMP files">
+    <param name="Local" value="save_as_bmp.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Setting display and printer preferences">
+    <param name="Name" value="Setting display and printer preferences">
+    <param name="Local" value="display_print_prefs.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Setting page or document alignment">
+    <param name="Name" value="Setting page or document alignment">
+    <param name="Local" value="set_alignment.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Setting startup display">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Setting zoom levels">
+    <param name="Name" value="Setting zoom levels">
+    <param name="Local" value="set_zoom.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Settings for hyperlinks and highlighted areas">
+    <param name="Name" value="Defining properties of hyperlinks and highlights">
+    <param name="Local" value="hlink_properties.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Shared dictionary file">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Shortcut commands">
+    <param name="Name" value="Keyboard shortcuts">
+    <param name="Local" value="keyboard_shortcuts.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Showing or hiding the status bar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Showing or hiding thumbnails">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Showing or hiding toolbars">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Showing page information">
+    <param name="Name" value="Displaying page information">
+    <param name="Local" value="display_page_info.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Slide show">
+    <param name="Name" value="Running a slide show">
+    <param name="Local" value="slide_show.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Startup display: setting">
+    <param name="Name" value="Setting startup display">
+    <param name="Local" value="set_startup_display.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Status bar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Supported file formats">
+    <param name="Name" value="Supported file formats">
+    <param name="Local" value="supported_file_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="System requirements">
+    <param name="Name" value="Minimum system requirements">
+    <param name="Local" value="minimum_system_requirements.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Technical Support: contacting LizardTech">
+    <param name="Name" value="Contacting LizardTech Technical Support">
+    <param name="Local" value="ts_contact.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Technical Support: options">
+    <param name="Name" value="Contacting LizardTech Technical Support">
+    <param name="Local" value="ts_contact.html">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="THUMB files">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnail file">
+    <param name="Name" value="Components for distributing DjVu files electronically">
+    <param name="Local" value="distribute_files.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails menu">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails: defined">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails: generating">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails: removing">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails: resizing">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails: showing or hiding">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Thumbnails: using">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Toolbars: DjVu Toolbar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Toolbars: Main Toolbar">
+    <param name="Name" value="Displaying toolbars and the status bar">
+    <param name="Local" value="displaying_toolbars_and_the_status_bar.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Trademarks">
+    <param name="Name" value="Copyrights &amp; trademarks">
+    <param name="Local" value="copyright.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Troubleshooting: accessing the LizardTech Knowledge Base">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Turning thumbnails on or off">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Types of DjVu documents">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Types of multiple-page documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using files of other formats in DjVu documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using highlights">
+    <param name="Name" value="Highlighting areas of an image">
+    <param name="Local" value="adding_hilite.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using keyboard shortcuts to navigate a document">
+    <param name="Name" value="Navigating a document">
+    <param name="Local" value="navigate_document.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using the Acquire command">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using the EMBED tag">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using the OBJECT tag">
+    <param name="Name" value="Using the EMBED and OBJECT HTML tags">
+    <param name="Local" value="djvu2web.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using the Quick Load command">
+    <param name="Name" value="Scanning images into DjVu Solo">
+    <param name="Local" value="scan_images.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using the Slide Show feature">
+    <param name="Name" value="Running a slide show">
+    <param name="Local" value="slide_show.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Using thumbnails">
+    <param name="Name" value="Using thumbnails">
+    <param name="Local" value="thumbnails.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Viewing a document as a slide show">
+    <param name="Name" value="Running a slide show">
+    <param name="Local" value="slide_show.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Viewing a document as your users will see it">
+    <param name="Name" value="Editing and previewing documents">
+    <param name="Local" value="edit-preview.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Viewing page information">
+    <param name="Name" value="Displaying page information">
+    <param name="Local" value="display_page_info.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Web pages: displaying DjVu documents in">
+    <param name="Name" value="Displaying a DjVu document in a frame">
+    <param name="Local" value="displaying_a_DjVu_document_in_a_frame.html">
+    <param name="Name" value="Including DjVu documents in Web pages">
+    <param name="Local" value="djvu2web.html">
+    <param name="Name" value="Using MIME types">
+    <param name="Local" value="using_MIME_types.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Web site: downloading LizardTech products">
+    <param name="Name" value="Technical support options">
+    <param name="Local" value="ts_options.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="What's new in DjVu Solo 3.1">
+    <param name="Name" value="Introduction">
+    <param name="Local" value="intro.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Working with multiple-page documents">
+    <param name="Name" value="Creating multiple-page documents">
+    <param name="Local" value="create_multipage_file.html">
+    <param name="Name" value="Multiple-page formats">
+    <param name="Local" value="multiple-page_formats.html">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Zoom level: changing">
+    <param name="Name" value="Setting zoom levels">
+    <param name="Local" value="set_zoom.html">
+  </object>
+</ul>
+</html>

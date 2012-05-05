@@ -1,0 +1,396 @@
+// ******************************************************************* //
+// ** Chapter 10 Code Listings                                      ** //
+// ** Professional Android 2 Application Development                ** //
+// ** Reto Meier                                                    ** //
+// ** (c)2010 Wrox                                                  ** //
+// ******************************************************************* //
+
+// ** App Wigets ************************************************** //
+
+// *******************************************************************
+// ** LISTING 10-1: App Widget XML layout resource
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:padding="10sp">
+  <ImageView
+    android:id="@+id/widget_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/icon"
+  />
+  <TextView
+    android:id="@+id/widget_text"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:text="Text Goes Here"
+  />
+</LinearLayout>
+
+// *******************************************************************
+// ** LISTING 10-2: App Widget Provider definition
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:initialLayout="@layout/my_widget_layout"
+  android:minWidth="146dp"
+  android:minHeight="146dp"
+  android:label="My App Widget"
+  android:updatePeriodMillis="3600000"
+/>
+
+// *******************************************************************
+// ** LISTING 10-3: App Widget implementation
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.Context;
+
+public class MyAppWidget extends AppWidgetProvider {
+  @Override
+  public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    // TODO Update the Widget UI.
+  }
+}
+
+// *******************************************************************
+// ** LISTING 10-4: App Widget manifest node
+<receiver android:name=".MyAppWidget" android:label="My App Widget">
+  <intent-filter>
+    <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+  </intent-filter>
+  <meta-data
+    android:name="android.appwidget.provider"
+    android:resource="@xml/my_app_widget_info"
+  />
+</receiver>
+
+// *******************************************************************
+// ** LISTING 10-5: Using Remote Views
+RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.my_remote_layout);
+
+// Get the App Wiget Manager.
+AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+// Retrieve the identifiers for each instance of your chosen widget.
+ComponentName thisWidget = new ComponentName(context, MyAppWidget.class);
+int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+
+appWidgetManager.updateAppWidget(appWidgetIds, views);
+
+// *******************************************************************
+// ** LISTING 10-6: A standard pattern for updating Widget UI
+final int N = appWidgetIds.length;
+// Iterate through each widget, creating a RemoteViews object and
+// applying the modified RemoteViews to each widget.
+for (int i = 0; i < N; i++) {
+  int appWidgetId = appWidgetIds[i];
+  // Create a Remove View
+  RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.my_widget_layout);
+  // TODO Update the widget UI using the views object.
+  // Notify the App Widget Manager to update the widget using
+  // the modified remote view.
+  appWidgetManager.updateAppWidget(appWidgetId, views);
+}
+
+// *******************************************************************
+// ** LISTING 10-7: Using a Remote View within the App Widget Provider’s onUpdate Handler
+@Override
+public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+  final int N = appWidgetIds.length;
+  for (int i = 0; i < N; i++) {
+    int appWidgetId = appWidgetIds[i];
+    // Create a Remove View
+    RemoteViews views = new RemoteViews(context.getPackageName(),
+    R.layout.my_widget_layout);
+    // TODO Update the UI.
+    // Notify the App Widget Manager to update the widget using
+    // the modified remote view.
+    appWidgetManager.updateAppWidget(appWidgetId, views);
+  }
+}
+
+// *******************************************************************
+// ** LISTING 10-8: Using a Remote View to modify App Widget UI
+// Set the image level for an ImageView.
+views.setInt(R.id.widget_image_view, "setImageLevel", 2);
+// Show the cursor of a TextView.
+views.setBoolean(R.id.widget_text_view, "setCursorVisible", true);
+// Assign a bitmap to an ImageButton.
+views.setBitmap(R.id.widget_image_button, "setImageBitmap", myBitmap);
+
+// *******************************************************************
+// ** LISTING 10-9: Modifying View properties within an App Widget Remote View
+// Update a Text View
+views.setTextViewText(R.id.widget_text_view, "Updated Text");
+views.setTextColor(R.id.widget_text_view, Color.BLUE);
+// Update an Image View
+views.setImageViewBitmap(R.id.widget_image_view, myBitmap);
+// Update a Progress Bar
+views.setProgressBar(R.id.widget_progressbar, 100, 50, false);
+// Update a Chronometer
+views.setChronometer(.id.widget_chronometer,
+SystemClock.elapsedRealtime(), null, true);
+
+// *******************************************************************
+// ** LISTING 10-10: Adding a Click Listener to an App Widget
+Intent intent = new Intent("com.paad.ACTION_WIDGET_CLICK");
+PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+views.setOnClickPendingIntent(R.id.my_text_view, pendingIntent);
+
+// *******************************************************************
+// ** LISTING 10-11: A Selection State Drawable resource for an App Widget
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_window_focused="false"
+        android:drawable="@drawable/widget_bg_normal"/>
+  <item android:state_focused="true"
+        android:drawable="@drawable/widget_bg_selected"/>
+  <item android:state_pressed="true"
+        android:drawable="@drawable/widget_bg_pressed"/>
+  <item android:drawable="@drawable/widget_bg_normal"/>
+</selector>
+
+// *******************************************************************
+// ** LISTING 10-12: Setting the App Widget minimum update rate
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:initialLayout="@layout/my_widget_layout"
+  android:minWidth="146dp"
+  android:minHeight="146dp"
+  android:label="My App Widget"
+  android:updatePeriodMillis="3600000"
+/>
+
+// *******************************************************************
+// ** LISTING 10-13: Listening for Intent broacasts within App Widgets
+<receiver android:name=".MyAppWidget" android:label="My App Widget">
+  <intent-filter>
+    <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+  </intent-filter>
+  <intent-filter>
+    <action android:name="com.paad.chapter9.FORCE_WIDGET_UPDATE" />
+  </intent-filter>
+  <meta-data
+    android:name="android.appwidget.provider"
+    android:resource="@xml/my_app_widget_info"
+  />
+</receiver>
+
+// *******************************************************************
+// ** LISTING 10-14: Updating App Widgets based on broadcast Intents
+public static String FORCE_WIDGET_UPDATE = "com.paad.chapter9.FORCE_WIDGET_UPDATE";
+
+@Override
+public void onReceive(Context context, Intent intent) {
+  super.onReceive(context, intent);
+  if (FORCE_WIDGET_UPDATE.equals(intent.getAction())) {
+    // TODO Update widget UI.
+  }
+}
+
+// ** Live Folders ************************************************ //
+
+// *******************************************************************
+// ** LISTING 10-15: Creating a projection to support a Live Folder
+final HashMap<String, String> liveFolderProjection = new HashMap<String, String>();
+liveFolderProjection.put(LiveFolders._ID, KEY_ID + " AS " + LiveFolders._ID);
+liveFolderProjection.put(LiveFolders.NAME, KEY_NAME_COLUMN + " AS " + LiveFolders.NAME);
+liveFolderProjection.put(LiveFolders.DESCRIPTION, KEY_DESCRIPTION_COLUMN + " AS " + LiveFolders.DESCRIPTION);
+liveFolderProjection.put(LiveFolders.IMAGE, KEY_IMAGE_COLUMN + " AS " + LiveFolders.IMAGE);
+SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+qb.setTables(MY_TABLES);
+qb.setProjectionMap(LIVE_FOLDER_PROJECTION);
+
+// *******************************************************************
+// ** LISTING 10-16: Live Folder creation Activity
+@Override
+public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  String action = getIntent().getAction();
+  if (LiveFolders.ACTION_CREATE_LIVE_FOLDER.equals(action)) {
+    Intent intent = new Intent();
+    intent.setData(EarthquakeProvider.LIVE_FOLDER_URI);
+    intent.putExtra(LiveFolders.EXTRA_LIVE_FOLDER_BASE_INTENT, new Intent(Intent.ACTION_VIEW,
+    EarthquakeProvider.CONTENT_URI));
+    intent.putExtra(LiveFolders.EXTRA_LIVE_FOLDER_DISPLAY_MODE, LiveFolders.DISPLAY_MODE_LIST);
+    intent.putExtra(LiveFolders.EXTRA_LIVE_FOLDER_ICON,
+    Intent.ShortcutIconResource.fromContext(context, R.drawable.icon));
+    intent.putExtra(LiveFolders.EXTRA_LIVE_FOLDER_NAME, "Earthquakes");
+    setResult(RESULT_OK, createLiveFolderIntent(this));
+  }
+  else
+    setResult(RESULT_CANCELED);
+  finish();
+}
+
+// *******************************************************************
+// ** LISTING 10-17: Adding the Live Folder Intent Filter
+<activity android:name=".MyLiveFolder "
+          android:label="My Live Folder">
+  <intent-filter>
+    <action android:name="android.intent.action.CREATE_LIVE_FOLDER"/>
+  </intent-filter>
+</activity>
+
+// ** Search ************************************************** //
+
+// *******************************************************************
+// ** LISTING 10-18: Defining application search metadata
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+  android:label="@string/app_name"
+  android:searchSuggestAuthority="myauthority"
+  android:searchSuggestIntentAction="android.intent.action.VIEW">
+</searchable>
+
+// *******************************************************************
+// ** LISTING 10-19: Registering a search results Activity
+<activity android:name=".EarthquakeSearch" android:label="Earthquake Search">
+  <intent-filter>
+    <action android:name="android.intent.action.SEARCH" />
+    <category android:name="android.intent.category.DEFAULT" />
+  </intent-filter>
+  <meta-data
+    android:name="android.app.searchable"
+    android:resource="@xml/searchable"
+  />
+</activity>
+
+// *******************************************************************
+// ** LISTING 10-20: Setting a default search result Activity for an application
+<meta-data
+  android:name="android.app.default_searchable"
+  android:value=".EarthquakeSearch"
+/>
+
+// *******************************************************************
+// ** LISTING 10-21: Detecting search requests in Content Providers
+private static int SEARCH = 1;
+
+static {
+  uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+  uriMatcher.addURI("com.paad.provider.earthquake", "earthquakes", QUAKES);
+  uriMatcher.addURI("com.paad.provider.earthquake", "earthquakes/#", QUAKE_ID);
+  uriMatcher.addURI("com.paad.provider.earthquake", SearchManager.SUGGEST_URI_PATH_QUERY, SEARCH);
+  uriMatcher.addURI("com.paad.provider.earthquake", SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH);
+  uriMatcher.addURI("com.paad.provider.earthquake",
+  SearchManager.SUGGEST_URI_PATH_SHORTCUT, SEARCH);
+  uriMatcher.addURI("com.paad.provider.earthquake", SearchManager.SUGGEST_URI_PATH_SHORTCUT + "/*", SEARCH);
+}
+
+// *******************************************************************
+// ** LISTING 10-22: Returning the correct MIME type for search results
+@Override
+public String getType(Uri uri) {
+  switch (uriMatcher.match(uri)) {
+    case QUAKES : return "vnd.android.cursor.dir/vnd.paad.earthquake";
+    case QUAKE_ID: return "vnd.android.cursor.item/vnd.paad.earthquake";
+    case SEARCH : return SearchManager.SUGGEST_MIME_TYPE;
+    default: throw new IllegalArgumentException("Unsupported URI: " + uri);
+  }
+}
+
+// *******************************************************************
+// ** 10-23: Returning search results from a query
+private static final HashMap<String, String> SEARCH_PROJECTION_MAP;
+
+static {
+  SEARCH_PROJECTION_MAP = new HashMap<String, String>();
+  SEARCH_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_1, KEY_SEARCH_COLUMN +
+                            " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1);
+  SEARCH_PROJECTION_MAP.put("_id", KEY_ID + " AS " + "_id");
+}
+
+@Override
+public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sort) {
+  SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+  qb.setTables(MY_TABLE);
+  switch (uriMatcher.match(uri)) {
+    case SINGLE_ID: qb.appendWhere(KEY_ID + "=" + uri.getPathSegments().get(1));
+                    break;
+    case SEARCH   : qb.appendWhere(KEY_SEARCH_COLUMN + " LIKE \"%" + uri.getPathSegments().get(1) + "%\"");
+                    qb.setProjectionMap(SEARCH_PROJECTION_MAP);
+                    break;
+    default       : break;
+  }
+  Cursor c = qb.query(MyDB, projection, selection, selectionArgs, null, null, orderBy);
+  return c;
+}
+
+// *******************************************************************
+// ** LISTING 10-24: Adding your search result to the Quick Search Box
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+  android:label="@string/app_name"
+  android:searchSettingsDescription="@string/app_name"
+  android:includeInGlobalSearch="true"
+  android:searchSuggestAuthority="com.paad.provider.earthquake"
+  android:searchSuggestIntentAction="android.intent.action.VIEW">
+</searchable>
+
+// ** Live Wallpaper ********************************************** //
+
+// *******************************************************************
+// ** LISTING 10-25: Sample Live Wallpaper resource definition
+<wallpaper xmlns:android="http://schemas.android.com/apk/res/android"
+  android:author="@string/author"
+  android:description="@string/description"
+  android:thumbnail="@drawable/wallpapericon"
+/>
+
+// *******************************************************************
+// ** LISTING 10-26: A Live Wallpaper Service
+public class MyWallpaperService extends WallpaperService {
+  @Override
+  public Engine onCreateEngine() {
+    return new MyWallpaperServiceEngine();
+  }
+}
+
+// *******************************************************************
+// ** LISTING 10-27: Adding a Live Wallpaper Service to the manifest
+<service android:name=".MyWallpaperService">
+  <intent-filter>
+    <action android:name="android.service.wallpaper.WallpaperService" />
+  </intent-filter>
+  <meta-data
+    android:name="android.service.wallpaper"
+    android:resource="@xml/wallpaper"
+  />
+</service>
+
+// *******************************************************************
+// ** LISTING 10-28: Wallpaper Service Engine skeleton code
+public class MyWallpaperServiceEngine extends WallpaperService.Engine {
+  @Override
+  public void onCreate(SurfaceHolder surfaceHolder) {
+    super.onCreate(surfaceHolder);
+    // TODO Handle initialization.
+  }
+
+  @Override
+  public void onOffsetsChanged(float xOffset, float yOffset,
+                               float xOffsetStep, float yOffsetStep,
+                               int xPixelOffset, int yPixelOffset) {
+    super.onOffsetsChanged(xOffset, yOffset, xOffsetStep, yOffsetStep, xPixelOffset, yPixelOffset);
+    // TODO Handle homescreen offset events.
+  }
+
+  @Override
+  public void onTouchEvent(MotionEvent event) {
+    super.onTouchEvent(event);
+    // TODO Handle touch and motion events.
+  }
+
+  @Override
+  public void onSurfaceCreated(SurfaceHolder holder) {
+    super.onSurfaceCreated(holder);
+    // TODO Surface has been created, run the Thread that will
+    // update the display.
+  }
+}
+
+// *******************************************************************
+// ** 
+
+// ******************************************************************* //
